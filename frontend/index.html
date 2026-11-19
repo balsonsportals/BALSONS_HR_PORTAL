@@ -790,6 +790,16 @@
     </div>
   </nav>
 
+  <!-- Mobile Swipeable Quick-Pill Bar (Smartphone & Tablet Optimized) -->
+  <div class="beds-mobile-pill-bar">
+    <button class="beds-btn beds-btn-sm beds-btn-primary" onclick="switchHrTab('radar')">🧭 Radar</button>
+    <button class="beds-btn beds-btn-sm beds-btn-secondary" onclick="switchHrTab('dossier-360')" style="color: var(--beds-teal-primary); font-weight: 700;">📄 360° Dossier</button>
+    <button class="beds-btn beds-btn-sm beds-btn-secondary" onclick="switchHrTab('employees')">👥 Employees</button>
+    <button class="beds-btn beds-btn-sm beds-btn-secondary" onclick="switchHrTab('payroll')">💰 Payroll</button>
+    <button class="beds-btn beds-btn-sm beds-btn-secondary" onclick="switchHrTab('attendance')">📅 Attendance</button>
+    <button class="beds-btn beds-btn-sm beds-btn-secondary" onclick="switchHrTab('safety-clearance')">🛡️ HSE Clearance</button>
+  </div>
+
   <main>
     <!-- TAB 1: WORKFORCE RADAR -->
     <section id="tab-radar" class="section-view active">
@@ -2138,6 +2148,7 @@
   <script src="assets/js/api-client.js"></script>
   <script src="assets/js/auth.js"></script>
   <script src="assets/js/dossier-360.js"></script>
+  <script src="assets/js/beds-workspace.js"></script>
   <script>
     // ─── EMPLOYEES DATA (DUAL CLASSIFICATION: MONTHLY vs DAILY PAY) ───
     let employeesData = [
