@@ -765,6 +765,13 @@
             <small>Cross-portal safety passes, Form 31 & gate status</small>
           </div>
         </a>
+        <a class="beds-dropdown-item" data-target="dossier-360" onclick="switchHrTab('dossier-360')">
+          <span class="item-icon">📄</span>
+          <div class="item-text">
+            <strong>360° Workforce Dossier</strong>
+            <small>Unified cross-portal master personnel record</small>
+          </div>
+        </a>
         <a class="beds-dropdown-item" data-target="documents" onclick="switchHrTab('documents')">
           <span class="item-icon">📋</span>
           <div class="item-text">
@@ -1290,6 +1297,32 @@
             <!-- Populated dynamically -->
           </tbody>
         </table>
+      </div>
+    </section>
+
+    <!-- TAB 10: 360° WORKFORCE DOSSIER -->
+    <section id="tab-dossier-360" class="section-view">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; background: var(--beds-bg-panel); padding: 14px 18px; border-radius: var(--beds-radius-md); border-left: 4px solid var(--beds-teal-primary); border: 1px solid var(--beds-border);">
+        <div>
+          <h2 style="font-size: 18px; font-weight: 800; color: var(--beds-charcoal-heading); display: flex; align-items: center; gap: 8px;">
+            📄 360° Master Workforce & Site Access Dossier
+            <span class="status-pill status-info">TRI-PORTAL SYNCHRONIZED</span>
+          </h2>
+          <p style="font-size: 12px; color: var(--beds-text-secondary); margin-top: 2px;">
+            Single-source-of-truth master record unifying <strong>HR Details & KYC</strong>, <strong>Safety Induction & PTW</strong>, and <strong>Site Security Clearance</strong>.
+          </p>
+        </div>
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <select id="hr-dossier-page-select" class="beds-select" style="font-size: 12px; padding: 6px 10px; font-weight: 700;" onchange="loadHr360DossierPage(this.value)">
+            <!-- Options populated dynamically -->
+          </select>
+          <button class="btn btn-primary btn-sm" onclick="window.print()">
+            🖨️ Print Dossier (A4)
+          </button>
+        </div>
+      </div>
+      <div id="hr-dossier-page-container">
+        <!-- Injected via JavaScript -->
       </div>
     </section>
   </main>
@@ -2104,6 +2137,7 @@
   <script src="assets/js/config.js"></script>
   <script src="assets/js/api-client.js"></script>
   <script src="assets/js/auth.js"></script>
+  <script src="assets/js/dossier-360.js"></script>
   <script>
     // ─── EMPLOYEES DATA (DUAL CLASSIFICATION: MONTHLY vs DAILY PAY) ───
     let employeesData = [
@@ -2247,6 +2281,19 @@
       } else if (tabId === 'safety-clearance') {
         renderHrSafetyDirectory();
         verifyHrSafetyClearance('EMP-2026-0001');
+      } else if (tabId === 'dossier-360') {
+        loadHr360DossierPage('EMP-2026-0001');
+      }
+    }
+
+    function loadHr360DossierPage(empId) {
+      const id = empId || 'EMP-2026-0001';
+      if (window.Balsons360Dossier) {
+        window.Balsons360Dossier.populateSelect('hr-dossier-page-select', id);
+        const container = document.getElementById('hr-dossier-page-container');
+        if (container) {
+          container.innerHTML = window.Balsons360Dossier.renderCard(id);
+        }
       }
     }
 
@@ -2403,10 +2450,11 @@
           <td><strong style="font-family: monospace;">${item.passNo}</strong></td>
           <td><span style="font-size: 11px;">${item.medical}</span></td>
           <td><strong style="font-family: monospace; color: #0097B2;">${item.ptw}</strong></td>
-          <td>
+          <td style="white-space: nowrap;">
             <span style="font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 4px; ${isGranted ? 'background: #ECFDF5; color: #059669; border: 1px solid #A7F3D0;' : 'background: #FEF2F2; color: #DC2626; border: 1px solid #FECACA;'}">
               ${isGranted ? '🟢 ACCESS GRANTED' : '🔴 GATE BLOCKED'}
             </span>
+            <button class="btn btn-secondary btn-sm" onclick="Balsons360Dossier.openModal('${item.empId}')" style="font-size: 10px; padding: 2px 6px; margin-left: 6px;" title="View 360 Dossier">📄 360 Dossier</button>
           </td>
         `;
         tbody.appendChild(tr);
@@ -2542,6 +2590,7 @@
           <td>${esicCell}</td>
           <td>${safetyCell}</td>
           <td style="white-space: nowrap;">
+            <button class="btn btn-secondary btn-sm" onclick="Balsons360Dossier.openModal('${emp.empId}')" style="font-size: 11px; padding: 4px 8px; background: #0097B2; color: #FFFFFF;" title="View 360° Unified Master Dossier">📄 360 Dossier</button>
             <button class="btn btn-secondary btn-sm" onclick="previewPayslip('${emp.empId}')" title="View Payslip">📑 Slip</button>
             <button class="btn btn-primary btn-sm" onclick="openIdCardModal('${emp.empId}')" style="background: var(--beds-teal-primary); font-size: 11px; padding: 4px 8px; margin-left: 4px;" title="Gate Entry/Out ID Card">🪪 Gate Pass</button>
             <button class="btn btn-secondary btn-sm" onclick="openEnrolmentFormModal('${emp.empId}')" style="font-size: 11px; padding: 4px 8px; margin-left: 4px;" title="Print Full Filled Employee Form">📄 Dossier</button>
