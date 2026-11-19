@@ -1,0 +1,415 @@
+BALSONS
+HEAVY LIFT & SHIFT
+HR & PAYROLL MANAGER
+PROJECT REQUIREMENTS & TECHNICAL BASELINE
+
+Version 1.0 • 19 November 2026
+
+GitHub-hosted HTML Web App + Google Apps Script + Google Sheets
+
+“Difficult we do easily, impossible takes little time.”
+1. DOCUMENT CONTROL
+2. EXECUTIVE REQUIREMENT
+BALSONS requires a centralized HR and Payroll Manager to manage employee master data, project/site allocation, monthly attendance, overtime, leave, advances, deductions, payroll processing, salary slips, HR documents, employee exit/final settlement, dashboards, reports, approvals, audit and backup/recovery.
+The system shall be delivered as a responsive HTML web application hosted from GitHub, with Google Apps Script providing all backend processing and Google Sheets serving as the live operational database. The system is online-first. It must provide controlled access to five user roles and preserve payroll calculation integrity, historical records and approval/locking controls.
+This is a fresh Google Sheets + Apps Script + HTML web-app platform baseline. Earlier Excel/VBA/offline-only deployment constraints are superseded for this version. Excel files may be used for controlled import/export or migration where approved, but are not the live database.
+3. PLATFORM ARCHITECTURE
+3.1 Data flow
+User browser → GitHub-hosted frontend → secure API communication layer → Apps Script backend → Google Sheets and restricted Drive.
+Frontend must not connect directly to Google Sheets.
+No payroll data, passwords, OAuth tokens, API keys or service credentials in public frontend code or Git.
+Apps Script enforces authentication, role authorization, validation and payroll calculations server-side.
+Google Sheets is not publicly shared to enable frontend access.
+3.2 Cross-origin/API proof — mandatory Phase 0
+GitHub Pages and Apps Script are different origins. Apps Script Web App redirect/response behaviour can make ordinary browser fetch/CORS integration unreliable. Do not assume a normal fetch implementation will work without testing.
+Prove secure browser-to-Apps-Script communication from the actual GitHub Pages origin before full feature development.
+Do not use `no-cors` for calls whose response must be read.
+Do not use state-changing GET/JSONP calls as a substitute for authenticated POST operations.
+Do not put session tokens or employee/payroll data in URL query strings.
+If direct secure communication is not viable, submit a minimal gateway/proxy design for explicit approval; do not silently add another platform.
+4. BUSINESS OBJECTIVES
+Single authoritative employee and payroll data system.
+Consistent monthly attendance and payroll processing.
+Reduce manual calculations, duplicate data entry and spreadsheet errors.
+Provide project-wise and employee-wise labour/payroll visibility.
+Control salary advances, recoveries, deductions, leave and overtime.
+Generate accurate individual and batch salary slips.
+Manage HR documents and employee lifecycle records.
+Enforce role-based access, review, approval, payroll locking and audit.
+Provide management dashboards, statutory/management reports and reliable backup/recovery.
+5. USER ROLES AND PERMISSIONS
+All permissions must be enforced in Apps Script, not just by hiding UI controls.
+Project Manager and Area Supervisor must be restricted to assigned projects/areas.
+Employee role must be restricted to the employee's own records.
+Sensitive salary, bank, identity and HR documents must be restricted by role.
+Approval authority and edit rights must be separate where configured.
+6. CORE MODULES
+6.1 Employee Master and onboarding
+Unique Employee ID; employee name; contact details; address and emergency contact.
+Date of birth, date of joining, employment status and employment category as required.
+Department, designation, trade/skill, grade and reporting supervisor.
+Project/site allocation and allocation effective dates.
+Identity and statutory identifiers only where required and access-controlled.
+Bank/payment details with strict role restrictions; never display full account details unnecessarily.
+Salary structure, wage basis, allowances and deduction configuration linked to effective dates.
+Document checklist, joining status, active/inactive/left status and complete change history.
+Create, edit, view, search, filter, deactivate and reactivate under controlled permissions.
+6.2 Project, site and department master
+Create and maintain project/site codes, names, locations and status.
+Department, area, cost centre and designation masters.
+Assign employees to projects/areas with start/end dates.
+Support transfers and multiple allocations only if business rules explicitly permit.
+Project Manager and Area Supervisor see only assigned scope.
+6.3 Attendance management
+Monthly attendance is a central payroll input. The system must support both manual attendance entry and controlled bulk/import workflows, subject to validation and approval.
+Monthly attendance period and employee-wise attendance grid.
+Required attendance codes/inputs include Present, WO (weekly off), PL (paid leave), OT (overtime) and Advance, consistent with the approved payroll rulebook.
+Support daily entry and monthly summary views where configured.
+Supervisor enters attendance for assigned workforce; Project Manager reviews/approves; HR validates and closes the period.
+Prevent duplicate employee/date entries and invalid attendance combinations.
+Track changes, remarks, submission, correction, approval and lock status.
+Show missing attendance, abnormal totals, pending approvals and employees with no attendance.
+Do not silently convert blank attendance into Present, WO, leave or absence.
+6.4 Overtime management
+Record overtime hours by employee/date/project/shift or approved payroll period.
+Capture reason, work reference and submitting supervisor.
+Apply configured OT eligibility, rate and calculation rules only after they are approved.
+Project-level review and HR/payroll validation.
+Prevent duplicate or unauthorized OT entries and retain approval history.
+6.5 Leave management
+Leave types, entitlement/accrual and carry-forward rules configurable after HR policy approval.
+Leave application, date range, reason, supporting document reference where required.
+Approval workflow by reporting authority/HR as configured.
+Leave balance, approved, pending, rejected and cancelled transactions.
+Integrate approved leave with attendance/payroll without double counting.
+PL code must follow the approved payroll mapping; do not assume all leave categories are interchangeable.
+6.6 Advance and deductions
+Employee advance issue register: date, amount, project, reason, approved by and payment reference.
+Recovery schedule, monthly deduction, recovered balance and outstanding amount.
+Other authorized deductions with category, amount, period, reason and approval.
+Prevent deduction exceeding permitted policy limits; exceptions require approval.
+Reconcile opening balance + new advances − recovery = closing balance.
+Maintain transaction history; do not overwrite prior recovery entries.
+6.7 Salary structure and payroll configuration
+Employee-wise salary/wage structure with effective-from/effective-to dates.
+Earnings, allowances, overtime components and deductions as approved by BALSONS payroll policy.
+Monthly paid days, payable days, attendance treatment, rounding and proration rules configurable.
+Salary component mapping, calculation sequence and eligibility conditions documented.
+Version all salary structures and retain historical rates for past payroll periods.
+Restrict configuration changes to authorized roles and require approval where configured.
+The exact payroll formulas, component definitions, attendance-to-payable-days mapping, OT rate, rounding and statutory treatment must be reconciled to the authoritative BALSONS payroll workbook and approved policy before implementation. This requirements document does not invent or replace those formulas.
+6.8 Payroll processing engine
+Select payroll month and applicable employee/project population.
+Validate employee status, salary structure, attendance, leave, OT, advances and deductions.
+Calculate gross earnings, each earning component, deductions, advance recovery and net payable using approved formulas.
+Show employee-wise calculation breakdown and exception list.
+Support draft calculation, recalculation before approval, review, approval and period lock.
+Prevent duplicate payroll runs for the same employee and period unless authorized reversal/re-run is recorded.
+Maintain payroll run ID, version, timestamps, preparer, reviewer, approver and lock status.
+Compare current month with previous month and flag material variances for review.
+Do not permit silent edits to approved/locked payroll; corrections use controlled adjustment/reversal workflow.
+6.9 Salary slips / payslips
+Generate individual salary slip for selected employee and month.
+Generate all eligible salary slips in batch for a payroll period.
+PDF output with BALSONS branding and approved salary slip layout.
+Include employee identity/reference, designation/project where approved, pay period, attendance/payable days, earnings, deductions, advance recovery and net pay.
+Amount in words if confirmed as part of approved payslip design.
+Store generated file reference, payroll run ID, generation time and version in a payslip log.
+Employee can access only own payslip; HR/Admin can access according to role.
+Regenerate only under controlled rules; retain previous version history.
+6.10 HR documents and employee file
+Employee document register with document type, issue/expiry dates, verification status and file reference.
+Support approved HR templates and generated documents such as appointment/engagement letters, employee ID/records, experience/service letters and other BALSONS-approved forms.
+Template placeholders mapped to employee master data; preserve approved design and wording.
+Generate PDF/print output and store restricted Drive references where enabled.
+Document access restricted by role and employee ownership.
+Document list and expiry alerts where applicable.
+6.11 Exit and final settlement
+Employee exit request, last working date, exit reason and approval.
+Clearance checklist for company property/documents/advances as applicable.
+Final attendance, leave adjustment, outstanding advance and authorized deductions.
+Final settlement calculation using approved policy and effective salary rules.
+Review/approval and settlement status tracking.
+Generate final settlement statement and preserve audit history.
+6.12 Dashboard and management reports
+Headcount: active, inactive, joined and exited employees.
+Project/site-wise workforce and allocation.
+Monthly attendance summary, missing attendance and pending approvals.
+Overtime hours/cost by employee, project and period.
+Payroll gross, deductions, net and employee count by month/project.
+Advance issued, recovered and outstanding balances.
+Leave balances and leave transactions.
+Payroll processing status: draft, pending review, approved, locked and slips generated.
+HR document completeness/expiry and employee lifecycle reports.
+Export permitted reports to Excel/CSV/PDF.
+7. APPROVAL, LOCKING AND CONTROL WORKFLOW
+The final approval matrix must be confirmed by BALSONS management. The system must support maker-checker controls and prevent a user from approving their own transaction where policy requires separation.
+8. GOOGLE SHEETS DATABASE — PROPOSED STRUCTURE
+This is a proposed logical schema. Final columns, data types, formulas and relationships must be mapped against the authoritative source workbook and payroll rules before database initialization. No existing live data should be overwritten during migration.
+9. DATA MIGRATION AND HISTORICAL PRESERVATION
+Identify the authoritative current employee/payroll workbook and approved historical periods before migration.
+Preserve employee IDs, employee names, historical salary structures, attendance, payroll outputs, payslip references and existing records as required by the approved migration plan.
+Do not silently normalize, rename or discard historical values; map exceptions to a migration issue register.
+Run source-to-target record counts, employee ID reconciliation, month-wise totals and payroll control totals.
+Keep imported historical periods read-only unless an authorized correction process is approved.
+Maintain migration logs, rejected rows, duplicate IDs and reconciliation evidence.
+No production migration until a backup and rollback plan has been tested.
+10. GITHUB REPOSITORY AND SOURCE CONTROL
+10.1 Recommended repository structure
+balsons-hr-payroll-manager/
+  frontend/                 # GitHub Pages web app
+    index.html
+    assets/css/
+    assets/js/
+    assets/images/
+  apps-script/              # Apps Script backend source
+    Code.gs
+    AuthService.gs
+    EmployeeService.gs
+    AttendanceService.gs
+    LeaveService.gs
+    PayrollEngine.gs
+    ApprovalService.gs
+    PayslipService.gs
+    HRDocumentService.gs
+    ReportService.gs
+    AuditService.gs
+    appsscript.json
+  tests/                    # unit, payroll and API contract tests
+  docs/                     # requirements, data dictionary, release notes
+  .github/workflows/        # CI and controlled deployment
+  README.md
+  .gitignore
+10.2 Git and release requirements
+Private GitHub repository preferred; never commit employee data, payroll exports, payslips or personal documents.
+Protected main branch; feature branches and pull requests.
+Tag tested releases and maintain change log/release notes.
+CI validates frontend/backend syntax, API contract, tests and payroll regression fixtures.
+GitHub Pages deploys approved frontend build.
+Apps Script source is deployed separately using clasp and controlled CI or release procedure.
+Keep `.clasp.json`, Script IDs where sensitive, OAuth tokens, credentials and environment files out of public Git.
+Store deployment credentials in GitHub Actions Secrets or approved secret storage.
+Separate staging and production Apps Script projects/deployments and Sheets databases where practical.
+Support rollback of frontend and Apps Script backend to compatible known-good releases.
+10.3 GitHub Pages
+Responsive HTTPS frontend for desktop, tablet and mobile.
+No secret or payroll data embedded in static files.
+Environment-specific backend endpoint configuration without exposing credentials.
+Show application version/build identifier.
+GitHub Pages is frontend hosting only; it is not the payroll database or authentication authority.
+11. APPS SCRIPT BACKEND REQUIREMENTS
+Modular backend services and versioned API contract.
+Server-side role checks, project/employee scope validation and input validation.
+Authentication, session expiry, logout, failed-login throttling and audit.
+Server-side payroll calculation; browser must never be authoritative for pay values.
+LockService or equivalent concurrency protection for payroll runs, IDs and approval transitions.
+Batch Sheets reads/writes and optimize for Apps Script quotas and execution limits.
+Structured API responses with safe errors and correlation IDs.
+Idempotency/double-submit protection for payroll, attendance and advance transactions.
+Period locking, approval state validation and immutable audit events.
+No stack traces, credentials, salary data beyond permission or internal sheet structures returned unnecessarily.
+12. API CONTRACT AND SECURITY
+Define a versioned API contract before implementing all screens. Each endpoint must specify method, authentication, role, request/response schema, validation, data scope and audit effect.
+Address cross-origin requests, CSRF, session/token storage, replay, brute force, IDOR, XSS, injection and unauthorized file access.
+Never expose session tokens in URLs.
+Never store passwords in plaintext; use an approved identity mechanism or salted password hash design.
+Do not rely on frontend-only access restrictions.
+Protect employee bank, identity, salary and HR records with least privilege.
+13. PAYROLL INTEGRITY AND RECONCILIATION
+Payroll engine must use approved formulas and versioned configuration.
+Maintain employee-wise calculation trace: input values, earning components, deductions, recovery and net result.
+Provide pre-run validation and exception reports before calculation.
+Reconcile employee count, gross, deductions, advance recovery and net totals.
+Compare selected payroll results against authoritative reference calculations during UAT.
+Regression test historical sample periods whenever payroll formula code changes.
+Any formula change requires impact analysis, approval and new test evidence.
+Do not claim payroll accuracy until representative source periods have been reconciled.
+Known historical payroll workbook structures previously referenced include EMPLOYEE DATABASE, MONTHLY SALARY SHEET, monthly sheets such as MAY-26 and JUNE 26, and PAYLIP TEMPLATE. These are source-workbook references for mapping, not a mandate to reproduce Excel tabs as Google Sheets tabs without a data-mapping review.
+14. NON-FUNCTIONAL REQUIREMENTS
+15. ACCEPTANCE TESTS
+16. PHASED IMPLEMENTATION
+17. DEPLOYMENT AND OPERATIONS
+Create private GitHub repository and configure GitHub Pages for frontend.
+Create dedicated Apps Script project and Google Sheets database; separate staging and production where practical.
+Manage backend source using clasp; keep Script ID and credentials out of public source.
+Use least-privilege OAuth scopes; add Drive scopes only for approved file storage.
+Configure Web App execution identity/access policy; do not deploy anonymously/publicly.
+Deploy frontend and backend as coordinated releases with compatible API versions.
+Use dummy/anonymized data in development and UAT wherever possible.
+Record Git tag/commit, Apps Script version/deployment reference, database reference and deployment date in release notes without publishing secrets.
+18. GO-LIVE GATES
+API/auth proof passes from actual GitHub-hosted origin.
+Five-role permissions and project scoping verified.
+Employee master and allocation data reconciled.
+Attendance/leave/OT rules signed off.
+Advance and deduction policies approved.
+Payroll formulas reconciled against authoritative workbook/reference periods.
+Payslip design and values approved.
+Historical migration reconciled and exceptions signed off.
+Payroll approval/locking and audit tested.
+Backup/restore and rollback tested.
+HR/Project Managers/Supervisors trained; formal management acceptance recorded.
+19. OPEN DECISIONS / ITEMS REQUIRING SOURCE VALIDATION
+20. FINAL REQUIREMENT STATEMENT
+BALSONS HR & PAYROLL MANAGER shall be a GitHub-hosted HTML web application with Google Apps Script backend and Google Sheets live database. It shall provide five-role access control; employee onboarding/master data; project/site allocation; attendance and monthly summaries; overtime; leave; advances and deductions; salary structures; server-side payroll processing; maker-checker approvals and period locking; individual and batch payslips; HR documents; exit/final settlement; dashboards; reports; audit; and backup/recovery.
+The system is online-first and shall use GitHub for source control and frontend hosting, Apps Script for all protected backend operations and Google Sheets as the live database. Excel is not the runtime database in this architecture. Historical records must be preserved and reconciled during approved migration. Payroll formulas must be verified against the authoritative BALSONS source workbook and approved policy before production use. No payroll accuracy or production readiness may be claimed until UAT and management sign-off.
+APPENDIX A — PLATFORM OWNERSHIP
+APPENDIX B — CHANGE CONTROL
+Any change to payroll formula, attendance mapping, salary component, approval role, schema or API requires documented change control.
+Schema changes require versioned migration and backup.
+Frontend/backend releases must maintain API compatibility or be coordinated.
+No employee data, payslips, bank details or credentials may be committed to Git.
+Payroll rule changes require authorized BALSONS approval and regression evidence.
+
+=== TABLES IN DOCUMENT ===
+
+
+--- Table 1 ---
+Item | Details
+System | BALSONS HR & PAYROLL MANAGER
+Owner | BALSONS Heavy Lift & Shift
+Version/date | V1.0 • 19 November 2026
+Status | Requirements baseline for design, implementation and approval
+Platform | GitHub-hosted frontend + Google Apps Script backend + Google Sheets live database
+Deployment | Single integrated application release, with controlled staging/UAT before production
+Scope basis | Latest BALSONS payroll and HR requirements discussed; unresolved payroll formula details must be verified against the authoritative payroll workbook/rules.
+
+--- Table 2 ---
+Layer | Technology | Responsibilities
+Frontend | GitHub repository + GitHub Pages | Responsive HTML/CSS/JavaScript interface, employee and admin workspaces, frontend versioning.
+Backend | Google Apps Script Web App | Authentication, role checks, APIs, attendance/payroll logic, approvals, validations, PDF generation, audit.
+Database | Google Sheets | Employee, attendance, leave, payroll, advances, documents metadata, approvals and audit records.
+File storage | Google Drive (where enabled) | Restricted HR documents, generated salary slips and reports.
+Source control | GitHub | Private repository, branches, pull requests, CI, releases and rollback.
+Backend deployment | clasp + controlled GitHub Actions | Versioned Apps Script source push and deployment.
+
+--- Table 3 ---
+Role | Scope and permissions
+Super Admin | Full system configuration, user/role administration, master controls, payroll policy setup, audit, backup and exceptional authorized actions.
+HR Head | Employee master, onboarding, HR documents, attendance/leave review, payroll preparation/review, salary slips and HR reports.
+Project Manager | View/manage assigned project workforce, review project attendance and overtime, approve assigned project-level inputs, view permitted project reports.
+Area Supervisor | Enter/submit attendance and overtime for assigned employees/areas; view own submissions and correction requests.
+Employee | View own profile fields permitted by policy, attendance/leave balances, payslips and personal HR documents; submit leave/request items if enabled.
+
+--- Table 4 ---
+Process | Proposed workflow
+Employee onboarding | HR entry → HR Head review/approval → active employee record.
+Attendance | Area Supervisor entry → Project Manager review → HR validation/period close.
+Overtime | Supervisor submission → Project Manager approval → HR/payroll validation.
+Leave | Employee/supervisor request → reporting authority/Project Manager as configured → HR update.
+Advance | Request/entry → authorized approver → recovery schedule → payroll deduction.
+Payroll | HR prepare → HR Head review → authorized final approval → period lock.
+Payslip | Generate from approved/locked payroll → employee-specific access.
+Exit/final settlement | HR preparation → clearance → authorized review/approval → close.
+
+--- Table 5 ---
+Sheet | Purpose
+SYSTEM_CONFIG | Company settings, payroll periods, system flags and controlled configuration.
+USER_ACCESS | Users, roles, active status, authentication metadata and access scope.
+EMPLOYEE_MASTER | Employee identity, employment, contact and status master.
+EMPLOYEE_DOCUMENTS | Document metadata and restricted Drive file references.
+DEPARTMENT_MASTER | Department, designation, trade and cost centre references.
+PROJECT_MASTER | Project/site master and status.
+EMPLOYEE_ALLOCATION | Employee-to-project/area allocation with effective dates.
+ATTENDANCE_DAILY | Daily attendance entries and source/remarks.
+ATTENDANCE_SUMMARY | Monthly employee attendance summary and approved totals.
+LEAVE_MASTER | Leave types and approved policy configuration.
+LEAVE_TRANSACTIONS | Leave requests, approvals, balances and adjustments.
+SALARY_STRUCTURE | Employee salary components and effective dates.
+ADVANCE_MASTER | Advance issue and outstanding balance register.
+ADVANCE_RECOVERY | Monthly recovery transactions and reconciliation.
+PAYROLL_INPUT | Validated period inputs and approved adjustments.
+PAYROLL_REGISTER | Payroll run header and employee-wise results/breakdown.
+SALARY_SLIP_LOG | Payslip generation, version and Drive reference.
+HR_DOCUMENTS_LOG | Generated HR documents and file references.
+EXIT_SETTLEMENT | Exit, clearance and final settlement records.
+APPROVAL_LOG | Maker-checker decisions, comments and timestamps.
+AUDIT_LOG | Security and data-change history.
+BACKUP_LOG | Backup/export/restore events and verification.
+
+--- Table 6 ---
+API group | Example operations
+Authentication | login, logout, session validation, password change
+Employee | create, update, view, search, allocate, deactivate
+Attendance | daily entry, bulk entry/import, monthly summary, submit, approve, lock
+Leave | apply, review, approve, reject, cancel, balance
+Advance | record issue, approve, schedule recovery, post recovery
+Payroll | validate inputs, calculate draft, review, approve, lock, adjustment/reversal
+Payslip | generate individual, batch generate, retrieve authorized slip
+HR documents | register, generate, retrieve and expire
+Reports | dashboard, attendance, payroll, OT, leave, advance and HR reports
+Administration | users, roles, payroll configuration, audit and backup
+
+--- Table 7 ---
+Area | Requirement
+Availability | Online-first hosted application dependent on Google and GitHub services.
+Performance | Target efficient processing of 100+ employees; validate actual runtime and Apps Script quotas in load tests.
+Mobile | Responsive employee and supervisor workflows.
+Compatibility | Modern Chrome/Edge desktop and Android/iOS browsers.
+Security | Least privilege, server-side authorization and protected sensitive data.
+Reliability | Concurrency-safe writes, idempotent operations and clear failure handling.
+Maintainability | Modular source, Git versioning, data dictionary and release documentation.
+Scalability | Test Sheets volume, Apps Script quotas, Drive storage and concurrent users.
+Auditability | Traceable employee, attendance, approval and payroll history.
+Recovery | Scheduled backups, restore tests and release rollback.
+
+--- Table 8 ---
+ID | Test | Expected result
+HRP-001 | GitHub deployment | Approved frontend release opens over HTTPS.
+HRP-002 | Apps Script connectivity | Hosted frontend securely communicates with backend.
+HRP-003 | Cross-origin/auth | Actual hosted-origin API and session tests pass.
+HRP-004 | Role security | Five roles restricted server-side to permitted data/actions.
+HRP-005 | Employee master | Create/edit/search/deactivate with unique ID and audit.
+HRP-006 | Project allocation | Users see only assigned project/area workforce.
+HRP-007 | Attendance | Daily/monthly entries validate and prevent duplicates.
+HRP-008 | Attendance approvals | Supervisor → Project Manager → HR validation/close works.
+HRP-009 | Overtime | Hours, approvals and payroll mapping reconcile.
+HRP-010 | Leave | Request, approval, balance and attendance integration correct.
+HRP-011 | Advance | Issue, recovery and closing balance reconcile.
+HRP-012 | Salary structure | Effective-dated rates applied to correct period.
+HRP-013 | Payroll calculation | Results match approved reference calculations.
+HRP-014 | Payroll locking | Approved period cannot be silently changed.
+HRP-015 | Payslip | Individual and batch PDF outputs match approved layout and payroll values.
+HRP-016 | Employee privacy | Employee can access own permitted payslip/profile only.
+HRP-017 | HR documents | Template merge, PDF and access permissions work.
+HRP-018 | Exit settlement | Final settlement inputs and approvals reconcile.
+HRP-019 | Reports | Project/month totals reconcile to source registers.
+HRP-020 | Audit | Critical actions attributable to user and timestamp.
+HRP-021 | Migration | Historical records and totals reconcile; exceptions reported.
+HRP-022 | Concurrency | No duplicate payroll run or conflicting transaction.
+HRP-023 | Backup/restore | Database backup restored and verified.
+HRP-024 | Release rollback | Compatible prior frontend/backend release restored.
+
+--- Table 9 ---
+Phase | Deliverable | Exit criteria
+0 — Architecture proof | GitHub frontend, Apps Script endpoint, Sheets connection, secure API/auth proof. | Actual hosted-origin connectivity works; transport/auth approach approved.
+1 — Foundation | Repository, CI, Apps Script project, Sheets schema, staging/production setup. | Database preflight and deployment tests pass.
+2 — Authentication/RBAC | Five roles, sessions, project scope, audit and user admin. | Role/security tests pass.
+3 — HR foundation | Employee, department, project, allocation and document masters. | CRUD and access tests pass.
+4 — Attendance/leave/OT | Attendance entry, monthly summaries, leave and OT approvals. | Period reconciliation and workflow tests pass.
+5 — Advances/payroll | Advance/recovery, salary structure, payroll engine, approval and locking. | Payroll regression and reconciliation pass.
+6 — Payslips/documents/reports | Individual/batch slips, HR docs, dashboards and exports. | Output and access tests pass.
+7 — Migration/UAT/go-live | Historical migration, training, backup, security review and release. | Formal BALSONS acceptance and payroll sign-off.
+
+--- Table 10 ---
+Item | Required action
+Authoritative payroll workbook | Identify final source file and confirm exact sheet names, columns and formulas.
+Attendance mapping | Approve Present, WO, PL, absence/other codes and payable-day logic.
+Overtime calculation | Confirm eligibility, rate, rounding and approval rules.
+Salary components | Confirm earnings, allowances, deductions and effective-date handling.
+Statutory treatment | Confirm applicable statutory deductions, limits and reporting with qualified payroll/accounting authority.
+Approval matrix | Confirm who approves attendance, OT, leave, advances and final payroll.
+Historical migration | Confirm date range, preserve/transform rules and opening balances.
+Authentication | Confirm account provisioning and password/identity policy.
+Payslip template | Approve exact layout, amount-in-words and distribution method.
+Drive/retention | Confirm document storage, access and retention policy.
+Notifications | Confirm recipients and event/summary schedule.
+
+--- Table 11 ---
+Component | System
+Frontend source and hosting | GitHub repository + GitHub Pages
+Backend source | GitHub repository under apps-script/
+Backend runtime | Google Apps Script
+Live database | Google Sheets
+Employee documents and payslips | Restricted Google Drive, if enabled
+CI/CD | GitHub Actions + clasp; protected secrets
