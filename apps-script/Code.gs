@@ -7,11 +7,12 @@
 const HR_CONFIG = {
   PROJECT_ID: 'PRJ-BALSONS-HR-2026',
   PORTAL_NAME: 'BALSONS HR & Payroll Manager',
-  VERSION: '1.0.0-foundation',
-  ENV: 'staging',
+  VERSION: '1.2.0-dual-workforce-print',
+  ENV: 'production',
+  DEFAULT_SPREADSHEET_ID: '1so_aH05vVxiUJsIK6VS-n7BpGrHWNgn_5EK7RuA3cuw',
   
   getSpreadsheetId: function() {
-    return PropertiesService.getScriptProperties().getProperty('HR_SPREADSHEET_ID');
+    return PropertiesService.getScriptProperties().getProperty('HR_SPREADSHEET_ID') || this.DEFAULT_SPREADSHEET_ID;
   }
 };
 
@@ -69,6 +70,45 @@ function doPost(e) {
           role: payload.role || 'HR Head',
           fullName: 'Priyanka Senapati'
         };
+        break;
+
+      case 'employees.list':
+        responseData = {
+          employees: EmployeeService.getEmployees(payload.filter || 'ALL')
+        };
+        break;
+
+      case 'employees.create':
+        var created = EmployeeService.createEmployee(payload, authToken);
+        responseData = {
+          employee: created,
+          message: 'Employee successfully registered with [' + created.wageType + '] statutory profile'
+        };
+        break;
+
+      case 'registration.submit':
+      case 'employees.register':
+        responseData = EmployeeService.submitRegistration(payload);
+        break;
+
+      case 'registrations.list':
+        responseData = EmployeeService.getRegistrations(payload.status);
+        break;
+
+      case 'registration.approve':
+        responseData = EmployeeService.approveRegistration(payload.regId, payload.approvalData, payload.actor || 'HR Head');
+        break;
+
+      case 'payroll.calculate':
+        responseData = PayrollEngine.calculate(payload.employee, payload.attendance, payload.advance);
+        break;
+
+      case 'payroll.process':
+        responseData = PayrollEngine.processMonthlyPayroll(payload.payPeriod, authToken);
+        break;
+
+      case 'db.init':
+        responseData = initHrDatabase();
         break;
 
       default:

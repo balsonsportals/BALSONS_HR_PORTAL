@@ -8,7 +8,9 @@ const BALSONS_HR_CONFIG = {
   PROJECT_ID: 'PRJ-BALSONS-HR-2026',
   PORTAL_NAME: 'BALSONS HR & Payroll Manager',
   VERSION: '1.0.0-foundation',
-  ENV: 'staging',
+  ENV: 'production',
+  SPREADSHEET_ID: '1so_aH05vVxiUJsIK6VS-n7BpGrHWNgn_5EK7RuA3cuw',
+  SPREADSHEET_URL: 'https://docs.google.com/spreadsheets/d/1so_aH05vVxiUJsIK6VS-n7BpGrHWNgn_5EK7RuA3cuw/edit',
   
   // Google Apps Script Web App Deployment URL (Configurable upon deployment)
   APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzqG6THkjhA-8324dOg9cbMAc3IWCZdmp9sT6zTdPINUWAgB0cOm4H4TFCWprYmT9lXNg/exec',

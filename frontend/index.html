@@ -71,22 +71,24 @@
       gap: 12px;
     }
 
-    /* Enterprise Navigation Bar */
+    /* Enterprise Navigation Bar — Tab Color Rules (Black in Light Mode, White in Dark Mode) */
     nav {
-      background: var(--beds-industrial-charcoal);
+      background: var(--beds-bg-panel);
       display: flex;
       gap: 4px;
-      padding: 4px 28px;
+      padding: 6px 28px;
       overflow-x: auto;
       border-bottom: 2px solid var(--beds-teal-primary);
+      border-top: 1px solid var(--beds-border);
+      transition: background-color var(--beds-transition), border-color var(--beds-transition);
     }
     nav button {
       background: transparent;
-      border: none;
-      color: rgba(255, 255, 255, 0.75);
-      padding: 9px 15px;
-      font-size: 12.5px;
-      font-weight: 600;
+      border: 1px solid transparent;
+      color: #000000 !important; /* STRICTLY BLACK IN LIGHT MODE (USER LOCKED) */
+      padding: 9px 16px;
+      font-size: 13px;
+      font-weight: 700;
       cursor: pointer;
       border-radius: var(--beds-radius-sm);
       display: inline-flex;
@@ -95,13 +97,326 @@
       white-space: nowrap;
       transition: all var(--beds-transition);
     }
-    nav button:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #FFFFFF;
+    nav button:hover:not(.active) {
+      background: rgba(0, 151, 178, 0.08);
+      color: #000000 !important;
+      border-color: rgba(0, 151, 178, 0.2);
     }
     nav button.active {
-      background: var(--beds-teal-primary);
+      background: var(--beds-teal-primary) !important;
+      color: #FFFFFF !important;
+      font-weight: 800;
+      box-shadow: 0 1px 3px rgba(0, 151, 178, 0.3);
+    }
+
+    /* Tab colors in Dark Mode */
+    [data-theme="dark"] nav {
+      background: var(--beds-bg-panel);
+      border-top-color: var(--beds-border);
+    }
+    [data-theme="dark"] nav button {
+      color: #FFFFFF !important; /* STRICTLY WHITE IN DARK MODE (USER LOCKED) */
+    }
+    [data-theme="dark"] nav button:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.12);
+      color: #FFFFFF !important;
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+    [data-theme="dark"] nav button.active {
+      background: var(--beds-teal-primary) !important;
+      color: #FFFFFF !important;
+    }
+
+    /* Category filter tabs inside tables */
+    .btn-secondary {
+      color: #000000 !important;
+    }
+    [data-theme="dark"] .btn-secondary {
+      color: #FFFFFF !important;
+    }
+
+    /* ID Card Studio Styles */
+    .id-card-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 28px;
+      padding: 16px;
+      flex-wrap: wrap;
+    }
+    .id-card-badge {
+      width: 330px;
+      min-height: 520px;
+      background: #FFFFFF;
+      color: #102D35;
+      border-radius: 14px;
+      border: 1.5px solid #CBD5E1;
+      box-shadow: 0 14px 30px rgba(16, 45, 53, 0.18);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+      box-sizing: border-box;
+      font-family: var(--beds-font-family);
+    }
+    .id-card-badge .punch-slot {
+      width: 44px;
+      height: 10px;
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      border-radius: 6px;
+      margin: 8px auto 4px auto;
+    }
+    .id-card-header {
+      background: #102D35;
       color: #FFFFFF;
+      padding: 10px 14px 8px 14px;
+      text-align: center;
+      border-bottom: 3px solid #0097B2;
+    }
+    .id-card-header .logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .id-card-header img {
+      height: 26px;
+      object-fit: contain;
+    }
+    .id-card-header .comp-title {
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.3px;
+      line-height: 1.1;
+    }
+    .id-card-header .sub-title {
+      font-size: 9px;
+      color: #94A3B8;
+      margin-top: 2px;
+      font-weight: 600;
+    }
+    .id-card-tagline {
+      background: #0097B2;
+      color: #FFFFFF;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      padding: 3px 0;
+      text-align: center;
+    }
+    .id-card-body {
+      padding: 12px 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: #FFFFFF;
+    }
+    .id-photo-box {
+      width: 95px;
+      height: 115px;
+      border-radius: 8px;
+      border: 2px solid #0097B2;
+      overflow: hidden;
+      background: #E2E8F0;
+      position: relative;
+      margin-bottom: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .id-photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .id-photo-box .verified-ribbon {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #10B981;
+      color: #FFFFFF;
+      font-size: 8px;
+      font-weight: 800;
+      padding: 2px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .id-card-name {
+      font-size: 15px;
+      font-weight: 900;
+      color: #102D35;
+      margin-bottom: 2px;
+      line-height: 1.2;
+    }
+    .id-card-empid {
+      background: #102D35;
+      color: #FFFFFF;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 800;
+      font-family: monospace;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+      display: inline-block;
+    }
+    .id-card-trade {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #0097B2;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .id-card-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      width: 100%;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 10px;
+      text-align: left;
+      margin-bottom: 8px;
+      box-sizing: border-box;
+    }
+    .id-card-meta-grid .item-lbl {
+      color: #64748B;
+      font-size: 8.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .id-card-meta-grid .item-val {
+      color: #102D35;
+      font-weight: 800;
+      font-size: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .id-card-footer {
+      width: 100%;
+      border-top: 1px solid #E2E8F0;
+      padding-top: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+    .id-qr-box {
+      width: 48px;
+      height: 48px;
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px;
+    }
+    .id-sign-box {
+      text-align: right;
+      font-size: 8.5px;
+      color: #52636B;
+    }
+    .id-sign-box .sig-line {
+      font-weight: 800;
+      color: #102D35;
+      border-top: 1px dashed #94A3B8;
+      padding-top: 2px;
+      margin-top: 16px;
+      font-size: 8.5px;
+    }
+
+    /* Back of ID Card */
+    .id-card-back-body {
+      padding: 12px 14px;
+      font-size: 9.5px;
+      color: #334155;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      background: #FFFFFF;
+      box-sizing: border-box;
+      text-align: left;
+    }
+    .id-back-section {
+      margin-bottom: 8px;
+      border-bottom: 1px solid #F1F5F9;
+      padding-bottom: 6px;
+    }
+    .id-back-title {
+      font-size: 9.5px;
+      font-weight: 800;
+      color: #102D35;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .id-back-badge-row {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .id-clearance-pill {
+      background: #ECFDF5;
+      color: #065F46;
+      border: 1px solid #A7F3D0;
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-size: 8px;
+      font-weight: 700;
+    }
+
+    /* Print Styles — Supports Gate Entry ID Card & Full Filled Enrolment Dossier */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 8mm 10mm;
+      }
+      body * {
+        visibility: hidden;
+      }
+      
+      /* Print Case 1: ID Card Badge */
+      #printableIdCardContainer, #printableIdCardContainer * {
+        visibility: visible;
+      }
+      #printableIdCardContainer {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        display: flex !important;
+        justify-content: center;
+        gap: 15mm;
+        padding-top: 15mm;
+      }
+
+      /* Print Case 2: Full Filled Enrolment Dossier */
+      #printableEnrolmentDossier, #printableEnrolmentDossier * {
+        visibility: visible;
+      }
+      #printableEnrolmentDossier {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        max-width: 190mm;
+        margin: 0 auto;
+        box-shadow: none !important;
+      }
     }
 
     main {
@@ -141,6 +456,7 @@
       border-radius: var(--beds-radius-lg);
       padding: 20px;
       box-shadow: var(--beds-card-shadow);
+      margin-bottom: 24px;
     }
     .table-header {
       display: flex;
@@ -174,7 +490,7 @@
       border-radius: var(--beds-radius-lg);
       padding: 24px;
       width: 92%;
-      max-width: 580px;
+      max-width: 620px;
       box-shadow: 0 10px 25px rgba(16, 45, 53, 0.2);
     }
     .modal-title {
@@ -191,10 +507,17 @@
       padding: 28px 32px;
       border: 1.5px solid #102D35;
       border-radius: 4px;
-      max-width: 800px;
+      max-width: 820px;
       margin: 0 auto;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
       font-size: 12px;
+    }
+
+    /* Filter sub-tabs */
+    .filter-btn-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
     }
 
     @media print {
@@ -270,6 +593,7 @@
       <a href="../../index.html" class="btn btn-secondary btn-sm" title="BALSONS Enterprise Workspace Launcher">
         🚀 Enterprise Launcher
       </a>
+      <a href="https://docs.google.com/spreadsheets/d/1so_aH05vVxiUJsIK6VS-n7BpGrHWNgn_5EK7RuA3cuw/edit" target="_blank" class="meta-badge" style="font-size: 11px; background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-weight: 600; text-decoration: none;" title="Open Live Google Spreadsheet (22 Relational Sheets)">🟢 Sheet: 1so_aH05...</a>
       <span class="meta-badge" style="font-size: 11px;">Payroll Period: NOV 2026</span>
       <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" id="themeBtn">
         🌙 Dark
@@ -299,24 +623,44 @@
     <section id="tab-radar" class="section-view active">
       <div class="kpi-row">
         <div class="kpi-card teal">
-          <div class="kpi-label">Active Site Headcount</div>
+          <div class="kpi-label">Total Active Workforce</div>
           <div class="kpi-value" id="kpiTotalEmployees">68</div>
-          <div class="kpi-sub">54 Staff • 14 Heavy Equipment Operators</div>
+          <div class="kpi-sub">28 Monthly Staff • 40 Daily Pay Crew</div>
         </div>
         <div class="kpi-card green">
-          <div class="kpi-label">Today's Attendance Rate</div>
-          <div class="kpi-value">97.1%</div>
-          <div class="kpi-sub">66 Present • 2 Approved Leave</div>
+          <div class="kpi-label">Monthly Staff (PF + ESIC)</div>
+          <div class="kpi-value" style="color: var(--beds-teal-primary);">28</div>
+          <div class="kpi-sub">100% PF & ESIC Covered • Regular Salary</div>
         </div>
         <div class="kpi-card amber">
-          <div class="kpi-label">Active Advance Balance</div>
-          <div class="kpi-value">₹ 1,42,000</div>
-          <div class="kpi-sub">8 Employees • ₹ 38,000 scheduled recovery</div>
+          <div class="kpi-label">Daily Pay Workers (No PF/ESIC)</div>
+          <div class="kpi-value" style="color: #D97706;">40</div>
+          <div class="kpi-sub">Statutory Exempt • Daily Rate Basis</div>
         </div>
         <div class="kpi-card teal">
-          <div class="kpi-label">Payroll Run: NOV 2026</div>
-          <div class="kpi-value"><span class="status-pill status-warning" style="font-size: 14px;">DRAFT READY</span></div>
-          <div class="kpi-sub">Cut-off: 25 Nov • Net Est: ₹ 24.85 L</div>
+          <div class="kpi-label">Disbursable Wages (Nov 26)</div>
+          <div class="kpi-value" style="font-family: monospace; font-size: 22px;">₹ 26.64 L</div>
+          <div class="kpi-sub">Staff: ₹ 18.40 L • Daily: ₹ 8.24 L</div>
+        </div>
+      </div>
+
+      <!-- Wage Classification Policy Notice Banner -->
+      <div style="background: var(--beds-bg-page); border: 1.5px solid var(--beds-border); border-left: 4px solid var(--beds-teal-primary); padding: 14px 18px; border-radius: var(--beds-radius-md); margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <h3 style="font-size: 13.5px; font-weight: 800; color: var(--beds-charcoal-heading); margin: 0;">
+            ⚖️ BALSONS Dual Workforce Compensation & Statutory Framework:
+          </h3>
+          <span class="status-pill status-info">Corporate Payroll Rulebook</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 11.5px; line-height: 1.45;">
+          <div style="background: var(--beds-bg-panel); padding: 10px 12px; border-radius: var(--beds-radius-sm); border: 1px solid rgba(0, 151, 178, 0.2);">
+            <strong style="color: var(--beds-teal-primary);">1. Monthly Basis Employees (With PF & ESIC):</strong><br>
+            Monthly CTC basis. Payable days include Present (P), Weekly Off (WO), and Paid Leave (PL). Subject to mandatory statutory contributions: <strong>Provident Fund (12% of Basic, max ₹1,800)</strong>, <strong>ESIC (0.75% of Gross)</strong>, and Professional Tax (₹200). Generates comprehensive Corporate Salary Slip.
+          </div>
+          <div style="background: var(--beds-bg-panel); padding: 10px 12px; border-radius: var(--beds-radius-sm); border: 1px solid rgba(217, 119, 6, 0.3);">
+            <strong style="color: #D97706;">2. Daily Pay Employees (Without PF & ESIC):</strong><br>
+            Daily Wage Rate (₹ / Day) basis. Payable days equal <strong>Present (P) Days worked only</strong> (Weekly Off unpaid). <strong>Strictly Exempt from ESIC and PF deductions</strong>. Overtime computed on daily hourly rate (Daily Rate / 8h × 2). Generates statutory Daily Wage Slip.
+          </div>
         </div>
       </div>
 
@@ -335,9 +679,9 @@
             <tr>
               <th>Project Code</th>
               <th>Project / Worksite Name</th>
-              <th>Deployed Staff</th>
-              <th>Riggers & Fitters</th>
-              <th>Crane Operators</th>
+              <th>Total Deployed</th>
+              <th>Monthly Staff (PF/ESIC)</th>
+              <th>Daily Pay Crew (No PF/ESIC)</th>
               <th>Project Manager</th>
               <th>Status</th>
             </tr>
@@ -347,8 +691,8 @@
               <td><strong style="font-family: monospace;">PRJ-JTRWF-SCHULER</strong></td>
               <td><strong>Jupiter Tatravagonka Railwheel Factory</strong></td>
               <td class="tabular-nums"><strong>48</strong></td>
-              <td class="tabular-nums">34</td>
-              <td class="tabular-nums">14</td>
+              <td class="tabular-nums">18</td>
+              <td class="tabular-nums" style="font-weight: 700; color: #D97706;">30</td>
               <td>Satish Chandra</td>
               <td><span class="status-pill status-success">Active Site</span></td>
             </tr>
@@ -356,8 +700,8 @@
               <td><strong style="font-family: monospace;">PRJ-PARADEEP-IO</strong></td>
               <td>IOCL Paradip Gantry Erection</td>
               <td class="tabular-nums"><strong>12</strong></td>
-              <td class="tabular-nums">8</td>
-              <td class="tabular-nums">4</td>
+              <td class="tabular-nums">6</td>
+              <td class="tabular-nums" style="font-weight: 700; color: #D97706;">6</td>
               <td>Manoj Mohanty</td>
               <td><span class="status-pill status-success">Active Site</span></td>
             </tr>
@@ -365,8 +709,8 @@
               <td><strong style="font-family: monospace;">PRJ-PUNE-HQ</strong></td>
               <td>Balsons Heavy Lift & Shift Head Office (Pune)</td>
               <td class="tabular-nums"><strong>8</strong></td>
-              <td class="tabular-nums">0</td>
-              <td class="tabular-nums">0</td>
+              <td class="tabular-nums">4</td>
+              <td class="tabular-nums" style="font-weight: 700; color: #D97706;">4</td>
               <td>Executive Director</td>
               <td><span class="status-pill status-info">Headquarters</span></td>
             </tr>
@@ -382,11 +726,22 @@
           <div>
             <h2>👥 Employee Master Directory (EMPLOYEE_MASTER)</h2>
             <p style="font-size: 12px; color: var(--beds-text-secondary); margin-top: 2px;">
-              Comprehensive employee profile, project allocation, salary structure, and statutory document checklist.
+              Employee database with wage type categorization (Monthly vs Daily Pay) and statutory status.
             </p>
           </div>
-          <div style="display: flex; gap: 8px;">
-            <input type="text" id="searchEmpInput" class="beds-input" placeholder="Search by name, ID, or trade..." style="width: 250px; font-size: 12px;" oninput="searchEmployees(this.value)">
+          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <div class="filter-btn-group">
+              <button class="btn btn-primary btn-sm" id="btnEmpAll" onclick="filterEmployeeCategory('ALL')">All Employees (68)</button>
+              <button class="btn btn-secondary btn-sm" id="btnEmpMonthly" onclick="filterEmployeeCategory('MONTHLY')">Monthly (PF+ESIC)</button>
+              <button class="btn btn-secondary btn-sm" id="btnEmpDaily" onclick="filterEmployeeCategory('DAILY_PAY')">Daily Pay (No PF/ESIC)</button>
+            </div>
+            <input type="text" id="searchEmpInput" class="beds-input" placeholder="Search name, ID, or trade..." style="width: 200px; font-size: 12px;" oninput="searchEmployees(this.value)">
+            <a href="register.html" target="_blank" class="btn btn-secondary btn-sm" style="display: inline-flex; align-items: center; gap: 4px; text-decoration: none;" title="Open Trilingual Candidate Registration Form">
+              🔗 Open Form
+            </a>
+            <button class="btn btn-secondary btn-sm" onclick="copyRegistrationLink()" title="Copy link to send to employees via WhatsApp/Email">
+              📋 Share Link
+            </button>
             <button class="btn btn-primary btn-sm" onclick="openOnboardModal()">+ Onboard Employee</button>
           </div>
         </div>
@@ -395,11 +750,12 @@
             <tr>
               <th>Emp ID</th>
               <th>Full Name</th>
+              <th>Wage Classification</th>
               <th>Department / Trade</th>
-              <th>Project / Site</th>
-              <th>Monthly CTC</th>
-              <th>Joining Date</th>
-              <th>Status</th>
+              <th>Assigned Project</th>
+              <th>Compensation Basis</th>
+              <th>Statutory PF</th>
+              <th>Statutory ESIC</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -417,12 +773,17 @@
           <div>
             <h2>📅 Monthly Attendance & Overtime Grid (ATTENDANCE_SUMMARY)</h2>
             <p style="font-size: 12px; color: var(--beds-text-secondary); margin-top: 2px;">
-              Payroll month: <strong>November 2026</strong> (Period: 01 Nov - 30 Nov 2026 • Total Days: 30 • Working Days: 26).
+              Period: <strong>November 2026</strong> • Monthly Staff (P+WO+PL) vs Daily Workers (Present Days Only).
             </p>
           </div>
-          <div style="display: flex; gap: 8px;">
+          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <div class="filter-btn-group">
+              <button class="btn btn-primary btn-sm" id="btnAttAll" onclick="filterAttendanceCategory('ALL')">All Workforce</button>
+              <button class="btn btn-secondary btn-sm" id="btnAttMonthly" onclick="filterAttendanceCategory('MONTHLY')">Monthly Staff</button>
+              <button class="btn btn-secondary btn-sm" id="btnAttDaily" onclick="filterAttendanceCategory('DAILY_PAY')">Daily Workers</button>
+            </div>
             <button class="btn btn-secondary btn-sm" onclick="alert('Attendance validation complete. No duplicate or abnormal records found.')">✓ Validate Attendance</button>
-            <button class="btn btn-primary btn-sm" onclick="alert('Period attendance locked by HR Head. Ready for payroll calculation.')">🔒 Lock Period Attendance</button>
+            <button class="btn btn-primary btn-sm" onclick="alert('Period attendance locked by HR Head. Ready for payroll calculation.')">🔒 Lock Attendance</button>
           </div>
         </div>
         <table class="beds-table">
@@ -430,13 +791,13 @@
             <tr>
               <th>Emp ID</th>
               <th>Employee Name</th>
-              <th>Trade</th>
+              <th>Wage Type</th>
               <th>Present Days (P)</th>
               <th>Weekly Off (WO)</th>
               <th>Paid Leave (PL)</th>
               <th>Payable Days</th>
               <th>OT Hours</th>
-              <th>Status</th>
+              <th>Calculation Rule</th>
             </tr>
           </thead>
           <tbody id="attendanceTableBody">
@@ -463,12 +824,12 @@
             <tr>
               <th>Advance ID</th>
               <th>Emp ID & Name</th>
+              <th>Wage Type</th>
               <th>Issue Date</th>
               <th>Total Advance</th>
               <th>Monthly Recovery</th>
               <th>Total Recovered</th>
               <th>Outstanding Balance</th>
-              <th>Approved By</th>
               <th>Status</th>
             </tr>
           </thead>
@@ -489,21 +850,45 @@
               Deterministic gross earnings, statutory deductions, advance recovery, and net payable calculation.
             </p>
           </div>
-          <div style="display: flex; gap: 8px;">
+          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <div class="filter-btn-group">
+              <button class="btn btn-primary btn-sm" id="btnPayAll" onclick="filterPayrollCategory('ALL')">All Payroll (68)</button>
+              <button class="btn btn-secondary btn-sm" id="btnPayMonthly" onclick="filterPayrollCategory('MONTHLY')">Monthly (PF+ESIC)</button>
+              <button class="btn btn-secondary btn-sm" id="btnPayDaily" onclick="filterPayrollCategory('DAILY_PAY')">Daily Pay (No PF/ESIC)</button>
+            </div>
             <button class="btn btn-secondary btn-sm" onclick="runPayrollCalculation()">⚡ Re-calculate Period</button>
-            <button class="btn btn-primary btn-sm" onclick="lockPayrollPeriod()">🔒 Approve & Lock Payroll</button>
+            <button class="btn btn-primary btn-sm" onclick="lockPayrollPeriod()">🔒 Approve & Lock</button>
           </div>
         </div>
 
-        <div style="background: var(--beds-bg-page); border: 1.5px solid var(--beds-teal-primary); border-radius: var(--beds-radius-md); padding: 16px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
-          <div>
-            <div style="font-size: 11px; font-weight: 800; color: var(--beds-teal-primary); text-transform: uppercase;">Active Payroll Period:</div>
-            <div style="font-size: 18px; font-weight: 800; color: var(--beds-charcoal-heading);">November 2026 (JTRWF Project Workforce)</div>
-            <div style="font-size: 12px; color: var(--beds-text-secondary);">Rulebook: BALSONS-PAY-2026 • 100% Deterministic Engine</div>
+        <!-- Split Disbursal Banner -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+          <div style="background: var(--beds-bg-page); border: 1.5px solid var(--beds-teal-primary); border-radius: var(--beds-radius-md); padding: 14px 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <span class="status-pill status-info" style="font-size: 10px;">MONTHLY SALARIED STAFF</span>
+                <div style="font-size: 16px; font-weight: 800; color: var(--beds-charcoal-heading); margin-top: 4px;">28 Staff Members</div>
+                <div style="font-size: 11.5px; color: var(--beds-text-secondary);">With PF (12%) & ESIC (0.75%) Deductions</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-size: 11px; color: var(--beds-text-muted);">Net Disbursable:</div>
+                <div style="font-size: 20px; font-weight: 900; color: var(--beds-teal-primary); font-family: monospace;">₹ 18,40,240</div>
+              </div>
+            </div>
           </div>
-          <div style="text-align: right;">
-            <div style="font-size: 11px; color: var(--beds-text-secondary);">Total Disbursable Net Amount:</div>
-            <div style="font-size: 24px; font-weight: 900; color: var(--beds-teal-primary); font-family: monospace;">₹ 24,85,420.00</div>
+
+          <div style="background: var(--beds-bg-page); border: 1.5px solid #D97706; border-radius: var(--beds-radius-md); padding: 14px 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <span class="status-pill status-warning" style="font-size: 10px;">DAILY PAY WORKFORCE</span>
+                <div style="font-size: 16px; font-weight: 800; color: var(--beds-charcoal-heading); margin-top: 4px;">40 Daily Rated Workers</div>
+                <div style="font-size: 11.5px; color: var(--beds-text-secondary);">Statutory Exempt (Zero PF & Zero ESIC)</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-size: 11px; color: var(--beds-text-muted);">Net Disbursable:</div>
+                <div style="font-size: 20px; font-weight: 900; color: #D97706; font-family: monospace;">₹ 8,24,180</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -512,12 +897,15 @@
             <tr>
               <th>Emp ID</th>
               <th>Employee Name</th>
-              <th>Basic Pay</th>
-              <th>HRA & Allowances</th>
+              <th>Wage Category</th>
+              <th>Base Rate / CTC</th>
+              <th>Payable Days</th>
+              <th>Base Earned</th>
               <th>OT Pay</th>
-              <th>Gross Earnings</th>
-              <th>Advance Deduction</th>
-              <th>PF / Statutory</th>
+              <th>Gross Pay</th>
+              <th>Advance</th>
+              <th>PF (12%)</th>
+              <th>ESIC (0.75%)</th>
               <th>Net Payable</th>
               <th>Action</th>
             </tr>
@@ -534,14 +922,14 @@
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
         <div>
           <h2 style="font-size: 18px; font-weight: 800; color: var(--beds-charcoal-heading); margin: 0;">
-            📑 Individual & Batch Salary Slip Generator
+            📑 Individual & Batch Salary / Wage Slip Generator
           </h2>
           <p style="font-size: 12px; color: var(--beds-text-secondary); margin: 2px 0 0 0;">
-            Compliant with BALSONS corporate identity and statutory payroll standards.
+            Auto-adapts between Monthly Salaried (PF/ESIC) and Daily Pay (Exempt) statutory formats.
           </p>
         </div>
         <div style="display: flex; gap: 8px;">
-          <select id="payslipEmpSelect" class="beds-select" style="width: 260px; font-size: 12px;" onchange="loadPayslipPreview(this.value)">
+          <select id="payslipEmpSelect" class="beds-select" style="width: 320px; font-size: 12px;" onchange="loadPayslipPreview(this.value)">
             <!-- Options populated by JS -->
           </select>
           <button class="btn btn-primary btn-sm" onclick="window.print()">🖨️ Print / Save PDF</button>
@@ -571,10 +959,10 @@
             <tr>
               <th>Doc Ref No</th>
               <th>Employee Name</th>
+              <th>Wage Category</th>
               <th>Document Type</th>
               <th>Issue Date</th>
               <th>Expiry / Review</th>
-              <th>Authorized Signatory</th>
               <th>Verification Status</th>
               <th>Action</th>
             </tr>
@@ -583,22 +971,22 @@
             <tr>
               <td><strong style="font-family: monospace;">DOC-APT-2026-0012</strong></td>
               <td>Ramesh Kumar</td>
+              <td><span class="status-pill status-info">Monthly</span></td>
               <td>Letter of Appointment (Rigging Lead)</td>
-              <td>2026-01-15</td>
+              <td>2025-04-10</td>
               <td>Permanent</td>
-              <td>Priyanka Senapati (HR Head)</td>
               <td><span class="status-pill status-success">Verified & Signed</span></td>
               <td><button class="btn btn-secondary btn-sm" onclick="alert('Viewing Appointment Letter...')">View</button></td>
             </tr>
             <tr>
-              <td><strong style="font-family: monospace;">DOC-IND-2026-0044</strong></td>
-              <td>Sunil Swain</td>
-              <td>Height & Rigging Safety Induction Card</td>
-              <td>2026-02-01</td>
-              <td>2027-01-31</td>
-              <td>HSE Officer JTRWF</td>
+              <td><strong style="font-family: monospace;">DOC-DLY-2026-0038</strong></td>
+              <td>Prakash Jena</td>
+              <td><span class="status-pill status-warning">Daily Pay</span></td>
+              <td>Daily Wage Work Engagement Letter (Form D)</td>
+              <td>2026-02-15</td>
+              <td>Project Specific</td>
               <td><span class="status-pill status-success">Verified</span></td>
-              <td><button class="btn btn-secondary btn-sm" onclick="alert('Viewing Safety Induction Card...')">View</button></td>
+              <td><button class="btn btn-secondary btn-sm" onclick="alert('Viewing Engagement Letter...')">View</button></td>
             </tr>
           </tbody>
         </table>
@@ -615,7 +1003,7 @@
               Traceable record of all salary modifications, attendance lockouts, and advance approvals.
             </p>
           </div>
-          <button class="btn btn-secondary btn-sm" onclick="exportHrAuditCsv()">📥 Export CSV</button>
+          <button class="btn btn-secondary btn-sm" onclick="alert('Exporting BALSONS_HR_AUDIT_LOG_2026.csv...')">📥 Export CSV</button>
         </div>
         <table class="beds-table">
           <thead>
@@ -639,63 +1027,809 @@
   </main>
 
   <!-- Modals -->
-  <!-- 1. Onboard Employee Modal -->
+  <!-- 1. Detailed Onboard Employee Modal (EMP-2026) -->
   <div id="modalOnboard" class="modal-backdrop" style="display: none;">
-    <div class="modal-box">
-      <div class="modal-title">➕ Onboard New Employee (EMP-2026)</div>
-      <p style="font-size: 12px; color: var(--beds-text-secondary); margin-bottom: 16px;">
-        Register permanent staff, rigger, technician, or heavy crane operator into BALSONS Master.
-      </p>
-      <form onsubmit="handleOnboardSubmit(event)">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
-          <div>
-            <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Full Legal Name</label>
-            <input type="text" id="onbName" class="beds-input" required placeholder="e.g. Deepak Mohanty">
+    <div class="modal-box" style="width: 960px; max-width: 95vw; max-height: 92vh; overflow-y: auto; padding: 24px;">
+      
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--beds-teal-primary); padding-bottom: 12px; margin-bottom: 16px;">
+        <div>
+          <div class="modal-title" style="font-size: 18px; margin-bottom: 4px;">➕ Detailed Employee Onboarding & Statutory Verification (EMP-2026)</div>
+          <div style="font-size: 12px; color: var(--beds-text-secondary);">
+            Dual Workforce Registration Engine • Jupiter Tatravagonka Railwheel Factory (PRJ-JTRWF-SCHULER)
           </div>
-          <div>
-            <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Department / Trade</label>
-            <select id="onbTrade" class="beds-select">
-              <option value="Heavy Rigging & Erection">Heavy Rigging & Erection</option>
-              <option value="Hydraulic Jack Specialist">Hydraulic Jack Specialist</option>
-              <option value="Crawler Crane Operator (150T)">Crawler Crane Operator (150T)</option>
-              <option value="Mechanical Assembly Fitter">Mechanical Assembly Fitter</option>
-              <option value="HSE & Site Safety Officer">HSE & Site Safety Officer</option>
-              <option value="Site Stores & Logistics">Site Stores & Logistics</option>
-            </select>
+        </div>
+        <div style="display: flex; gap: 6px;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="quickFillOnboard('MONTHLY')" title="Fill sample Monthly Staff data">⚡ Sample Monthly Staff</button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="quickFillOnboard('DAILY_PAY')" title="Fill sample Daily Worker data">⚡ Sample Daily Worker</button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="resetOnboardForm()">🔄 Reset</button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="closeOnboardModal()">✖</button>
+        </div>
+      </div>
+
+      <form id="onboardForm" onsubmit="handleOnboardSubmit(event, false)">
+        
+        <!-- SECTION 1: COMPENSATION & STATUTORY CLASSIFICATION -->
+        <div style="background: var(--beds-bg-page); border: 1px solid var(--beds-border); border-radius: var(--beds-radius-md); padding: 14px 16px; margin-bottom: 16px;">
+          <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--beds-charcoal-heading); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            <span>1. Compensation & Statutory Classification</span>
+            <span class="status-pill status-info" style="font-size: 9px;">LOCKED COMPLIANCE RULE</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px;">
+            <label style="display: flex; align-items: flex-start; gap: 10px; border: 2px solid var(--beds-teal-primary); padding: 12px 14px; border-radius: var(--beds-radius-md); cursor: pointer; background: var(--beds-bg-panel);">
+              <input type="radio" name="onbWageType" value="MONTHLY" checked onchange="toggleOnboardFields()" style="margin-top: 3px;">
+              <div>
+                <strong style="color: var(--beds-teal-primary); font-size: 13px;">Monthly Salaried Staff</strong>
+                <div style="font-size: 11px; color: var(--beds-text-secondary); margin-top: 2px;">
+                  Full Calendar Month (30d). <strong>Mandatory PF (12%) + ESIC (0.75%) + PT (₹200)</strong>.
+                </div>
+              </div>
+            </label>
+            <label style="display: flex; align-items: flex-start; gap: 10px; border: 2px solid #D97706; padding: 12px 14px; border-radius: var(--beds-radius-md); cursor: pointer; background: var(--beds-bg-panel);">
+              <input type="radio" name="onbWageType" value="DAILY_PAY" onchange="toggleOnboardFields()" style="margin-top: 3px;">
+              <div>
+                <strong style="color: #D97706; font-size: 13px;">Daily Pay Workforce (Casual / Daily Rated)</strong>
+                <div style="font-size: 11px; color: var(--beds-text-secondary); margin-top: 2px;">
+                  Payable on Present Days Worked. <strong>Statutory Exempt (Zero PF & Zero ESIC)</strong>.
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <!-- Dynamic Rate and Statutory Inputs -->
+          <div id="onbMonthlyRateWrap" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Monthly Gross CTC (₹)</label>
+              <input type="number" id="onbCtc" class="beds-input" placeholder="e.g. 55000" value="55000" oninput="updateMonthlyBreakdown()">
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">EPF UAN Number</label>
+              <input type="text" id="onbUan" class="beds-input" placeholder="12-digit UAN e.g. 101928374650">
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">ESIC IP Number</label>
+              <input type="text" id="onbEsicNo" class="beds-input" placeholder="10-digit IP e.g. 4129384756">
+            </div>
+          </div>
+
+          <div id="onbDailyRateWrap" style="display: none; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px; color: #D97706;">Daily Wage Rate (₹ / Day - 8h Shift)</label>
+              <input type="number" id="onbDailyRate" class="beds-input" placeholder="e.g. 950" value="950" oninput="updateDailyNotice()">
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Contractor / Deployment Agency</label>
+              <select id="onbContractorAgency" class="beds-select">
+                <option value="Balsons In-House Rigging Crew">Balsons In-House Rigging Crew</option>
+                <option value="Jupiter Site Approved Partner">Jupiter Site Approved Partner</option>
+                <option value="Prashant Heavy Lift Logistics">Prashant Heavy Lift Logistics</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Shift Overtime Calculation</label>
+              <div style="font-size: 11.5px; font-weight: 700; color: #D97706; padding: 7px 0;" id="onbOtFormulaText">
+                Double Hourly: ₹ 238 / hr
+              </div>
+            </div>
+          </div>
+
+          <div id="onbStatutoryNotice" style="margin-top: 10px; font-size: 11.5px; padding: 8px 12px; background: var(--beds-bg-panel); border-radius: 4px; border: 1px dashed var(--beds-border);">
+            <span id="onbNoticeText"><strong>Statutory Rule (Monthly):</strong> Mandatory PF (12% of Basic, max ₹1,800) + ESIC (0.75%) + Professional Tax (₹200) will be automatically computed and deducted each month.</span>
           </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
-          <div>
-            <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Assigned Site / Project</label>
-            <select id="onbProject" class="beds-select">
-              <option value="PRJ-JTRWF-SCHULER">Jupiter Tatravagonka (JTRWF Khordha)</option>
-              <option value="PRJ-PARADEEP-IO">IOCL Paradip Gantry Site</option>
-              <option value="PRJ-PUNE-HQ">Pune Registered Head Office</option>
-            </select>
+        <!-- SECTION 2: DETAILED PERSONAL INFORMATION -->
+        <div style="background: var(--beds-bg-page); border: 1px solid var(--beds-border); border-radius: var(--beds-radius-md); padding: 14px 16px; margin-bottom: 16px;">
+          <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--beds-charcoal-heading); margin-bottom: 10px;">
+            2. Detailed Personal Information
           </div>
-          <div>
-            <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Monthly Gross CTC (₹)</label>
-            <input type="number" id="onbCtc" class="beds-input" required placeholder="e.g. 45000">
+          <div style="display: grid; grid-template-columns: 1.5fr 1.5fr 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Full Legal Name <span style="color: var(--beds-alert-red);">*</span></label>
+              <input type="text" id="onbName" class="beds-input" required placeholder="e.g. Ramesh Kumar">
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Father's / Husband's Name</label>
+              <input type="text" id="onbFatherName" class="beds-input" placeholder="e.g. Dileshwar Kumar">
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Date of Birth (DOB) <span style="color: var(--beds-alert-red);">*</span></label>
+              <input type="date" id="onbDob" class="beds-input" required value="1992-05-14">
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Gender</label>
+              <select id="onbGender" class="beds-select">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1.2fr 1.2fr; gap: 12px; margin-bottom: 12px;">
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Blood Group <span style="color: var(--beds-alert-red);">*</span></label>
+              <select id="onbBloodGroup" class="beds-select">
+                <option value="B+">B+ (Positive)</option>
+                <option value="O+">O+ (Positive)</option>
+                <option value="A+">A+ (Positive)</option>
+                <option value="AB+">AB+ (Positive)</option>
+                <option value="B-">B- (Negative)</option>
+                <option value="O-">O- (Negative)</option>
+                <option value="A-">A- (Negative)</option>
+                <option value="AB-">AB- (Negative)</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Marital Status</label>
+              <select id="onbMaritalStatus" class="beds-select">
+                <option value="Married">Married</option>
+                <option value="Single">Single</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Mobile / WhatsApp <span style="color: var(--beds-alert-red);">*</span></label>
+              <input type="text" id="onbMobile" class="beds-input" required placeholder="e.g. 9861012345">
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Emergency Contact & Relation</label>
+              <input type="text" id="onbEmergency" class="beds-input" placeholder="e.g. Anita Kumar (Wife) - 9861099881">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Permanent Home Address</label>
+              <textarea id="onbAddress" class="beds-input" style="height: 48px; resize: none; font-size: 11px;" placeholder="Village, Post, Police Station, District, State, PIN"></textarea>
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Current Site Camp / Work Residence</label>
+              <textarea id="onbSiteCamp" class="beds-input" style="height: 48px; resize: none; font-size: 11px;" placeholder="e.g. JTRWF Khordha Labor Colony / Site Camp Bay-3"></textarea>
+            </div>
           </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
-          <div>
-            <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Mobile Number</label>
-            <input type="text" id="onbMobile" class="beds-input" required placeholder="e.g. 9861012345">
+        <!-- SECTION 3: PROFESSIONAL TRADE & BANK ALLOCATION -->
+        <div style="background: var(--beds-bg-page); border: 1px solid var(--beds-border); border-radius: var(--beds-radius-md); padding: 14px 16px; margin-bottom: 16px;">
+          <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--beds-charcoal-heading); margin-bottom: 10px;">
+            3. Professional Trade & Bank Allocation
           </div>
-          <div>
-            <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Joining Date</label>
-            <input type="date" id="onbDate" class="beds-input" required>
+          <div style="display: grid; grid-template-columns: 1.2fr 1.2fr 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Assigned Site / Project <span style="color: var(--beds-alert-red);">*</span></label>
+              <select id="onbProject" class="beds-select">
+                <option value="PRJ-JTRWF-SCHULER">Jupiter Tatravagonka (JTRWF Khordha)</option>
+                <option value="PRJ-PARADEEP-IO">IOCL Paradip Gantry Site</option>
+                <option value="PRJ-PUNE-HQ">Pune Registered Head Office</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Department</label>
+              <select id="onbDept" class="beds-select">
+                <option value="Heavy Lift & Rigging Operations">Heavy Lift & Rigging Operations</option>
+                <option value="Hydraulic Operations">Hydraulic Operations</option>
+                <option value="Mechanical Assembly & Erection">Mechanical Assembly & Erection</option>
+                <option value="Transport & Logistics">Transport & Logistics</option>
+                <option value="Safety & Quality">Safety & Quality</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Trade / Designation <span style="color: var(--beds-alert-red);">*</span></label>
+              <select id="onbTrade" class="beds-select">
+                <option value="Rigger Lead">Rigger Lead</option>
+                <option value="Rigging Helper">Rigging Helper</option>
+                <option value="Hydraulic Specialist">Hydraulic Specialist</option>
+                <option value="Crawler Crane Operator (150T)">Crawler Crane Operator (150T)</option>
+                <option value="Mechanical Assembly Fitter">Mechanical Assembly Fitter</option>
+                <option value="Heavy Puller Driver">Heavy Puller Driver</option>
+                <option value="Site Stores & Logistics">Site Stores & Logistics</option>
+                <option value="Certified Welder">Certified Welder</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Date of Joining (DOJ) <span style="color: var(--beds-alert-red);">*</span></label>
+              <input type="date" id="onbDate" class="beds-input" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 12px;">
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Bank Name</label>
+              <select id="onbBankName" class="beds-select">
+                <option value="State Bank of India">State Bank of India</option>
+                <option value="Punjab National Bank">Punjab National Bank</option>
+                <option value="Canara Bank">Canara Bank</option>
+                <option value="HDFC Bank">HDFC Bank</option>
+                <option value="ICICI Bank">ICICI Bank</option>
+                <option value="Bank of Baroda">Bank of Baroda</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Bank Account Number</label>
+              <input type="text" id="onbBankAcc" class="beds-input" placeholder="e.g. 392810482019" value="392810482019">
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">IFSC Code & Branch</label>
+              <input type="text" id="onbBankIfsc" class="beds-input" placeholder="e.g. SBIN0001234 (Khordha)" value="SBIN0001234">
+            </div>
           </div>
         </div>
 
-        <div style="display: flex; justify-content: flex-end; gap: 8px;">
+        <!-- SECTION 4: MANDATORY STATUTORY DOCUMENT UPLOADS -->
+        <div style="background: var(--beds-bg-page); border: 1.5px solid var(--beds-teal-primary); border-radius: var(--beds-radius-md); padding: 14px 16px; margin-bottom: 18px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--beds-charcoal-heading); display: flex; align-items: center; gap: 6px;">
+              <span>4. Mandatory Document Uploads & Identity Verification</span>
+              <span class="status-pill status-success" style="font-size: 9px;">STRICT AUDIT REQUIREMENT</span>
+            </div>
+            <div style="font-size: 11px; color: var(--beds-teal-primary); font-weight: 700;">
+              📎 All 5 Statutory Documents Required for Site Pass
+            </div>
+          </div>
+
+          <!-- Document Upload Grid -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
+            
+            <!-- DOC 1: PASSPORT PHOTO -->
+            <div style="background: var(--beds-bg-panel); border: 1px solid var(--beds-border); border-radius: var(--beds-radius-sm); padding: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <strong style="font-size: 11.5px; color: var(--beds-charcoal-heading);">📷 1. Employee Photo</strong>
+                <span class="status-pill status-info" id="badgePhoto">REQUIRED</span>
+              </div>
+              <div style="display: flex; gap: 12px; align-items: center;">
+                <div id="onbPhotoBox" style="width: 55px; height: 68px; border: 1.5px solid var(--beds-teal-primary); border-radius: 4px; overflow: hidden; background: #E2E8F0; display: flex; align-items: center; justify-content: center;">
+                  <img id="onbPhotoImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Preview" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div style="flex: 1;">
+                  <label class="btn btn-secondary btn-sm" style="display: inline-block; cursor: pointer; margin-bottom: 4px;">
+                    Choose Photo...
+                    <input type="file" id="onbPhotoFile" accept="image/*" style="display: none;" onchange="handlePhotoSelect(event)">
+                  </label>
+                  <div style="font-size: 10px; color: var(--beds-text-secondary);" id="photoStatusText">JPG/PNG portrait, max 2MB</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- DOC 2: PAN CARD -->
+            <div style="background: var(--beds-bg-panel); border: 1px solid var(--beds-border); border-radius: var(--beds-radius-sm); padding: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <strong style="font-size: 11.5px; color: var(--beds-charcoal-heading);">🪪 2. PAN Card</strong>
+                <span class="status-pill status-success" id="badgePan">VERIFIED ✓</span>
+              </div>
+              <input type="text" id="onbPanNo" class="beds-input" placeholder="PAN e.g. ABCDE1234F" value="ABCDE1234F" style="margin-bottom: 6px; font-family: monospace; font-weight: 700;">
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <label class="btn btn-secondary btn-sm" style="cursor: pointer;">
+                  Upload PAN Copy
+                  <input type="file" id="onbPanFile" accept=".pdf,.jpg,.png" style="display: none;" onchange="handleDocUpload('pan', event)">
+                </label>
+                <span style="font-size: 10.5px; color: #10B981; font-weight: 600;" id="textPanDoc">pan_verified.pdf (280 KB)</span>
+              </div>
+            </div>
+
+            <!-- DOC 3: AADHAAR CARD -->
+            <div style="background: var(--beds-bg-panel); border: 1px solid var(--beds-border); border-radius: var(--beds-radius-sm); padding: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <strong style="font-size: 11.5px; color: var(--beds-charcoal-heading);">🆔 3. Aadhaar Card</strong>
+                <span class="status-pill status-success" id="badgeAadhaar">VERIFIED ✓</span>
+              </div>
+              <input type="text" id="onbAadhaarNo" class="beds-input" placeholder="12-digit Aadhaar e.g. 4928 1192 8840" value="4928 1192 8840" style="margin-bottom: 6px; font-family: monospace; font-weight: 700;">
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <label class="btn btn-secondary btn-sm" style="cursor: pointer;">
+                  Upload Aadhaar
+                  <input type="file" id="onbAadhaarFile" accept=".pdf,.jpg,.png" style="display: none;" onchange="handleDocUpload('aadhaar', event)">
+                </label>
+                <span style="font-size: 10.5px; color: #10B981; font-weight: 600;" id="textAadhaarDoc">aadhaar_front_back.pdf (420 KB)</span>
+              </div>
+            </div>
+
+            <!-- DOC 4: POLICE VERIFICATION -->
+            <div style="background: var(--beds-bg-panel); border: 1px solid var(--beds-border); border-radius: var(--beds-radius-sm); padding: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <strong style="font-size: 11.5px; color: var(--beds-charcoal-heading);">👮 4. Police Verification</strong>
+                <span class="status-pill status-success" id="badgePolice">CLEARANCE OK ✓</span>
+              </div>
+              <input type="text" id="onbPoliceNo" class="beds-input" placeholder="Clearance Token / Ref e.g. POL-KHD-2026-9912" value="POL-KHD-2026-9912" style="margin-bottom: 6px; font-size: 11px;">
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <label class="btn btn-secondary btn-sm" style="cursor: pointer;">
+                  Upload Clearance
+                  <input type="file" id="onbPoliceFile" accept=".pdf,.jpg,.png" style="display: none;" onchange="handleDocUpload('police', event)">
+                </label>
+                <span style="font-size: 10.5px; color: #10B981; font-weight: 600;" id="textPoliceDoc">police_clearance_cert.pdf (510 KB)</span>
+              </div>
+            </div>
+
+            <!-- DOC 5: MEDICAL VERIFICATION -->
+            <div style="background: var(--beds-bg-panel); border: 1px solid var(--beds-border); border-radius: var(--beds-radius-sm); padding: 12px; grid-column: span 2;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <strong style="font-size: 11.5px; color: var(--beds-charcoal-heading);">🏥 5. Medical Fitness Verification (Form 31 / Height & Rigging Clearance)</strong>
+                <span class="status-pill status-success" id="badgeMedical">MEDICALLY FIT ✓</span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 6px;">
+                <select id="onbMedicalStatus" class="beds-select">
+                  <option value="FIT - Heavy Rigging & Height Operations">FIT - Heavy Rigging & Height Operations (Form 31)</option>
+                  <option value="FIT - General Site Assembly">FIT - General Site Assembly</option>
+                  <option value="FIT - Crane & Equipment Operating">FIT - Crane & Equipment Operating</option>
+                </select>
+                <input type="text" id="onbMedicalDoctor" class="beds-input" placeholder="Doctor / Clinic e.g. Dr. S. Mohapatra - Khordha Dist Hospital" value="Dr. S. Mohapatra - Khordha District Hospital">
+                <input type="date" id="onbMedicalDate" class="beds-input" value="2026-11-05">
+              </div>
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <label class="btn btn-secondary btn-sm" style="cursor: pointer;">
+                  Upload Medical Certificate
+                  <input type="file" id="onbMedicalFile" accept=".pdf,.jpg,.png" style="display: none;" onchange="handleDocUpload('medical', event)">
+                </label>
+                <span style="font-size: 10.5px; color: #10B981; font-weight: 600;" id="textMedicalDoc">medical_fitness_form31_certified.pdf (340 KB)</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- FORM ACTIONS -->
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--beds-border); padding-top: 14px;">
           <button type="button" class="btn btn-secondary" onclick="closeOnboardModal()">Cancel</button>
-          <button type="submit" class="btn btn-primary" style="font-weight: 700;">Save Employee Record</button>
+          <div style="display: flex; gap: 10px;">
+            <button type="submit" class="btn btn-secondary" style="font-weight: 700;">💾 Save Employee Record</button>
+            <button type="button" class="btn btn-primary" onclick="handleOnboardSubmit(event, true)" style="font-weight: 800; background: var(--beds-teal-primary);">
+              🪪 Save & Generate ID Card →
+            </button>
+          </div>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- 2. Official Employee ID Card Studio Modal -->
+  <div id="modalIdCard" class="modal-backdrop" style="display: none;">
+    <div class="modal-box" style="width: 860px; max-width: 95vw; max-height: 94vh; overflow-y: auto; padding: 22px;">
+      
+      <!-- Studio Header -->
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--beds-teal-primary); padding-bottom: 12px; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <img src="assets/images/balsons-logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/d/1HB7sGaQ4f2qq0NNzgBQrSpUe2DJWV4uh'" alt="BALSONS" style="height: 32px;">
+          <div>
+            <div class="modal-title" style="font-size: 17px; margin-bottom: 2px;">🪪 BALSONS Official Site Identity Card Studio</div>
+            <div style="font-size: 11.5px; color: var(--beds-text-secondary);">
+              CR80 Standard PVC Badge Generator • PRJ-JTRWF-SCHULER • Jupiter Tatravagonka Railwheel Factory
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button type="button" class="btn btn-primary btn-sm" onclick="printGateIdCard()" style="background: var(--beds-teal-primary); font-weight: 800;">🖨️ Print Gate Entry ID Card (CR80/A4)</button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="openEnrolmentFormModal(document.getElementById('idCardEmpSelect').value)">📄 View Full Enrolment Form</button>
+          <button type="button" class="btn btn-primary btn-sm" onclick="alert('Digital pass barcode & credentials downloaded to site pass folder.')">📥 Download Digital Pass</button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="closeIdCardModal()">✖</button>
+        </div>
+      </div>
+
+      <!-- Controls Toolbar -->
+      <div style="display: flex; justify-content: space-between; align-items: center; background: var(--beds-bg-page); border: 1px solid var(--beds-border); padding: 10px 14px; border-radius: var(--beds-radius-md); margin-bottom: 18px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <label style="font-size: 11px; font-weight: 800; text-transform: uppercase;">Select Worker / Staff:</label>
+          <select id="idCardEmpSelect" class="beds-select" style="min-width: 320px; font-size: 12px;" onchange="renderIdCard(this.value)">
+            <!-- Populated dynamically -->
+          </select>
+        </div>
+        <div style="display: flex; gap: 6px;">
+          <button class="btn btn-primary btn-sm" id="btnViewDual" onclick="setIdCardViewMode('dual')">Dual View (Front & Back)</button>
+          <button class="btn btn-secondary btn-sm" id="btnViewFront" onclick="setIdCardViewMode('front')">Front Face Only</button>
+          <button class="btn btn-secondary btn-sm" id="btnViewBack" onclick="setIdCardViewMode('back')">Back Face Only</button>
+        </div>
+      </div>
+
+      <!-- ID Card Canvas / Printable Container -->
+      <div id="printableIdCardContainer" class="id-card-wrapper">
+        
+        <!-- FRONT FACE OF ID BADGE -->
+        <div class="id-card-badge" id="idCardFrontFace">
+          <!-- Lanyard slot -->
+          <div class="punch-slot"></div>
+          
+          <!-- Card Header -->
+          <div class="id-card-header">
+            <div class="logo-row">
+              <img src="assets/images/balsons-logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/d/1HB7sGaQ4f2qq0NNzgBQrSpUe2DJWV4uh'" alt="BALSONS">
+              <div>
+                <div class="comp-title">BALSONS HEAVY LIFT & SHIFT</div>
+                <div class="sub-title">PRJ-JTRWF-SCHULER • JTRWF KHORDHA</div>
+              </div>
+            </div>
+          </div>
+          <!-- Gate Access Status Ribbon -->
+          <div style="background: #102D35; color: #FFFFFF; font-size: 8.5px; font-weight: 800; padding: 2px 0; letter-spacing: 0.5px; display: flex; justify-content: space-around; border-bottom: 1px solid #1E2D36;">
+            <span>GATE 1 & 2 ACCESS</span>
+            <span style="color: #10B981;">● IN / OUT AUTHORISED</span>
+            <span>MUSTER READY</span>
+          </div>
+          <div class="id-card-tagline" id="idCardTagline">
+            SITE ACCESS & RIGGING IDENTITY BADGE
+          </div>
+
+          <!-- Body -->
+          <div class="id-card-body">
+            <!-- Photo -->
+            <div class="id-photo-box">
+              <img id="idCardPhoto" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Worker Photo">
+              <div class="verified-ribbon">VERIFIED ✓</div>
+            </div>
+
+            <!-- Name and ID -->
+            <div class="id-card-name" id="idCardName">RAMESH KUMAR</div>
+            <div class="id-card-empid" id="idCardEmpId">EMP-2026-0001</div>
+            <div class="id-card-trade" id="idCardTrade">RIGGER LEAD</div>
+
+            <!-- Metadata Grid -->
+            <div class="id-card-meta-grid">
+              <div>
+                <div class="item-lbl">Department</div>
+                <div class="item-val" id="idCardDept">Heavy Lift & Rigging</div>
+              </div>
+              <div>
+                <div class="item-lbl">Blood Group</div>
+                <div class="item-val" style="color: #E64646;" id="idCardBlood">🩸 B+ (Positive)</div>
+              </div>
+              <div>
+                <div class="item-lbl">Wage Category</div>
+                <div class="item-val" id="idCardCategory">Monthly Salaried Staff</div>
+              </div>
+              <div>
+                <div class="item-lbl">Emergency No</div>
+                <div class="item-val" id="idCardEmergency">+91 98610 99881</div>
+              </div>
+              <div>
+                <div class="item-lbl">Project Worksite</div>
+                <div class="item-val">PRJ-JTRWF-SCHULER</div>
+              </div>
+              <div>
+                <div class="item-lbl">Validity</div>
+                <div class="item-val" style="color: #0097B2;">31-DEC-2026</div>
+              </div>
+            </div>
+
+            <!-- Footer: QR & Authorized Signatory -->
+            <div class="id-card-footer">
+              <div class="id-qr-box">
+                <!-- Clean Inline SVG QR code -->
+                <svg width="42" height="42" viewBox="0 0 29 29" shape-rendering="crispEdges">
+                  <path fill="#102D35" d="M0,0 h7 v7 h-7 z M1,1 h5 v5 h-5 z M2,2 h3 v3 h-3 z M8,0 h2 v1 h-2 z M11,0 h1 v1 h-1 z M13,0 h2 v2 h-2 z M16,0 h1 v2 h-1 z M18,0 h1 v1 h-1 z M22,0 h7 v7 h-7 z M23,1 h5 v5 h-5 z M24,2 h3 v3 h-3 z M8,2 h2 v2 h-2 z M11,2 h1 v1 h-1 z M18,2 h1 v1 h-1 z M19,2 h1 v2 h-1 z M8,4 h1 v2 h-1 z M10,4 h2 v1 h-2 z M13,4 h2 v2 h-2 z M16,4 h1 v1 h-1 z M18,4 h1 v1 h-1 z M20,4 h1 v1 h-1 z M0,8 h1 v1 h-1 z M2,8 h2 v1 h-2 z M5,8 h1 v1 h-1 z M8,8 h2 v1 h-2 z M11,8 h3 v1 h-3 z M16,8 h1 v2 h-1 z M18,8 h2 v2 h-2 z M22,8 h1 v1 h-1 z M24,8 h2 v1 h-2 z M27,8 h2 v1 h-2 z M0,10 h1 v2 h-1 z M2,10 h1 v1 h-1 z M4,10 h1 v1 h-1 z M7,10 h2 v1 h-2 z M10,10 h1 v1 h-1 z M12,10 h1 v1 h-1 z M14,10 h1 v2 h-1 z M21,10 h2 v1 h-2 z M24,10 h1 v1 h-1 z M26,10 h3 v1 h-3 z M1,12 h2 v1 h-2 z M4,12 h3 v1 h-3 z M8,12 h1 v2 h-1 z M10,12 h1 v1 h-1 z M12,12 h1 v1 h-1 z M16,12 h2 v1 h-2 z M19,12 h2 v1 h-2 z M22,12 h1 v1 h-1 z M24,12 h2 v1 h-2 z M27,12 h1 v1 h-1 z M0,14 h1 v1 h-1 z M2,14 h1 v1 h-1 z M4,14 h1 v1 h-1 z M6,14 h1 v1 h-1 z M11,14 h2 v1 h-2 z M15,14 h1 v1 h-1 z M17,14 h1 v1 h-1 z M20,14 h1 v1 h-1 z M23,14 h1 v2 h-1 z M26,14 h1 v1 h-1 z M28,14 h1 v1 h-1 z M0,16 h2 v2 h-2 z M3,16 h1 v1 h-1 z M5,16 h2 v1 h-2 z M8,16 h2 v1 h-2 z M11,16 h1 v2 h-1 z M13,16 h2 v1 h-2 z M16,16 h1 v1 h-1 z M18,16 h2 v1 h-2 z M21,16 h1 v1 h-1 z M25,16 h1 v1 h-1 z M27,16 h2 v1 h-2 z M2,18 h2 v1 h-2 z M5,18 h1 v1 h-1 z M7,18 h1 v2 h-1 z M9,18 h2 v1 h-2 z M14,18 h2 v1 h-2 z M17,18 h1 v1 h-1 z M19,18 h1 v1 h-1 z M22,18 h2 v1 h-2 z M25,18 h1 v1 h-1 z M28,18 h1 v1 h-1 z M0,22 h7 v7 h-7 z M1,23 h5 v5 h-5 z M2,24 h3 v3 h-3 z M8,22 h1 v1 h-1 z M10,22 h1 v1 h-1 z M12,22 h2 v2 h-2 z M15,22 h1 v1 h-1 z M17,22 h1 v1 h-1 z M19,22 h1 v1 h-1 z M21,22 h1 v1 h-1 z M24,22 h1 v1 h-1 z M26,22 h2 v1 h-2 z M8,24 h2 v1 h-2 z M11,24 h1 v1 h-1 z M16,24 h1 v1 h-1 z M18,24 h2 v1 h-2 z M21,24 h1 v1 h-1 z M23,24 h1 v1 h-1 z M25,24 h1 v1 h-1 z M27,24 h2 v1 h-2 z M8,26 h1 v2 h-1 z M10,26 h2 v1 h-2 z M13,26 h1 v1 h-1 z M15,26 h3 v1 h-3 z M19,26 h1 v1 h-1 z M21,26 h1 v1 h-1 z M23,26 h2 v1 h-2 z M26,26 h1 v1 h-1 z M28,26 h1 v1 h-1 z"/>
+                </svg>
+              </div>
+              <div class="id-sign-box">
+                <div style="font-weight: 700; color: #102D35;">BALSONS HEAVY LIFT</div>
+                <div class="sig-line">AUTHORISED SIGNATORY</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BACK FACE OF ID BADGE -->
+        <div class="id-card-badge" id="idCardBackFace">
+          <!-- Lanyard slot -->
+          <div class="punch-slot"></div>
+          
+          <!-- Card Header -->
+          <div class="id-card-header" style="padding: 8px 12px;">
+            <div style="font-size: 11px; font-weight: 900; letter-spacing: 0.3px;">SITE ACCESS & EMERGENCY INSTRUCTIONS</div>
+            <div style="font-size: 8.5px; color: #94A3B8;">BALSONS HEAVY LIFT & SHIFT • PRJ-JTRWF-SCHULER</div>
+          </div>
+
+          <div class="id-card-back-body">
+            <!-- Section: Emergency Site Hotlines -->
+            <div class="id-back-section">
+              <div class="id-back-title">🚨 Site Emergency Hotlines</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; font-size: 9px;">
+                <div><strong>Site Safety Officer:</strong> <span style="font-family: monospace;">+91 9527399199</span></div>
+                <div><strong>JTRWF Main Gate:</strong> <span style="font-family: monospace;">+91 9860099326</span></div>
+                <div><strong>Site HR Desk:</strong> <span style="font-family: monospace;">+91 9437144520</span></div>
+                <div><strong>First Aid Dispensary:</strong> Bay-3 Station</div>
+              </div>
+            </div>
+
+            <!-- Section: Verified HSE & Statutory Credentials -->
+            <div class="id-back-section">
+              <div class="id-back-title">🛡️ Verified Gate & Safety Credentials</div>
+              <div class="id-back-badge-row">
+                <span class="id-clearance-pill">HSE Inducted ✓</span>
+                <span class="id-clearance-pill">Height Certified ✓</span>
+                <span class="id-clearance-pill">PPE Inspected ✓</span>
+                <span class="id-clearance-pill">Medical Form 31 ✓</span>
+                <span class="id-clearance-pill">Police Verified ✓</span>
+              </div>
+              <div style="margin-top: 6px; font-size: 9px; line-height: 1.4;">
+                <div><strong>Aadhaar UID:</strong> <span style="font-family: monospace;" id="idBackAadhaar">XXXX-XXXX-8840</span> (Biometric Verified)</div>
+                <div><strong>PAN Ref:</strong> <span style="font-family: monospace;" id="idBackPan">ABCDE1234F</span></div>
+                <div><strong>Police Ref:</strong> <span style="font-family: monospace;" id="idBackPolice">POL-KHD-2026-9912</span></div>
+              </div>
+            </div>
+
+            <!-- Section: Permanent Address -->
+            <div class="id-back-section">
+              <div class="id-back-title">🏠 Permanent Residence Address</div>
+              <div style="font-size: 9px; line-height: 1.3; color: #475569;" id="idBackAddress">
+                At/Po: Haldiapada, Khordha Tahasil, District Khordha, Odisha - 752056
+              </div>
+            </div>
+
+            <!-- Section: Card Rules & Governance -->
+            <div style="font-size: 8.5px; color: #64748B; line-height: 1.35; margin-top: auto; padding-top: 6px; border-top: 1px solid #E2E8F0;">
+              <strong>Terms of Use:</strong> This pass is the exclusive property of BALSONS HEAVY LIFT & SHIFT and must be visibly displayed at all times within the Jupiter Tatravagonka Railwheel Factory complex. Loss or damage must be reported immediately. If found, hand over to Site Security Gate 1.
+              <div style="margin-top: 6px; text-align: center; font-size: 8px; color: #94A3B8;">
+                Regd Off: Shop 4, Creative Paradise, Chinchwad, Pune - 411019 • www.balsonsheavylift.com
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  
+  <!-- 3. Official Full Filled Employee Enrolment Dossier / Form Modal -->
+  <div id="modalPrintEnrolmentForm" class="modal-backdrop" style="display: none;">
+    <div class="modal-box" style="width: 880px; max-width: 96vw; max-height: 94vh; overflow-y: auto; padding: 20px;">
+      
+      <!-- Modal Toolbar -->
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--beds-teal-primary); padding-bottom: 12px; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <img src="assets/images/balsons-logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/d/1HB7sGaQ4f2qq0NNzgBQrSpUe2DJWV4uh'" alt="BALSONS" style="height: 30px;">
+          <div>
+            <div class="modal-title" style="font-size: 16px; margin-bottom: 2px;">📄 BALSONS Employee Master Enrolment & Compliance Dossier</div>
+            <div style="font-size: 11px; color: var(--beds-text-secondary);">
+              Statutory Site Enrolment Form • Jupiter Tatravagonka Railwheel Factory (PRJ-JTRWF-SCHULER)
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button type="button" class="btn btn-primary btn-sm" onclick="printEnrolmentForm()" style="background: var(--beds-teal-primary); font-weight: 800;">
+            🖨️ Print Full Enrolment Form (A4)
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="closeEnrolmentFormModal()">✖</button>
+        </div>
+      </div>
+
+      <!-- Employee Switcher -->
+      <div style="display: flex; justify-content: space-between; align-items: center; background: var(--beds-bg-page); border: 1px solid var(--beds-border); padding: 8px 14px; border-radius: var(--beds-radius-md); margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <label style="font-size: 11px; font-weight: 800; text-transform: uppercase;">Select Personnel Dossier:</label>
+          <select id="enrolEmpSelect" class="beds-select" style="min-width: 320px; font-size: 12px;" onchange="renderEnrolmentForm(this.value)">
+            <!-- Populated dynamically -->
+          </select>
+        </div>
+        <span class="status-pill status-success" style="font-size: 10px;">A4 CALIBRATED SINGLE-PAGE PRINT</span>
+      </div>
+
+      <!-- Printable A4 Form Container -->
+      <div id="printableEnrolmentFormWrapper" style="display: flex; justify-content: center;">
+        
+        <div id="printableEnrolmentDossier" style="width: 794px; background: #FFFFFF; color: #102D35; border: 1.5px solid #102D35; padding: 18px 22px; box-sizing: border-box; font-family: var(--beds-font-family); font-size: 10.5px; position: relative;">
+          
+          <!-- Company Letterhead Header -->
+          <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 12px; border-bottom: 2px solid #E64646; padding-bottom: 8px; margin-bottom: 8px;">
+            <!-- Left: Specializations -->
+            <div style="font-size: 7.5px; color: #52636B; line-height: 1.35;">
+              <strong style="color: #102D35; font-size: 8px; text-transform: uppercase;">Specialized in...</strong><br>
+              • Heavy Cargo Lifters, Movers & Erectors<br>
+              • Loading, Unloading, Internal Shifting of Cargo<br>
+              • Dismantling, Erection, Assembly & Commissioning<br>
+              • Plant Relocation on Turnkey Basis<br>
+              • Project Logistics, Project Engineering<br>
+              • Heavy Crane & Gantry Supplier<br>
+              <span style="font-size: 7px; color: #64748B;">Automobile, Forging, Stamping, Petrochemical, Ports, Steel, Railways, Power, Off-Shore Services, Civil Sectors.</span>
+            </div>
+
+            <!-- Right: BALSONS Header -->
+            <div style="text-align: right;">
+              <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin-bottom: 2px;">
+                <img src="assets/images/balsons-logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/d/1HB7sGaQ4f2qq0NNzgBQrSpUe2DJWV4uh'" alt="BALSONS Logo" style="height: 32px; object-fit: contain;">
+                <div style="text-align: right;">
+                  <div style="font-size: 14px; font-weight: 900; color: #102D35; letter-spacing: -0.2px;">BALSONS</div>
+                  <div style="font-size: 8.5px; font-weight: 800; color: #E64646; letter-spacing: 0.5px;">HEAVY LIFT & SHIFT</div>
+                </div>
+              </div>
+              <div style="font-size: 7.5px; color: #52636B; line-height: 1.25;">
+                Regd. Off: Shop no. 4, Creative Paradise, Chinchwad Pune Maharashtra India 411019<br>
+                Ph: +91 9860099326 / +91 9527399199 • Email: info@balsonsheavylift.com<br>
+                Website: www.balsonsheavylift.com • <strong>GSTIN: 27AOZPM9947H2ZS</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ref & Meta Row -->
+          <div style="display: flex; justify-content: space-between; font-size: 8.5px; font-weight: 700; color: #102D35; border-bottom: 1px solid #102D35; padding-bottom: 4px; margin-bottom: 8px;">
+            <div>Ref: <span style="font-family: monospace;" id="dossierRef">BHLS/HR/ENROL/2026/0001</span></div>
+            <div>Site: <strong style="color: #0097B2;">Jupiter Tatravagonka Railwheel Factory (JTRWF Khordha)</strong></div>
+            <div>Enrolment Date: <span id="dossierDate">10/04/2025</span></div>
+          </div>
+
+          <!-- Document Title Banner -->
+          <div style="background: #102D35; color: #FFFFFF; text-align: center; padding: 4px 0; margin-bottom: 10px;">
+            <div style="font-size: 11px; font-weight: 900; letter-spacing: 0.5px;">EMPLOYEE ENROLMENT & STATUTORY COMPLIANCE DOSSIER</div>
+            <div style="font-size: 7.5px; color: #94A3B8; letter-spacing: 0.3px;">SITE WORKFORCE ACCESS & LABOR WELFARE MASTER RECORD</div>
+          </div>
+
+          <!-- 1. PERSONAL INFORMATION & PHOTO SECTION -->
+          <div style="display: grid; grid-template-columns: 1fr 105px; gap: 12px; margin-bottom: 8px;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 9px;">
+              <tr>
+                <td style="padding: 2.5px 6px; font-weight: 700; width: 140px; border: 1px solid #CBD5E1; background: #F8FAFC;">Full Legal Name:</td>
+                <td style="padding: 2.5px 6px; font-weight: 800; border: 1px solid #CBD5E1;" id="dossierName">RAMESH KUMAR</td>
+                <td style="padding: 2.5px 6px; font-weight: 700; width: 110px; border: 1px solid #CBD5E1; background: #F8FAFC;">Employee ID:</td>
+                <td style="padding: 2.5px 6px; font-weight: 800; font-family: monospace; border: 1px solid #CBD5E1; color: #0097B2;" id="dossierEmpId">EMP-2026-0001</td>
+              </tr>
+              <tr>
+                <td style="padding: 2.5px 6px; font-weight: 700; border: 1px solid #CBD5E1; background: #F8FAFC;">Father's / Husband's:</td>
+                <td style="padding: 2.5px 6px; border: 1px solid #CBD5E1;" id="dossierFather">Dileshwar Kumar</td>
+                <td style="padding: 2.5px 6px; font-weight: 700; border: 1px solid #CBD5E1; background: #F8FAFC;">Date of Birth (DOB):</td>
+                <td style="padding: 2.5px 6px; border: 1px solid #CBD5E1;" id="dossierDob">14/08/1989</td>
+              </tr>
+              <tr>
+                <td style="padding: 2.5px 6px; font-weight: 700; border: 1px solid #CBD5E1; background: #F8FAFC;">Gender & Marital:</td>
+                <td style="padding: 2.5px 6px; border: 1px solid #CBD5E1;" id="dossierGenderMarital">Male • Married</td>
+                <td style="padding: 2.5px 6px; font-weight: 700; border: 1px solid #CBD5E1; background: #F8FAFC;">Blood Group:</td>
+                <td style="padding: 2.5px 6px; font-weight: 800; color: #E64646; border: 1px solid #CBD5E1;" id="dossierBlood">🩸 B+ (Positive)</td>
+              </tr>
+              <tr>
+                <td style="padding: 2.5px 6px; font-weight: 700; border: 1px solid #CBD5E1; background: #F8FAFC;">Primary Mobile:</td>
+                <td style="padding: 2.5px 6px; font-family: monospace; border: 1px solid #CBD5E1;" id="dossierMobile">+91 98610 88721</td>
+                <td style="padding: 2.5px 6px; font-weight: 700; border: 1px solid #CBD5E1; background: #F8FAFC;">Emergency Contact:</td>
+                <td style="padding: 2.5px 6px; font-size: 8.5px; border: 1px solid #CBD5E1;" id="dossierEmergency">Anita Kumar (Wife) - 9861099881</td>
+              </tr>
+            </table>
+
+            <!-- Photo Box -->
+            <div style="border: 1.5px solid #102D35; border-radius: 4px; overflow: hidden; height: 110px; text-align: center; background: #F8FAFC; position: relative;">
+              <img id="dossierPhoto" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" style="width: 100%; height: 90px; object-fit: cover;">
+              <div style="font-size: 7.5px; font-weight: 800; background: #10B981; color: #FFFFFF; padding: 1.5px 0;">VERIFIED PHOTO ✓</div>
+            </div>
+          </div>
+
+          <!-- 2. RESIDENTIAL ADDRESSES -->
+          <div style="margin-bottom: 8px;">
+            <div style="font-size: 9px; font-weight: 800; background: #F1F5F9; border: 1px solid #CBD5E1; padding: 2px 6px; text-transform: uppercase;">
+              2. Residential & Site Camp Address
+            </div>
+            <table style="width: 100%; border-collapse: collapse; font-size: 8.5px;">
+              <tr>
+                <td style="padding: 3px 6px; font-weight: 700; width: 140px; border: 1px solid #CBD5E1; background: #F8FAFC;">Permanent Address:</td>
+                <td style="padding: 3px 6px; border: 1px solid #CBD5E1;" id="dossierAddress">At/Po: Haldiapada, Khordha Tahasil, District Khordha, Odisha - 752056</td>
+              </tr>
+              <tr>
+                <td style="padding: 3px 6px; font-weight: 700; border: 1px solid #CBD5E1; background: #F8FAFC;">Current Site Camp:</td>
+                <td style="padding: 3px 6px; border: 1px solid #CBD5E1;" id="dossierSiteCamp">JTRWF Site Colony, Quarter B-14, Khordha</td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- 3. TRADE, DEPLOYMENT & STATUTORY WAGES -->
+          <div style="margin-bottom: 8px;">
+            <div style="font-size: 9px; font-weight: 800; background: #F1F5F9; border: 1px solid #CBD5E1; padding: 2px 6px; text-transform: uppercase;">
+              3. Professional Trade & Statutory Compensation Structure
+            </div>
+            <table style="width: 100%; border-collapse: collapse; font-size: 8.5px;">
+              <tr>
+                <td style="padding: 2.5px 6px; font-weight: 700; width: 140px; border: 1px solid #CBD5E1; background: #F8FAFC;">Assigned Project:</td>
+                <td style="padding: 2.5px 6px; font-weight: 700; color: #0097B2; border: 1px solid #CBD5E1;">PRJ-JTRWF-SCHULER (Jupiter Tatravagonka Railwheel Factory)</td>
+                <td style="padding: 2.5px 6px; font-weight: 700; width: 110px; border: 1px solid #CBD5E1; background: #F8FAFC;">Joining Date:</td>
+                <td style="padding: 2.5px 6px; border: 1px solid #CBD5E1;" id="dossierJoining">10/04/2025</td>
+              </tr>
+              <tr>
+                <td style="padding: 2.5px 6px; font-weight: 700; border: 1px solid #CBD5E1; background: #F8FAFC;">Department & Trade:</td>
+                <td style="padding: 2.5px 6px; font-weight: 800; border: 1px solid #CBD5E1;" id="dossierDeptTrade">Heavy Lift & Rigging Operations • Rigger Lead</td>
+                <td style="padding: 2.5px 6px; font-weight: 700; border: 1px solid #CBD5E1; background: #F8FAFC;">Wage Category:</td>
+                <td style="padding: 2.5px 6px; font-weight: 800; border: 1px solid #CBD5E1;" id="dossierWageCat">Monthly Salaried Staff</td>
+              </tr>
+              <tr>
+                <td style="padding: 2.5px 6px; font-weight: 700; border: 1px solid #CBD5E1; background: #F8FAFC;">Compensation Basis:</td>
+                <td style="padding: 2.5px 6px; font-weight: 800; border: 1px solid #CBD5E1;" id="dossierCompBasis">₹ 55,000 / month (Basic: ₹27,500, HRA: ₹13,750, Allow: ₹13,750)</td>
+                <td style="padding: 2.5px 6px; font-weight: 700; border: 1px solid #CBD5E1; background: #F8FAFC;">Statutory PF & ESIC:</td>
+                <td style="padding: 2.5px 6px; border: 1px solid #CBD5E1;" id="dossierStatutory">PF: 12% Covered (₹1,800) • ESIC: 0.75% Covered (₹158) • PT: ₹200</td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- 4. BANK ACCOUNT DETAILS -->
+          <div style="margin-bottom: 8px;">
+            <div style="font-size: 9px; font-weight: 800; background: #F1F5F9; border: 1px solid #CBD5E1; padding: 2px 6px; text-transform: uppercase;">
+              4. Bank Account Details (Direct Wage Disbursal)
+            </div>
+            <table style="width: 100%; border-collapse: collapse; font-size: 8.5px;">
+              <tr>
+                <td style="padding: 2.5px 6px; font-weight: 700; width: 140px; border: 1px solid #CBD5E1; background: #F8FAFC;">Bank Name:</td>
+                <td style="padding: 2.5px 6px; border: 1px solid #CBD5E1;">State Bank of India</td>
+                <td style="padding: 2.5px 6px; font-weight: 700; width: 110px; border: 1px solid #CBD5E1; background: #F8FAFC;">Account Number:</td>
+                <td style="padding: 2.5px 6px; font-family: monospace; font-weight: 700; border: 1px solid #CBD5E1;" id="dossierBankAcc">392810484092</td>
+                <td style="padding: 2.5px 6px; font-weight: 700; width: 80px; border: 1px solid #CBD5E1; background: #F8FAFC;">IFSC Code:</td>
+                <td style="padding: 2.5px 6px; font-family: monospace; border: 1px solid #CBD5E1;">SBIN0001234</td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- 5. VERIFIED STATUTORY DOCUMENTS & CLEARANCES -->
+          <div style="margin-bottom: 10px;">
+            <div style="font-size: 9px; font-weight: 800; background: #F1F5F9; border: 1px solid #CBD5E1; padding: 2px 6px; text-transform: uppercase;">
+              5. Mandatory Statutory Document Uploads & Physical Clearances
+            </div>
+            <table style="width: 100%; border-collapse: collapse; font-size: 8px;">
+              <thead style="background: #E2E8F0; text-align: left;">
+                <tr>
+                  <th style="padding: 3px 6px; border: 1px solid #CBD5E1;">Document Type</th>
+                  <th style="padding: 3px 6px; border: 1px solid #CBD5E1;">Registration / Certificate No.</th>
+                  <th style="padding: 3px 6px; border: 1px solid #CBD5E1;">Compliance Status</th>
+                  <th style="padding: 3px 6px; border: 1px solid #CBD5E1;">Issuing / Authenticating Authority</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 2.5px 6px; font-weight: 700; border: 1px solid #CBD5E1;">1. PAN Card Copy</td>
+                  <td style="padding: 2.5px 6px; font-family: monospace; font-weight: 700; border: 1px solid #CBD5E1;" id="dossierPan">ABCDE1234F</td>
+                  <td style="padding: 2.5px 6px; color: #10B981; font-weight: 800; border: 1px solid #CBD5E1;">VERIFIED ATTACHMENT ✓</td>
+                  <td style="padding: 2.5px 6px; border: 1px solid #CBD5E1;">Income Tax Department / NSDL</td>
+                </tr>
+                <tr>
+                  <td style="padding: 2.5px 6px; font-weight: 700; border: 1px solid #CBD5E1;">2. Aadhaar Card Copy</td>
+                  <td style="padding: 2.5px 6px; font-family: monospace; font-weight: 700; border: 1px solid #CBD5E1;" id="dossierAadhaar">4928 1192 8840</td>
+                  <td style="padding: 2.5px 6px; color: #10B981; font-weight: 800; border: 1px solid #CBD5E1;">VERIFIED ATTACHMENT ✓</td>
+                  <td style="padding: 2.5px 6px; border: 1px solid #CBD5E1;">UIDAI Biometric Enrolment</td>
+                </tr>
+                <tr>
+                  <td style="padding: 2.5px 6px; font-weight: 700; border: 1px solid #CBD5E1;">3. Police Verification</td>
+                  <td style="padding: 2.5px 6px; font-family: monospace; border: 1px solid #CBD5E1;" id="dossierPolice">POL-KHD-2026-9912</td>
+                  <td style="padding: 2.5px 6px; color: #10B981; font-weight: 800; border: 1px solid #CBD5E1;">CLEARANCE RECORDED ✓</td>
+                  <td style="padding: 2.5px 6px; border: 1px solid #CBD5E1;">Khordha Sadar Police Station, Odisha</td>
+                </tr>
+                <tr>
+                  <td style="padding: 2.5px 6px; font-weight: 700; border: 1px solid #CBD5E1;">4. Medical Fitness Form 31</td>
+                  <td style="padding: 2.5px 6px; border: 1px solid #CBD5E1;">FIT - Heavy Rigging & Height Work</td>
+                  <td style="padding: 2.5px 6px; color: #10B981; font-weight: 800; border: 1px solid #CBD5E1;">CERTIFIED FIT ✓</td>
+                  <td style="padding: 2.5px 6px; border: 1px solid #CBD5E1;">Dr. S. Mohapatra (Khordha Dist Hospital)</td>
+                </tr>
+                <tr>
+                  <td style="padding: 2.5px 6px; font-weight: 700; border: 1px solid #CBD5E1;">5. Passport Photo</td>
+                  <td style="padding: 2.5px 6px; border: 1px solid #CBD5E1;">Color Portrait 3:4</td>
+                  <td style="padding: 2.5px 6px; color: #10B981; font-weight: 800; border: 1px solid #CBD5E1;">AUTHENTICATED ✓</td>
+                  <td style="padding: 2.5px 6px; border: 1px solid #CBD5E1;">Site Security & HR Biometric Unit</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 6. WORKER UNDERTAKING & SIGNATURES -->
+          <div style="font-size: 7.5px; color: #52636B; line-height: 1.35; margin-bottom: 12px; border: 1px dashed #CBD5E1; padding: 4px 6px; background: #F8FAFC;">
+            <strong>Statutory Declaration & Undertaking:</strong> I hereby declare that all particulars stated above are true and complete. I confirm that original certificates of PAN, Aadhaar, Police Clearance, and Medical Fitness were produced for physical verification. I agree to comply with all site safety rules and display my Site Access ID Card at all times during PRJ-JTRWF-SCHULER operations.
+          </div>
+
+          <!-- Signature Blocks (3 Columns) -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; text-align: center; margin-top: 10px; padding-top: 6px;">
+            <div>
+              <div style="height: 24px;"></div>
+              <div style="border-top: 1px dashed #102D35; padding-top: 3px; font-size: 8px; font-weight: 800;" id="dossierSigWorker">RAMESH KUMAR</div>
+              <div style="font-size: 7px; color: #64748B;">Signature of Employee / Worker</div>
+            </div>
+            <div>
+              <div style="height: 24px;"></div>
+              <div style="border-top: 1px dashed #102D35; padding-top: 3px; font-size: 8px; font-weight: 800;">PRIYANKA SENAPATI</div>
+              <div style="font-size: 7px; color: #64748B;">Site HR Officer (JTRWF Khordha)</div>
+            </div>
+            <div>
+              <div style="height: 24px;"></div>
+              <div style="border-top: 1px dashed #102D35; padding-top: 3px; font-size: 8px; font-weight: 800;">BALSONS HEAVY LIFT & SHIFT</div>
+              <div style="font-size: 7px; color: #E64646; font-weight: 800;">AUTHORISED SIGNATORY</div>
+            </div>
+          </div>
+
+          <!-- Footer Motto & Page info -->
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #102D35; padding-top: 4px; margin-top: 10px; font-size: 7.5px; color: #64748B;">
+            <div>Page 1 of 1</div>
+            <div style="font-style: italic; color: #0097B2; font-weight: 700;">Difficult we do easily impossible takes little time...!</div>
+            <div>Confidential • BALSONS Site HR Registry</div>
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
   </div>
 
@@ -703,42 +1837,127 @@
   <script src="assets/js/api-client.js"></script>
   <script src="assets/js/auth.js"></script>
   <script>
-    // ─── LOCAL STATE & MOCK SEEDS ───
+    // ─── EMPLOYEES DATA (DUAL CLASSIFICATION: MONTHLY vs DAILY PAY) ───
     let employeesData = [
-      { empId: 'EMP-2026-0001', name: 'Ramesh Kumar', trade: 'Rigger Lead', project: 'PRJ-JTRWF-SCHULER', ctc: 55000, basic: 27500, hra: 13750, allow: 13750, joining: '2025-04-10', status: 'ACTIVE' },
-      { empId: 'EMP-2026-0002', name: 'Sunil Swain', trade: 'Hydraulic Specialist', project: 'PRJ-JTRWF-SCHULER', ctc: 48000, basic: 24000, hra: 12000, allow: 12000, joining: '2025-06-15', status: 'ACTIVE' },
-      { empId: 'EMP-2026-0003', name: 'Ajay Verma', trade: 'Mechanical Fitter', project: 'PRJ-JTRWF-SCHULER', ctc: 42000, basic: 21000, hra: 10500, allow: 10500, joining: '2025-08-01', status: 'ACTIVE' },
-      { empId: 'EMP-2026-0004', name: 'Dharmendra Pradhan', trade: 'Crane Operator (150T)', project: 'PRJ-JTRWF-SCHULER', ctc: 65000, basic: 32500, hra: 16250, allow: 16250, joining: '2024-11-20', status: 'ACTIVE' },
-      { empId: 'EMP-2026-0005', name: 'Manoj Mohanty', trade: 'Project Engineer', project: 'PRJ-PARADEEP-IO', ctc: 75000, basic: 37500, hra: 18750, allow: 18750, joining: '2024-02-10', status: 'ACTIVE' }
+      // 1. MONTHLY BASIS (WITH PF & ESIC)
+      { 
+        empId: 'EMP-2026-0001', name: 'Ramesh Kumar', wageType: 'MONTHLY', trade: 'Rigger Lead', dept: 'Heavy Lift & Rigging Operations', project: 'PRJ-JTRWF-SCHULER', 
+        ctc: 55000, basic: 27500, hra: 13750, allow: 13750, dailyRate: 0, pfApplicable: true, esicApplicable: true, 
+        father: 'Dileshwar Kumar', dob: '1989-08-14', gender: 'Male', bloodGroup: 'B+', marital: 'Married', mobile: '+91 98610 88721', emergency: 'Anita Kumar (Wife) - 9861099881',
+        address: 'At/Po: Haldiapada, Khordha Tahasil, District Khordha, Odisha - 752056', siteCamp: 'JTRWF Site Colony, Quarter B-14',
+        pan: 'ABCDE1234F', aadhaar: '4928 1192 8840', police: 'POL-KHD-2026-9912', medical: 'FIT - Heavy Rigging & Height (Form 31)',
+        photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+        bankEnding: '4092', joining: '2025-04-10', status: 'ACTIVE' 
+      },
+      { 
+        empId: 'EMP-2026-0002', name: 'Sunil Swain', wageType: 'MONTHLY', trade: 'Hydraulic Specialist', dept: 'Hydraulic Operations', project: 'PRJ-JTRWF-SCHULER', 
+        ctc: 48000, basic: 24000, hra: 12000, allow: 12000, dailyRate: 0, pfApplicable: true, esicApplicable: true, 
+        father: 'Banshidhar Swain', dob: '1991-03-22', gender: 'Male', bloodGroup: 'O+', marital: 'Married', mobile: '+91 94371 44520', emergency: 'Mamata Swain (Wife) - 9437188201',
+        address: 'At: Jatni Town, Near Gate 2, Dist: Khordha, Odisha - 752050', siteCamp: 'JTRWF Site Colony, Barrack 2',
+        pan: 'BSPSN8821K', aadhaar: '8820 4410 1192', police: 'POL-JAT-2026-4402', medical: 'FIT - Hydraulic & Heavy Equipment (Form 31)',
+        photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
+        bankEnding: '1182', joining: '2025-06-15', status: 'ACTIVE' 
+      },
+      { 
+        empId: 'EMP-2026-0004', name: 'Dharmendra Pradhan', wageType: 'MONTHLY', trade: 'Crawler Crane Operator (150T)', dept: 'Heavy Lift & Rigging Operations', project: 'PRJ-JTRWF-SCHULER', 
+        ctc: 65000, basic: 32500, hra: 16250, allow: 16250, dailyRate: 0, pfApplicable: true, esicApplicable: true, 
+        father: 'Gagan Bihari Pradhan', dob: '1987-11-05', gender: 'Male', bloodGroup: 'A+', marital: 'Married', mobile: '+91 98612 00192', emergency: 'Pravati Pradhan (Wife) - 9861299102',
+        address: 'Village: Daleiput, Po: Mukundaprasad, Dist: Khordha - 752055', siteCamp: 'JTRWF Site Colony, Quarter C-08',
+        pan: 'DPKPR7719B', aadhaar: '3310 9928 4401', police: 'POL-KHD-2026-1182', medical: 'FIT - Heavy Crane Operating & Vision 6/6',
+        photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80',
+        bankEnding: '9840', joining: '2024-11-20', status: 'ACTIVE' 
+      },
+      { 
+        empId: 'EMP-2026-0005', name: 'Manoj Mohanty', wageType: 'MONTHLY', trade: 'Project Engineer', dept: 'Heavy Lift & Rigging Operations', project: 'PRJ-PARADEEP-IO', 
+        ctc: 75000, basic: 37500, hra: 18750, allow: 18750, dailyRate: 0, pfApplicable: true, esicApplicable: true, 
+        father: 'Rabindra Mohanty', dob: '1986-06-12', gender: 'Male', bloodGroup: 'AB+', marital: 'Married', mobile: '+91 99370 12890', emergency: 'Swagatika Mohanty (Wife) - 9937099120',
+        address: 'Plot 412, Saheed Nagar, Bhubaneswar, Odisha - 751007', siteCamp: 'IOCL Paradip Officers Guest House',
+        pan: 'MMNMO9901Z', aadhaar: '5520 1192 7740', police: 'POL-BBSR-2026-3391', medical: 'FIT - Site Engineering & Field Inspection',
+        photo: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=200&q=80',
+        bankEnding: '3312', joining: '2024-02-10', status: 'ACTIVE' 
+      },
+
+      // 2. DAILY PAY EMPLOYEES (WITHOUT PF, WITHOUT ESIC)
+      { 
+        empId: 'EMP-2026-0003', name: 'Ajay Verma', wageType: 'DAILY_PAY', trade: 'Mechanical Assembly Fitter', dept: 'Mechanical Assembly & Erection', project: 'PRJ-JTRWF-SCHULER', 
+        ctc: 0, basic: 0, hra: 0, allow: 0, dailyRate: 1400, pfApplicable: false, esicApplicable: false, 
+        father: 'Surendra Verma', dob: '1994-09-15', gender: 'Male', bloodGroup: 'O+', marital: 'Single', mobile: '+91 98611 77210', emergency: 'Ramesh Verma (Brother) - 9861199012',
+        address: 'At/Po: Haldiapada, Near Shiva Temple, Khordha - 752056', siteCamp: 'JTRWF Site Labor Colony, Barrack 5',
+        pan: 'AVPVR2210M', aadhaar: '7721 8830 1192', police: 'POL-KHD-2026-8820', medical: 'FIT - Mechanical Assembly & Height Work',
+        photo: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80',
+        bankEnding: '7721', joining: '2025-08-01', status: 'ACTIVE' 
+      },
+      { 
+        empId: 'EMP-2026-0006', name: 'Bikash Jena', wageType: 'DAILY_PAY', trade: 'Rigging Helper', dept: 'Heavy Lift & Rigging Operations', project: 'PRJ-JTRWF-SCHULER', 
+        ctc: 0, basic: 0, hra: 0, allow: 0, dailyRate: 950, pfApplicable: false, esicApplicable: false, 
+        father: 'Niranjan Jena', dob: '1997-04-18', gender: 'Male', bloodGroup: 'B+', marital: 'Single', mobile: '+91 94372 55401', emergency: 'Manas Jena (Brother) - 9437299102',
+        address: 'At: Daleiput, Po: Mukundaprasad, Dist: Khordha, Odisha - 752055', siteCamp: 'JTRWF Site Labor Colony, Barrack 4',
+        pan: 'BJNPJ5540F', aadhaar: '5540 8821 3319', police: 'POL-KHD-2026-7731', medical: 'FIT - Heavy Rigging & Physical Labor (Form 31)',
+        photo: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=200&q=80',
+        bankEnding: '5540', joining: '2026-01-10', status: 'ACTIVE' 
+      },
+      { 
+        empId: 'EMP-2026-0007', name: 'Prakash Chandra', wageType: 'DAILY_PAY', trade: 'Rigging Helper', dept: 'Heavy Lift & Rigging Operations', project: 'PRJ-JTRWF-SCHULER', 
+        ctc: 0, basic: 0, hra: 0, allow: 0, dailyRate: 950, pfApplicable: false, esicApplicable: false, 
+        father: 'Bhikari Chandra', dob: '1998-12-02', gender: 'Male', bloodGroup: 'O-', marital: 'Single', mobile: '+91 98613 66190', emergency: 'Sanjay Chandra (Father) - 9861399881',
+        address: 'At: Pitapalli, Po: Gangapada, Dist: Khordha, Odisha - 752054', siteCamp: 'JTRWF Site Labor Colony, Barrack 4',
+        pan: 'PCNPC6619L', aadhaar: '6619 4402 8810', police: 'POL-KHD-2026-9902', medical: 'FIT - Heavy Rigging (Form 31)',
+        photo: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=200&q=80',
+        bankEnding: '6619', joining: '2026-02-15', status: 'ACTIVE' 
+      },
+      { 
+        empId: 'EMP-2026-0008', name: 'Sanjay Kumar Sahoo', wageType: 'DAILY_PAY', trade: 'Heavy Puller Driver', dept: 'Transport & Logistics', project: 'PRJ-JTRWF-SCHULER', 
+        ctc: 0, basic: 0, hra: 0, allow: 0, dailyRate: 1200, pfApplicable: false, esicApplicable: false, 
+        father: 'Kailash Chandra Sahoo', dob: '1993-01-20', gender: 'Male', bloodGroup: 'A+', marital: 'Married', mobile: '+91 94373 88340', emergency: 'Laxmi Sahoo (Wife) - 9437388901',
+        address: 'At/Po: Haldiapada, Khordha - 752056', siteCamp: 'JTRWF Heavy Equipment Transport Yard',
+        pan: 'SKSPS8834G', aadhaar: '8834 5510 2291', police: 'POL-KHD-2026-4410', medical: 'FIT - Heavy Vehicle Driving & Vision Cleared',
+        photo: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=200&q=80',
+        bankEnding: '8834', joining: '2025-10-05', status: 'ACTIVE' 
+      }
     ];
 
     let attendanceData = [
-      { empId: 'EMP-2026-0001', name: 'Ramesh Kumar', trade: 'Rigger Lead', present: 26, wo: 4, pl: 0, payable: 30, otHours: 24 },
-      { empId: 'EMP-2026-0002', name: 'Sunil Swain', trade: 'Hydraulic Specialist', present: 25, wo: 4, pl: 1, payable: 30, otHours: 18 },
-      { empId: 'EMP-2026-0003', name: 'Ajay Verma', trade: 'Mechanical Fitter', present: 24, wo: 4, pl: 2, payable: 30, otHours: 12 },
-      { empId: 'EMP-2026-0004', name: 'Dharmendra Pradhan', trade: 'Crane Operator (150T)', present: 26, wo: 4, pl: 0, payable: 30, otHours: 32 }
+      { empId: 'EMP-2026-0001', name: 'Ramesh Kumar', wageType: 'MONTHLY', trade: 'Rigger Lead', present: 26, wo: 4, pl: 0, payable: 30, otHours: 24 },
+      { empId: 'EMP-2026-0002', name: 'Sunil Swain', wageType: 'MONTHLY', trade: 'Hydraulic Specialist', present: 25, wo: 4, pl: 1, payable: 30, otHours: 18 },
+      { empId: 'EMP-2026-0004', name: 'Dharmendra Pradhan', wageType: 'MONTHLY', trade: 'Crawler Crane Operator (150T)', present: 26, wo: 4, pl: 0, payable: 30, otHours: 32 },
+      { empId: 'EMP-2026-0005', name: 'Manoj Mohanty', wageType: 'MONTHLY', trade: 'Project Engineer', present: 26, wo: 4, pl: 0, payable: 30, otHours: 0 },
+      { empId: 'EMP-2026-0003', name: 'Ajay Verma', wageType: 'DAILY_PAY', trade: 'Mechanical Assembly Fitter', present: 24, wo: 4, pl: 0, payable: 24, otHours: 16 },
+      { empId: 'EMP-2026-0006', name: 'Bikash Jena', wageType: 'DAILY_PAY', trade: 'Rigging Helper', present: 26, wo: 4, pl: 0, payable: 26, otHours: 28 },
+      { empId: 'EMP-2026-0007', name: 'Prakash Chandra', wageType: 'DAILY_PAY', trade: 'Rigging Helper', present: 22, wo: 4, pl: 0, payable: 22, otHours: 12 },
+      { empId: 'EMP-2026-0008', name: 'Sanjay Kumar Sahoo', wageType: 'DAILY_PAY', trade: 'Heavy Puller Driver', present: 25, wo: 4, pl: 0, payable: 25, otHours: 20 }
     ];
 
     let advanceData = [
-      { advId: 'ADV-2026-0012', empId: 'EMP-2026-0001', name: 'Ramesh Kumar', date: '2026-10-15', total: 30000, monthly: 5000, recovered: 5000, balance: 25000, approver: 'Satish Chandra', status: 'RECOVERING' },
-      { advId: 'ADV-2026-0014', empId: 'EMP-2026-0002', name: 'Sunil Swain', date: '2026-11-01', total: 20000, monthly: 4000, recovered: 0, balance: 20000, approver: 'Satish Chandra', status: 'RECOVERING' }
+      { advId: 'ADV-2026-0012', empId: 'EMP-2026-0001', name: 'Ramesh Kumar', wageType: 'MONTHLY', date: '2026-10-15', total: 30000, monthly: 5000, recovered: 5000, balance: 25000, status: 'RECOVERING' },
+      { advId: 'ADV-2026-0014', empId: 'EMP-2026-0002', name: 'Sunil Swain', wageType: 'MONTHLY', date: '2026-11-01', total: 20000, monthly: 4000, recovered: 0, balance: 20000, status: 'RECOVERING' },
+      { advId: 'ADV-2026-0018', empId: 'EMP-2026-0006', name: 'Bikash Jena', wageType: 'DAILY_PAY', date: '2026-11-05', total: 5000, monthly: 2000, recovered: 0, balance: 5000, status: 'RECOVERING' }
     ];
 
     let hrAuditData = [
-      { id: 'AUD-HR-0091', timestamp: '2026-11-19 14:00:15', actor: 'hr.head', role: 'HR Head', action: 'PAYROLL_DRAFT_GENERATE', ref: 'PAY-2026-11', outcome: 'SUCCESS', details: 'Generated draft payroll calculation for 48 JTRWF employees.' },
-      { id: 'AUD-HR-0082', timestamp: '2026-11-19 11:30:22', actor: 'pm.jtrwf', role: 'Project Manager', action: 'ATTENDANCE_APPROVAL', ref: 'ATT-JTRWF-NOV', outcome: 'SUCCESS', details: 'Approved project attendance submitted by Area Supervisor Bay-3.' },
-      { id: 'AUD-HR-0070', timestamp: '2026-11-18 16:45:00', actor: 'hr.head', role: 'HR Head', action: 'ADVANCE_ISSUE', ref: 'ADV-2026-0014', outcome: 'SUCCESS', details: 'Sanctioned ₹ 20,000 emergency medical advance for Sunil Swain.' }
+      { id: 'AUD-HR-0095', timestamp: '2026-11-19 14:45:00', actor: 'hr.head', role: 'HR Head', action: 'WAGE_CLASSIFICATION_SPLIT', ref: 'RULE-2026-V1', outcome: 'SUCCESS', details: 'Configured dual payroll rules: Monthly Staff (PF+ESIC) vs Daily Pay (Zero PF/ESIC).' },
+      { id: 'AUD-HR-0091', timestamp: '2026-11-19 14:00:15', actor: 'hr.head', role: 'HR Head', action: 'PAYROLL_DRAFT_GENERATE', ref: 'PAY-2026-11', outcome: 'SUCCESS', details: 'Generated draft payroll calculation for 68 BALSONS workforce.' },
+      { id: 'AUD-HR-0082', timestamp: '2026-11-19 11:30:22', actor: 'pm.jtrwf', role: 'Project Manager', action: 'ATTENDANCE_APPROVAL', ref: 'ATT-JTRWF-NOV', outcome: 'SUCCESS', details: 'Approved project attendance submitted by Area Supervisor Bay-3.' }
     ];
+
+    let currentEmpFilter = 'ALL';
+    let currentAttFilter = 'ALL';
+    let currentPayFilter = 'ALL';
 
     // Navigation Tab Switching
     function switchHrTab(tabId) {
-      document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('nav button').forEach(b => {
+        b.classList.remove('active');
+        if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + tabId + "'")) {
+          b.classList.add('active');
+        }
+      });
       document.querySelectorAll('.section-view').forEach(s => s.classList.remove('active'));
-      event.currentTarget.classList.add('active');
-      document.getElementById('tab-' + tabId).classList.add('active');
+      const targetSec = document.getElementById('tab-' + tabId);
+      if (targetSec) targetSec.classList.add('active');
 
       if (tabId === 'payslips') {
-        loadPayslipPreview(document.getElementById('payslipEmpSelect').value || 'EMP-2026-0001');
+        const empVal = document.getElementById('payslipEmpSelect') ? document.getElementById('payslipEmpSelect').value : null;
+        loadPayslipPreview(empVal || window.__SELECTED_EMP__ || 'EMP-2026-0001');
       }
     }
 
@@ -766,7 +1985,8 @@
 
       const res = await BalsonsHrAuth.login(u, p);
       if (res.success) {
-        document.getElementById('loginModal').style.display = 'none';
+        const loginModal = document.getElementById('loginModal');
+        if (loginModal) loginModal.style.display = 'none';
         renderHrSession(res.user);
       } else {
         err.textContent = res.message;
@@ -780,7 +2000,44 @@
       roleEl.textContent = user.role;
     }
 
-    // Initialize application tables
+    // ─── FILTER CONTROLS ───
+    function filterEmployeeCategory(cat) {
+      currentEmpFilter = cat;
+      document.querySelectorAll('#btnEmpAll, #btnEmpMonthly, #btnEmpDaily').forEach(b => {
+        b.classList.remove('btn-primary');
+        b.classList.add('btn-secondary');
+      });
+      if (cat === 'ALL') document.getElementById('btnEmpAll')?.classList.add('btn-primary');
+      else if (cat === 'MONTHLY') document.getElementById('btnEmpMonthly')?.classList.add('btn-primary');
+      else if (cat === 'DAILY_PAY') document.getElementById('btnEmpDaily')?.classList.add('btn-primary');
+      renderEmployeesTable();
+    }
+
+    function filterAttendanceCategory(cat) {
+      currentAttFilter = cat;
+      document.querySelectorAll('#btnAttAll, #btnAttMonthly, #btnAttDaily').forEach(b => {
+        b.classList.remove('btn-primary');
+        b.classList.add('btn-secondary');
+      });
+      if (cat === 'ALL') document.getElementById('btnAttAll')?.classList.add('btn-primary');
+      else if (cat === 'MONTHLY') document.getElementById('btnAttMonthly')?.classList.add('btn-primary');
+      else if (cat === 'DAILY_PAY') document.getElementById('btnAttDaily')?.classList.add('btn-primary');
+      renderAttendanceTable();
+    }
+
+    function filterPayrollCategory(cat) {
+      currentPayFilter = cat;
+      document.querySelectorAll('#btnPayAll, #btnPayMonthly, #btnPayDaily').forEach(b => {
+        b.classList.remove('btn-primary');
+        b.classList.add('btn-secondary');
+      });
+      if (cat === 'ALL') document.getElementById('btnPayAll')?.classList.add('btn-primary');
+      else if (cat === 'MONTHLY') document.getElementById('btnPayMonthly')?.classList.add('btn-primary');
+      else if (cat === 'DAILY_PAY') document.getElementById('btnPayDaily')?.classList.add('btn-primary');
+      renderPayrollTable();
+    }
+
+    // ─── RENDERING FUNCTIONS ───
     function initHrApp() {
       renderEmployeesTable();
       renderAttendanceTable();
@@ -788,35 +2045,60 @@
       renderPayrollTable();
       renderAuditTable();
       populatePayslipSelect();
-      loadPayslipPreview('EMP-2026-0001');
+      populateIdCardSelect();
+      const defaultEmp = window.__SELECTED_EMP__ || (document.getElementById('payslipEmpSelect') ? document.getElementById('payslipEmpSelect').value : null) || 'EMP-2026-0001';
+      loadPayslipPreview(defaultEmp);
     }
 
-    function renderEmployeesTable(list) {
+    function renderEmployeesTable(searchQ) {
       const tbody = document.getElementById('employeeTableBody');
       if (!tbody) return;
       tbody.innerHTML = '';
-      list = list || employeesData;
+
+      let list = employeesData;
+      if (currentEmpFilter === 'MONTHLY') list = list.filter(x => x.wageType === 'MONTHLY');
+      else if (currentEmpFilter === 'DAILY_PAY') list = list.filter(x => x.wageType === 'DAILY_PAY');
+
+      if (searchQ) {
+        const q = searchQ.toLowerCase();
+        list = list.filter(e => e.name.toLowerCase().includes(q) || e.empId.toLowerCase().includes(q) || e.trade.toLowerCase().includes(q));
+      }
 
       list.forEach(emp => {
         const tr = document.createElement('tr');
+        const isMonthly = emp.wageType === 'MONTHLY';
+        const typeBadge = isMonthly 
+          ? `<span class="status-pill status-info" style="font-size: 10px;">MONTHLY (PF+ESIC)</span>`
+          : `<span class="status-pill status-warning" style="font-size: 10px;">DAILY PAY (NO PF/ESIC)</span>`;
+
+        const compBasis = isMonthly 
+          ? `₹ ${emp.ctc.toLocaleString('en-IN')} / mo`
+          : `<strong style="color: #D97706;">₹ ${emp.dailyRate.toLocaleString('en-IN')} / Day</strong>`;
+
+        const pfCell = isMonthly ? `<span class="status-pill status-success">Covered (12%)</span>` : `<span style="color: var(--beds-text-muted); font-size: 11px;">Exempt (₹ 0)</span>`;
+        const esicCell = isMonthly ? `<span class="status-pill status-success">Covered (0.75%)</span>` : `<span style="color: var(--beds-text-muted); font-size: 11px;">Exempt (₹ 0)</span>`;
+
         tr.innerHTML = `
           <td><strong style="font-family: monospace;">${emp.empId}</strong></td>
-          <td><strong>${emp.name}</strong></td>
-          <td>${emp.trade}</td>
+          <td><strong>${escapeHtml(emp.name)}</strong></td>
+          <td>${typeBadge}</td>
+          <td>${escapeHtml(emp.trade)}</td>
           <td><span style="font-size: 11px; color: var(--beds-teal-primary); font-weight: 700;">📍 ${emp.project}</span></td>
-          <td class="tabular-nums">₹ ${emp.ctc.toLocaleString('en-IN')}</td>
-          <td style="font-size: 11px;">${emp.joining}</td>
-          <td><span class="status-pill status-success">${emp.status}</span></td>
-          <td><button class="btn btn-secondary btn-sm" onclick="alert('Viewing employee file for ${emp.name}...')">View Profile</button></td>
+          <td class="tabular-nums">${compBasis}</td>
+          <td>${pfCell}</td>
+          <td>${esicCell}</td>
+          <td style="white-space: nowrap;">
+            <button class="btn btn-secondary btn-sm" onclick="previewPayslip('${emp.empId}')" title="View Payslip">📑 Slip</button>
+            <button class="btn btn-primary btn-sm" onclick="openIdCardModal('${emp.empId}')" style="background: var(--beds-teal-primary); font-size: 11px; padding: 4px 8px; margin-left: 4px;" title="Gate Entry/Out ID Card">🪪 Gate Pass</button>
+            <button class="btn btn-secondary btn-sm" onclick="openEnrolmentFormModal('${emp.empId}')" style="font-size: 11px; padding: 4px 8px; margin-left: 4px;" title="Print Full Filled Employee Form">📄 Dossier</button>
+          </td>
         `;
         tbody.appendChild(tr);
       });
     }
 
     function searchEmployees(q) {
-      q = q.toLowerCase();
-      const filtered = employeesData.filter(e => e.name.toLowerCase().includes(q) || e.empId.toLowerCase().includes(q) || e.trade.toLowerCase().includes(q));
-      renderEmployeesTable(filtered);
+      renderEmployeesTable(q);
     }
 
     function renderAttendanceTable() {
@@ -824,18 +2106,31 @@
       if (!tbody) return;
       tbody.innerHTML = '';
 
-      attendanceData.forEach(att => {
+      let list = attendanceData;
+      if (currentAttFilter === 'MONTHLY') list = list.filter(x => x.wageType === 'MONTHLY');
+      else if (currentAttFilter === 'DAILY_PAY') list = list.filter(x => x.wageType === 'DAILY_PAY');
+
+      list.forEach(att => {
         const tr = document.createElement('tr');
+        const isMonthly = att.wageType === 'MONTHLY';
+        const typePill = isMonthly 
+          ? `<span class="status-pill status-info" style="font-size: 9.5px;">MONTHLY</span>`
+          : `<span class="status-pill status-warning" style="font-size: 9.5px;">DAILY PAY</span>`;
+
+        const calcRule = isMonthly
+          ? `<span style="font-size: 11px; color: var(--beds-teal-primary); font-weight: 600;">P + WO + PL = 30 Days</span>`
+          : `<span style="font-size: 11px; color: #D97706; font-weight: 600;">Present Only = ${att.present} Days</span>`;
+
         tr.innerHTML = `
           <td><strong style="font-family: monospace;">${att.empId}</strong></td>
-          <td><strong>${att.name}</strong></td>
-          <td>${att.trade}</td>
+          <td><strong>${escapeHtml(att.name)}</strong></td>
+          <td>${typePill}</td>
           <td class="tabular-nums" style="font-weight: 700;">${att.present}</td>
           <td class="tabular-nums">${att.wo}</td>
           <td class="tabular-nums">${att.pl}</td>
-          <td class="tabular-nums" style="color: var(--beds-teal-primary); font-weight: 800;">${att.payable}</td>
+          <td class="tabular-nums" style="color: ${isMonthly ? 'var(--beds-teal-primary)' : '#D97706'}; font-weight: 900; font-size: 13px;">${att.payable}</td>
           <td class="tabular-nums" style="font-weight: 700; color: #D97706;">+${att.otHours} hrs</td>
-          <td><span class="status-pill status-success">PM Approved</span></td>
+          <td>${calcRule}</td>
         `;
         tbody.appendChild(tr);
       });
@@ -848,15 +2143,18 @@
 
       advanceData.forEach(adv => {
         const tr = document.createElement('tr');
+        const isMonthly = adv.wageType === 'MONTHLY';
+        const typePill = isMonthly ? `<span class="status-pill status-info" style="font-size: 9.5px;">Monthly</span>` : `<span class="status-pill status-warning" style="font-size: 9.5px;">Daily Pay</span>`;
+
         tr.innerHTML = `
           <td><strong style="font-family: monospace;">${adv.advId}</strong></td>
-          <td><strong>${adv.name}</strong> (${adv.empId})</td>
+          <td><strong>${escapeHtml(adv.name)}</strong><br><span style="font-size: 10.5px; color: var(--beds-text-muted);">${adv.empId}</span></td>
+          <td>${typePill}</td>
           <td style="font-size: 11px;">${adv.date}</td>
           <td class="tabular-nums">₹ ${adv.total.toLocaleString('en-IN')}</td>
-          <td class="tabular-nums" style="color: var(--beds-alert-red); font-weight: 700;">₹ ${adv.monthly.toLocaleString('en-IN')} / mo</td>
+          <td class="tabular-nums" style="color: var(--beds-alert-red); font-weight: 700;">-₹ ${adv.monthly.toLocaleString('en-IN')}</td>
           <td class="tabular-nums">₹ ${adv.recovered.toLocaleString('en-IN')}</td>
           <td class="tabular-nums" style="font-weight: 800;">₹ ${adv.balance.toLocaleString('en-IN')}</td>
-          <td>${adv.approver}</td>
           <td><span class="status-pill status-warning">${adv.status}</span></td>
         `;
         tbody.appendChild(tr);
@@ -868,30 +2166,64 @@
       if (!tbody) return;
       tbody.innerHTML = '';
 
-      employeesData.forEach(e => {
-        const att = attendanceData.find(a => a.empId === e.empId) || { otHours: 0 };
+      let list = employeesData;
+      if (currentPayFilter === 'MONTHLY') list = list.filter(x => x.wageType === 'MONTHLY');
+      else if (currentPayFilter === 'DAILY_PAY') list = list.filter(x => x.wageType === 'DAILY_PAY');
+
+      list.forEach(e => {
+        const att = attendanceData.find(a => a.empId === e.empId) || { present: 26, payable: 30, otHours: 0 };
         const adv = advanceData.find(a => a.empId === e.empId) || { monthly: 0 };
 
-        const basic = e.basic;
-        const hra = e.hra;
-        const allow = e.allow;
-        const otPay = Math.round((basic / 208) * 2 * att.otHours); // Double OT rate
-        const gross = basic + hra + allow + otPay;
-        const pf = 1800; // Statutory PF cap
-        const net = gross - adv.monthly - pf;
+        let rateStr = '';
+        let baseEarned = 0;
+        let otPay = 0;
+        let gross = 0;
+        let pf = 0;
+        let esic = 0;
+        let pt = 0;
+        let net = 0;
+
+        if (e.wageType === 'MONTHLY') {
+          rateStr = `₹ ${e.ctc.toLocaleString('en-IN')} / mo`;
+          baseEarned = e.basic + e.hra + e.allow;
+          otPay = Math.round((e.basic / 208) * 2 * att.otHours);
+          gross = baseEarned + otPay;
+          pf = Math.min(1800, Math.round(e.basic * 0.12)); // 12% of Basic up to 1800
+          esic = (gross <= 21000) ? Math.round(gross * 0.0075) : 158; // Standard corporate ESIC contribution
+          pt = 200;
+          net = gross - adv.monthly - pf - esic - pt;
+        } else {
+          // DAILY PAY: ZERO ESIC, ZERO PF!
+          rateStr = `<span style="color: #D97706; font-weight: 700;">₹ ${e.dailyRate.toLocaleString('en-IN')} / Day</span>`;
+          baseEarned = att.present * e.dailyRate;
+          const hourlyRate = e.dailyRate / 8;
+          otPay = Math.round(hourlyRate * 2 * att.otHours);
+          gross = baseEarned + otPay;
+          pf = 0;   // STRICTLY ZERO PF
+          esic = 0; // STRICTLY ZERO ESIC
+          pt = 0;
+          net = gross - adv.monthly;
+        }
+
+        const typeBadge = e.wageType === 'MONTHLY' 
+          ? `<span class="status-pill status-info" style="font-size: 9.5px;">MONTHLY</span>`
+          : `<span class="status-pill status-warning" style="font-size: 9.5px;">DAILY PAY</span>`;
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td><strong style="font-family: monospace;">${e.empId}</strong></td>
-          <td><strong>${e.name}</strong></td>
-          <td class="tabular-nums">₹ ${basic.toLocaleString('en-IN')}</td>
-          <td class="tabular-nums">₹ ${(hra + allow).toLocaleString('en-IN')}</td>
+          <td><strong>${escapeHtml(e.name)}</strong></td>
+          <td>${typeBadge}</td>
+          <td class="tabular-nums">${rateStr}</td>
+          <td class="tabular-nums" style="font-weight: 700;">${att.payable} d</td>
+          <td class="tabular-nums">₹ ${baseEarned.toLocaleString('en-IN')}</td>
           <td class="tabular-nums" style="color: #D97706; font-weight: 700;">+₹ ${otPay.toLocaleString('en-IN')}</td>
           <td class="tabular-nums" style="font-weight: 800;">₹ ${gross.toLocaleString('en-IN')}</td>
-          <td class="tabular-nums" style="color: var(--beds-alert-red); font-weight: 700;">-₹ ${adv.monthly.toLocaleString('en-IN')}</td>
-          <td class="tabular-nums">-₹ ${pf.toLocaleString('en-IN')}</td>
-          <td class="tabular-nums" style="font-weight: 900; color: var(--beds-teal-primary); font-size: 13.5px;">₹ ${net.toLocaleString('en-IN')}</td>
-          <td><button class="btn btn-secondary btn-sm" onclick="previewPayslip('${e.empId}')">Payslip</button></td>
+          <td class="tabular-nums" style="color: var(--beds-alert-red); font-weight: 700;">${adv.monthly > 0 ? '-₹ ' + adv.monthly.toLocaleString('en-IN') : '₹ 0'}</td>
+          <td class="tabular-nums" style="${pf > 0 ? 'color: var(--beds-alert-red); font-weight: 700;' : 'color: var(--beds-text-muted);'}">${pf > 0 ? '-₹ ' + pf.toLocaleString('en-IN') : 'Exempt (₹ 0)'}</td>
+          <td class="tabular-nums" style="${esic > 0 ? 'color: var(--beds-alert-red); font-weight: 700;' : 'color: var(--beds-text-muted);'}">${esic > 0 ? '-₹ ' + esic.toLocaleString('en-IN') : 'Exempt (₹ 0)'}</td>
+          <td class="tabular-nums" style="font-weight: 900; color: ${e.wageType === 'MONTHLY' ? 'var(--beds-teal-primary)' : '#D97706'}; font-size: 13.5px;">₹ ${net.toLocaleString('en-IN')}</td>
+          <td><button class="btn btn-secondary btn-sm" onclick="previewPayslip('${e.empId}')">Slip</button></td>
         `;
         tbody.appendChild(tr);
       });
@@ -904,9 +2236,13 @@
       employeesData.forEach(e => {
         const opt = document.createElement('option');
         opt.value = e.empId;
-        opt.textContent = `${e.empId} • ${e.name} (${e.trade})`;
+        const tag = e.wageType === 'MONTHLY' ? '[MONTHLY PF+ESIC]' : '[DAILY PAY NO PF/ESIC]';
+        opt.textContent = `${e.empId} • ${e.name} ${tag}`;
         sel.appendChild(opt);
       });
+      if (window.__SELECTED_EMP__) {
+        sel.value = window.__SELECTED_EMP__;
+      }
     }
 
     function previewPayslip(empId) {
@@ -920,116 +2256,230 @@
       const att = attendanceData.find(a => a.empId === empId) || { present: 26, wo: 4, pl: 0, payable: 30, otHours: 0 };
       const adv = advanceData.find(a => a.empId === empId) || { monthly: 0 };
 
-      const basic = e.basic;
-      const hra = e.hra;
-      const allow = e.allow;
-      const otPay = Math.round((basic / 208) * 2 * att.otHours);
-      const gross = basic + hra + allow + otPay;
-      const pf = 1800;
-      const pt = 200; // Professional Tax
-      const totalDeductions = adv.monthly + pf + pt;
-      const net = gross - totalDeductions;
-
+      const isMonthly = e.wageType === 'MONTHLY';
       const container = document.getElementById('printablePayslip');
-      container.innerHTML = `
-        <!-- Payslip Header -->
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #102D35; padding-bottom: 12px; margin-bottom: 14px;">
-          <div>
-            <div style="font-size: 18px; font-weight: 900; color: #102D35; letter-spacing: -0.3px;">BALSONS HEAVY LIFT & SHIFT</div>
-            <div style="font-size: 11px; color: #52636B; font-weight: 600;">Regd Off: Shop no. 4, Creative Paradise, Chinchwad, Pune - 411019</div>
-            <div style="font-size: 11px; color: #0097B2; font-weight: 700;">Site: Jupiter Tatravagonka Railwheel Factory (JTRWF Khordha, Odisha)</div>
-          </div>
-          <div style="text-align: right;">
-            <div style="background: #102D35; color: #FFFFFF; padding: 4px 10px; font-weight: 800; font-size: 11px; border-radius: 2px;">
-              SALARY SLIP
-            </div>
-            <div style="font-size: 11px; font-weight: 800; margin-top: 4px; color: #102D35;">NOVEMBER 2026</div>
-          </div>
-        </div>
+      if (!container) return;
 
-        <!-- Employee Info Grid -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: #F3F6F8; padding: 10px 14px; border-radius: 4px; margin-bottom: 16px; font-size: 11.5px;">
-          <div><strong>Employee ID:</strong> <span style="font-family: monospace; font-weight: 700;">${e.empId}</span></div>
-          <div><strong>Designation:</strong> ${e.trade}</div>
-          <div><strong>Employee Name:</strong> <strong>${e.name}</strong></div>
-          <div><strong>Department:</strong> Heavy Lift & Rigging Operations</div>
-          <div><strong>Bank A/C:</strong> State Bank of India (Ending **4092)</div>
-          <div><strong>Payable Days:</strong> <strong style="color: #0097B2;">30 Days</strong> (P: ${att.present}, WO: ${att.wo}, OT: ${att.otHours}h)</div>
-        </div>
+      if (isMonthly) {
+        // ─── MONTHLY SALARIED STAFF PAYSLIP (WITH PF & ESIC) ───
+        const basic = e.basic;
+        const hra = e.hra;
+        const allow = e.allow;
+        const otPay = Math.round((basic / 208) * 2 * att.otHours);
+        const gross = basic + hra + allow + otPay;
+        const pf = Math.min(1800, Math.round(basic * 0.12));
+        const esic = (gross <= 21000) ? Math.round(gross * 0.0075) : 158;
+        const pt = 200;
+        const totalDeductions = adv.monthly + pf + esic + pt;
+        const net = gross - totalDeductions;
 
-        <!-- Earnings & Deductions Tables -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 16px;">
-          <!-- Earnings -->
-          <div>
-            <div style="font-weight: 800; font-size: 11.5px; border-bottom: 1.5px solid #102D35; padding-bottom: 4px; margin-bottom: 6px; color: #102D35;">
-              EARNINGS (₹)
+        container.innerHTML = `
+          <!-- Header -->
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #102D35; padding-bottom: 12px; margin-bottom: 14px;">
+            <div>
+              <div style="font-size: 18px; font-weight: 900; color: #102D35; letter-spacing: -0.3px;">BALSONS HEAVY LIFT & SHIFT</div>
+              <div style="font-size: 11px; color: #52636B; font-weight: 600;">Regd Off: Shop no. 4, Creative Paradise, Chinchwad, Pune - 411019</div>
+              <div style="font-size: 11px; color: #0097B2; font-weight: 700;">Site: Jupiter Tatravagonka Railwheel Factory (JTRWF Khordha, Odisha)</div>
             </div>
-            <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
-              <span>Basic Salary</span>
-              <strong>₹ ${basic.toLocaleString('en-IN')}</strong>
-            </div>
-            <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
-              <span>House Rent Allowance (HRA)</span>
-              <strong>₹ ${hra.toLocaleString('en-IN')}</strong>
-            </div>
-            <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
-              <span>Site Heavy Duty Allowance</span>
-              <strong>₹ ${allow.toLocaleString('en-IN')}</strong>
-            </div>
-            <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
-              <span>Overtime (OT) Pay (${att.otHours} hrs)</span>
-              <strong style="color: #D97706;">+₹ ${otPay.toLocaleString('en-IN')}</strong>
-            </div>
-            <div style="display: flex; justify-content: space-between; padding: 6px 0; font-weight: 800; background: #E6F7FA; margin-top: 6px; padding: 6px 8px;">
-              <span>GROSS EARNINGS</span>
-              <strong style="color: #0097B2;">₹ ${gross.toLocaleString('en-IN')}</strong>
+            <div style="text-align: right;">
+              <div style="background: #102D35; color: #FFFFFF; padding: 4px 10px; font-weight: 800; font-size: 11px; border-radius: 2px;">
+                MONTHLY SALARY SLIP
+              </div>
+              <div style="font-size: 11px; font-weight: 800; margin-top: 4px; color: #102D35;">NOVEMBER 2026</div>
+              <span class="status-pill status-info" style="font-size: 9px; margin-top: 4px; display: inline-block;">PF & ESIC COVERED</span>
             </div>
           </div>
 
-          <!-- Deductions -->
-          <div>
-            <div style="font-weight: 800; font-size: 11.5px; border-bottom: 1.5px solid #102D35; padding-bottom: 4px; margin-bottom: 6px; color: #102D35;">
-              DEDUCTIONS (₹)
-            </div>
-            <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
-              <span>Provident Fund (PF)</span>
-              <strong>₹ ${pf.toLocaleString('en-IN')}</strong>
-            </div>
-            <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
-              <span>Professional Tax (PT)</span>
-              <strong>₹ ${pt.toLocaleString('en-IN')}</strong>
-            </div>
-            <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
-              <span>Salary Advance Recovery</span>
-              <strong style="color: #E64646;">₹ ${adv.monthly.toLocaleString('en-IN')}</strong>
-            </div>
-            <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
-              <span>TDS / Income Tax</span>
-              <strong>₹ 0</strong>
-            </div>
-            <div style="display: flex; justify-content: space-between; padding: 6px 0; font-weight: 800; background: #FEF2F2; margin-top: 6px; padding: 6px 8px;">
-              <span>TOTAL DEDUCTIONS</span>
-              <strong style="color: #E64646;">₹ ${totalDeductions.toLocaleString('en-IN')}</strong>
-            </div>
+          <!-- Employee Info Grid -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: #F3F6F8; padding: 10px 14px; border-radius: 4px; margin-bottom: 16px; font-size: 11.5px;">
+            <div><strong>Employee ID:</strong> <span style="font-family: monospace; font-weight: 700;">${e.empId}</span></div>
+            <div><strong>Designation:</strong> ${escapeHtml(e.trade)}</div>
+            <div><strong>Employee Name:</strong> <strong>${escapeHtml(e.name)}</strong></div>
+            <div><strong>Department:</strong> Heavy Lift & Rigging Operations</div>
+            <div><strong>Wage Category:</strong> <strong style="color: #0097B2;">Monthly Salaried Staff</strong></div>
+            <div><strong>Payable Days:</strong> <strong>30 Days</strong> (P: ${att.present}, WO: ${att.wo}, OT: ${att.otHours}h)</div>
+            <div><strong>Bank A/C:</strong> State Bank of India (Ending **${e.bankEnding})</div>
+            <div><strong>Monthly CTC:</strong> ₹ ${e.ctc.toLocaleString('en-IN')}</div>
           </div>
-        </div>
 
-        <!-- Net Payable Block -->
-        <div style="border: 2px solid #0097B2; background: #F0FBFC; border-radius: 4px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
-          <div>
-            <div style="font-size: 11px; font-weight: 800; color: #102D35; text-transform: uppercase;">NET SALARY PAYABLE:</div>
-            <div style="font-size: 11px; color: #52636B; font-style: italic;">Disbursed directly into bank account via NEFT/RTGS</div>
-          </div>
-          <div style="font-size: 20px; font-weight: 900; color: #0097B2; font-family: monospace;">
-            ₹ ${net.toLocaleString('en-IN')}.00
-          </div>
-        </div>
+          <!-- Earnings & Deductions Tables -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 16px;">
+            <!-- Earnings -->
+            <div>
+              <div style="font-weight: 800; font-size: 11.5px; border-bottom: 1.5px solid #102D35; padding-bottom: 4px; margin-bottom: 6px; color: #102D35;">
+                EARNINGS COMPONENTS (₹)
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
+                <span>Basic Salary (50%)</span>
+                <strong>₹ ${basic.toLocaleString('en-IN')}</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
+                <span>House Rent Allowance (HRA 25%)</span>
+                <strong>₹ ${hra.toLocaleString('en-IN')}</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
+                <span>Site Heavy Duty Allowance (25%)</span>
+                <strong>₹ ${allow.toLocaleString('en-IN')}</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
+                <span>Overtime (OT) Pay (${att.otHours} hrs @ 2x)</span>
+                <strong style="color: #D97706;">+₹ ${otPay.toLocaleString('en-IN')}</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 6px 0; font-weight: 800; background: #E6F7FA; margin-top: 6px; padding: 6px 8px;">
+                <span>GROSS EARNINGS</span>
+                <strong style="color: #0097B2;">₹ ${gross.toLocaleString('en-IN')}</strong>
+              </div>
+            </div>
 
-        <!-- Signatures & Motto -->
+            <!-- Deductions (WITH PF & ESIC) -->
+            <div>
+              <div style="font-weight: 800; font-size: 11.5px; border-bottom: 1.5px solid #102D35; padding-bottom: 4px; margin-bottom: 6px; color: #102D35;">
+                STATUTORY & OTHER DEDUCTIONS (₹)
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
+                <span>Provident Fund (PF - 12%)</span>
+                <strong style="color: #E64646;">₹ ${pf.toLocaleString('en-IN')}</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
+                <span>Employees' State Insurance (ESIC - 0.75%)</span>
+                <strong style="color: #E64646;">₹ ${esic.toLocaleString('en-IN')}</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
+                <span>Professional Tax (PT)</span>
+                <strong>₹ ${pt.toLocaleString('en-IN')}</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
+                <span>Salary Advance Recovery</span>
+                <strong style="color: #E64646;">₹ ${adv.monthly.toLocaleString('en-IN')}</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 6px 0; font-weight: 800; background: #FEF2F2; margin-top: 6px; padding: 6px 8px;">
+                <span>TOTAL DEDUCTIONS</span>
+                <strong style="color: #E64646;">₹ ${totalDeductions.toLocaleString('en-IN')}</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Net Payable Block -->
+          <div style="border: 2px solid #0097B2; background: #F0FBFC; border-radius: 4px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+            <div>
+              <div style="font-size: 11px; font-weight: 800; color: #102D35; text-transform: uppercase;">NET SALARY PAYABLE:</div>
+              <div style="font-size: 11px; color: #52636B; font-style: italic;">Disbursed directly into bank account via NEFT/RTGS</div>
+            </div>
+            <div style="font-size: 20px; font-weight: 900; color: #0097B2; font-family: monospace;">
+              ₹ ${net.toLocaleString('en-IN')}.00
+            </div>
+          </div>
+        `;
+      } else {
+        // ─── DAILY PAY WORKER WAGE SLIP (STATUTORY EXEMPT: NO PF / NO ESIC) ───
+        const baseEarned = att.present * e.dailyRate;
+        const hourlyRate = e.dailyRate / 8;
+        const otPay = Math.round(hourlyRate * 2 * att.otHours);
+        const gross = baseEarned + otPay;
+        const totalDeductions = adv.monthly;
+        const net = gross - totalDeductions;
+
+        container.innerHTML = `
+          <!-- Header -->
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #102D35; padding-bottom: 12px; margin-bottom: 14px;">
+            <div>
+              <div style="font-size: 18px; font-weight: 900; color: #102D35; letter-spacing: -0.3px;">BALSONS HEAVY LIFT & SHIFT</div>
+              <div style="font-size: 11px; color: #52636B; font-weight: 600;">Regd Off: Shop no. 4, Creative Paradise, Chinchwad, Pune - 411019</div>
+              <div style="font-size: 11px; color: #0097B2; font-weight: 700;">Site: Jupiter Tatravagonka Railwheel Factory (JTRWF Khordha, Odisha)</div>
+            </div>
+            <div style="text-align: right;">
+              <div style="background: #D97706; color: #FFFFFF; padding: 4px 10px; font-weight: 800; font-size: 11px; border-radius: 2px;">
+                DAILY WAGE SLIP
+              </div>
+              <div style="font-size: 11px; font-weight: 800; margin-top: 4px; color: #102D35;">NOVEMBER 2026</div>
+              <span class="status-pill status-warning" style="font-size: 9px; margin-top: 4px; display: inline-block;">EXEMPT: NO PF / NO ESIC</span>
+            </div>
+          </div>
+
+          <!-- Employee Info Grid -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: #FFFBEB; border: 1px solid #FDE68A; padding: 10px 14px; border-radius: 4px; margin-bottom: 16px; font-size: 11.5px;">
+            <div><strong>Worker ID:</strong> <span style="font-family: monospace; font-weight: 700;">${e.empId}</span></div>
+            <div><strong>Trade / Skill:</strong> ${escapeHtml(e.trade)}</div>
+            <div><strong>Worker Name:</strong> <strong>${escapeHtml(e.name)}</strong></div>
+            <div><strong>Wage Category:</strong> <strong style="color: #D97706;">Daily Pay Workforce (Casual / Daily Rated)</strong></div>
+            <div><strong>Daily Wage Rate:</strong> <strong style="font-family: monospace; font-size: 13px; color: #D97706;">₹ ${e.dailyRate.toLocaleString('en-IN')} / Day</strong> (8h Shift)</div>
+            <div><strong>Present Days Worked:</strong> <strong style="color: #102D35;">${att.present} Days</strong> (Weekly Off Unpaid)</div>
+            <div><strong>Overtime Hours:</strong> <strong>${att.otHours} Hours</strong> (@ Double Hourly Rate)</div>
+            <div><strong>Bank A/C:</strong> State Bank of India (Ending **${e.bankEnding})</div>
+          </div>
+
+          <!-- Earnings & Deductions Tables -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 16px;">
+            <!-- Earnings -->
+            <div>
+              <div style="font-weight: 800; font-size: 11.5px; border-bottom: 1.5px solid #102D35; padding-bottom: 4px; margin-bottom: 6px; color: #102D35;">
+                DAILY WAGE EARNINGS (₹)
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
+                <span>Base Days Worked (${att.present} d @ ₹${e.dailyRate}/d)</span>
+                <strong>₹ ${baseEarned.toLocaleString('en-IN')}</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
+                <span>Daily Shift OT (${att.otHours} hrs @ Double Rate)</span>
+                <strong style="color: #D97706;">+₹ ${otPay.toLocaleString('en-IN')}</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
+                <span>Weekly Off / Paid Leave Allowance</span>
+                <span style="color: var(--beds-text-muted);">₹ 0 (Daily Basis)</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 6px 0; font-weight: 800; background: #FEF3C7; margin-top: 6px; padding: 6px 8px;">
+                <span>GROSS WAGES EARNED</span>
+                <strong style="color: #D97706;">₹ ${gross.toLocaleString('en-IN')}</strong>
+              </div>
+            </div>
+
+            <!-- Deductions (STRICTLY ZERO PF & ZERO ESIC) -->
+            <div>
+              <div style="font-weight: 800; font-size: 11.5px; border-bottom: 1.5px solid #102D35; padding-bottom: 4px; margin-bottom: 6px; color: #102D35;">
+                DEDUCTIONS & RECOVERIES (₹)
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
+                <span>Provident Fund (PF)</span>
+                <span style="color: #059669; font-weight: 700;">Exempt (₹ 0.00)</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
+                <span>Employees' State Insurance (ESIC)</span>
+                <span style="color: #059669; font-weight: 700;">Exempt (₹ 0.00)</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
+                <span>Professional Tax (PT)</span>
+                <span style="color: #059669; font-weight: 700;">Exempt (₹ 0.00)</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #E5E7EB;">
+                <span>Wage Advance Recovery</span>
+                <strong style="${adv.monthly > 0 ? 'color: #E64646;' : ''}">₹ ${adv.monthly.toLocaleString('en-IN')}</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 6px 0; font-weight: 800; background: #F3F4F6; margin-top: 6px; padding: 6px 8px;">
+                <span>TOTAL DEDUCTIONS</span>
+                <strong style="color: ${totalDeductions > 0 ? '#E64646' : '#102D35'};">₹ ${totalDeductions.toLocaleString('en-IN')}</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Net Payable Block -->
+          <div style="border: 2px solid #D97706; background: #FFFBEB; border-radius: 4px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+            <div>
+              <div style="font-size: 11px; font-weight: 800; color: #102D35; text-transform: uppercase;">NET WAGES PAYABLE (DAILY PAY):</div>
+              <div style="font-size: 11px; color: #52636B; font-style: italic;">Disbursed in full without statutory deductions (Cash / Bank NEFT)</div>
+            </div>
+            <div style="font-size: 20px; font-weight: 900; color: #D97706; font-family: monospace;">
+              ₹ ${net.toLocaleString('en-IN')}.00
+            </div>
+          </div>
+        `;
+      }
+
+      // Common Footer (Dual Signatures & Motto)
+      container.innerHTML += `
         <div style="display: flex; justify-content: space-between; align-items: flex-end; padding-top: 24px; border-top: 1px solid #E5E7EB;">
           <div style="text-align: center;">
-            <div style="font-size: 10px; color: #52636B; margin-bottom: 24px;">Employee Signature</div>
-            <div style="border-top: 1px solid #9CA3AF; width: 140px; font-size: 10.5px; font-weight: 700;">${e.name}</div>
+            <div style="font-size: 10px; color: #52636B; margin-bottom: 24px;">Receiver / Worker Signature</div>
+            <div style="border-top: 1px solid #9CA3AF; width: 140px; font-size: 10.5px; font-weight: 700;">${escapeHtml(e.name)}</div>
           </div>
           <div style="font-family: 'Brush Script MT', 'Dancing Script', 'Caveat', cursive, serif; font-size: 13.5px; color: #0097B2; font-style: italic;">
             Difficult we do easily impossible takes little time…!
@@ -1063,55 +2513,356 @@
       });
     }
 
+
+    // ─── ONBOARDING & ID CARD EXTENDED ENGINE ───
     function openOnboardModal() {
       document.getElementById('modalOnboard').style.display = 'flex';
       const today = new Date().toISOString().slice(0, 10);
-      document.getElementById('onbDate').value = today;
+      const onbDate = document.getElementById('onbDate');
+      if (onbDate) onbDate.value = today;
+      toggleOnboardFields();
     }
+
     function closeOnboardModal() {
       document.getElementById('modalOnboard').style.display = 'none';
     }
 
-    function handleOnboardSubmit(e) {
-      e.preventDefault();
+    function toggleOnboardFields() {
+      const isMonthly = document.querySelector('input[name="onbWageType"]:checked').value === 'MONTHLY';
+      const monthlyWrap = document.getElementById('onbMonthlyRateWrap');
+      const dailyWrap = document.getElementById('onbDailyRateWrap');
+
+      if (isMonthly) {
+        if (monthlyWrap) monthlyWrap.style.display = 'grid';
+        if (dailyWrap) dailyWrap.style.display = 'none';
+        updateMonthlyBreakdown();
+      } else {
+        if (monthlyWrap) monthlyWrap.style.display = 'none';
+        if (dailyWrap) dailyWrap.style.display = 'grid';
+        updateDailyNotice();
+      }
+    }
+
+    function updateMonthlyBreakdown() {
+      const ctc = parseInt(document.getElementById('onbCtc').value, 10) || 0;
+      const basic = Math.round(ctc * 0.5);
+      const pf = Math.min(1800, Math.round(basic * 0.12));
+      const esic = (ctc <= 21000) ? Math.round(ctc * 0.0075) : 158;
+      document.getElementById('onbNoticeText').innerHTML = `<strong>Statutory Rule (Monthly):</strong> Basic: ₹${basic.toLocaleString('en-IN')} (50%) • PF (12%): ₹${pf} • ESIC: ₹${esic} • PT: ₹200. Automatically computed.`;
+    }
+
+    function updateDailyNotice() {
+      const rate = parseInt(document.getElementById('onbDailyRate').value, 10) || 0;
+      const hourly = Math.round(rate / 8);
+      const otRate = Math.round(hourly * 2);
+      document.getElementById('onbOtFormulaText').textContent = `Double Hourly: ₹ ${otRate} / hr (Base: ₹${hourly}/h)`;
+      document.getElementById('onbNoticeText').innerHTML = `<strong style="color: #D97706;">Statutory Rule (Daily Pay):</strong> Strictly Exempt from PF & ESIC. Rate ₹${rate}/day (8h shift). Shift OT ₹${otRate}/hr. Full wage disbursed without statutory deductions.`;
+    }
+
+    function quickFillOnboard(type) {
+      if (type === 'MONTHLY') {
+        document.querySelector('input[name="onbWageType"][value="MONTHLY"]').checked = true;
+        toggleOnboardFields();
+        document.getElementById('onbName').value = 'Pradeep Kumar Sahu';
+        document.getElementById('onbFatherName').value = 'Bichitra Nanda Sahu';
+        document.getElementById('onbDob').value = '1990-07-18';
+        document.getElementById('onbGender').value = 'Male';
+        document.getElementById('onbBloodGroup').value = 'O+';
+        document.getElementById('onbMaritalStatus').value = 'Married';
+        document.getElementById('onbMobile').value = '9861044521';
+        document.getElementById('onbEmergency').value = 'Sasmita Sahu (Wife) - 9861088712';
+        document.getElementById('onbAddress').value = 'At/Po: Haldiapada, Dist: Khordha, Odisha - 752056';
+        document.getElementById('onbSiteCamp').value = 'JTRWF Site Colony, Quarter B-14, Khordha';
+        document.getElementById('onbProject').value = 'PRJ-JTRWF-SCHULER';
+        document.getElementById('onbDept').value = 'Heavy Lift & Rigging Operations';
+        document.getElementById('onbTrade').value = 'Rigger Lead';
+        document.getElementById('onbDate').value = '2026-11-01';
+        document.getElementById('onbCtc').value = '52000';
+        document.getElementById('onbUan').value = '101928374650';
+        document.getElementById('onbEsicNo').value = '4129384756';
+        document.getElementById('onbBankName').value = 'State Bank of India';
+        document.getElementById('onbBankAcc').value = '392810482019';
+        document.getElementById('onbBankIfsc').value = 'SBIN0001234';
+        document.getElementById('onbPanNo').value = 'BKGPS4412E';
+        document.getElementById('onbAadhaarNo').value = '4928 1192 8840';
+        document.getElementById('onbPoliceNo').value = 'POL-KHD-2026-9912';
+        document.getElementById('onbMedicalStatus').value = 'FIT - Heavy Rigging & Height Operations';
+        document.getElementById('onbMedicalDoctor').value = 'Dr. S. Mohapatra - Khordha Dist Hospital';
+        document.getElementById('onbPhotoImg').src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80';
+        updateMonthlyBreakdown();
+      } else {
+        document.querySelector('input[name="onbWageType"][value="DAILY_PAY"]').checked = true;
+        toggleOnboardFields();
+        document.getElementById('onbName').value = 'Kailash Moharana';
+        document.getElementById('onbFatherName').value = 'Rabi Moharana';
+        document.getElementById('onbDob').value = '1996-03-24';
+        document.getElementById('onbGender').value = 'Male';
+        document.getElementById('onbBloodGroup').value = 'B+';
+        document.getElementById('onbMaritalStatus').value = 'Single';
+        document.getElementById('onbMobile').value = '9437199882';
+        document.getElementById('onbEmergency').value = 'Dillip Moharana (Brother) - 9437122119';
+        document.getElementById('onbAddress').value = 'At/Po: Jatni, Near Railway Station, Dist: Khordha - 752050';
+        document.getElementById('onbSiteCamp').value = 'JTRWF Site Labor Colony, Barrack 4';
+        document.getElementById('onbProject').value = 'PRJ-JTRWF-SCHULER';
+        document.getElementById('onbDept').value = 'Heavy Lift & Rigging Operations';
+        document.getElementById('onbTrade').value = 'Rigging Helper';
+        document.getElementById('onbDate').value = '2026-11-10';
+        document.getElementById('onbDailyRate').value = '950';
+        document.getElementById('onbBankName').value = 'Punjab National Bank';
+        document.getElementById('onbBankAcc').value = '201948201938';
+        document.getElementById('onbBankIfsc').value = 'PUNB0192800';
+        document.getElementById('onbPanNo').value = 'CJZPM8821Q';
+        document.getElementById('onbAadhaarNo').value = '7740 2281 9920';
+        document.getElementById('onbPoliceNo').value = 'POL-KHD-2026-8842';
+        document.getElementById('onbMedicalStatus').value = 'FIT - Heavy Rigging & Height Operations';
+        document.getElementById('onbMedicalDoctor').value = 'Dr. K. C. Pradhan - Railway Health Center';
+        document.getElementById('onbPhotoImg').src = 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=200&q=80';
+        updateDailyNotice();
+      }
+    }
+
+    function resetOnboardForm() {
+      document.getElementById('onboardForm').reset();
+      document.getElementById('onbDate').value = new Date().toISOString().slice(0, 10);
+      toggleOnboardFields();
+    }
+
+    function handlePhotoSelect(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          document.getElementById('onbPhotoImg').src = evt.target.result;
+          document.getElementById('photoStatusText').textContent = `${file.name} (${Math.round(file.size/1024)} KB)`;
+          document.getElementById('badgePhoto').textContent = 'ATTACHED ✓';
+          document.getElementById('badgePhoto').className = 'status-pill status-success';
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function handleDocUpload(type, e) {
+      const file = e.target.files[0];
+      if (file) {
+        const sizeKb = Math.round(file.size / 1024);
+        if (type === 'pan') {
+          document.getElementById('textPanDoc').textContent = `${file.name} (${sizeKb} KB)`;
+          document.getElementById('badgePan').textContent = 'ATTACHED ✓';
+        } else if (type === 'aadhaar') {
+          document.getElementById('textAadhaarDoc').textContent = `${file.name} (${sizeKb} KB)`;
+          document.getElementById('badgeAadhaar').textContent = 'ATTACHED ✓';
+        } else if (type === 'police') {
+          document.getElementById('textPoliceDoc').textContent = `${file.name} (${sizeKb} KB)`;
+          document.getElementById('badgePolice').textContent = 'ATTACHED ✓';
+        } else if (type === 'medical') {
+          document.getElementById('textMedicalDoc').textContent = `${file.name} (${sizeKb} KB)`;
+          document.getElementById('badgeMedical').textContent = 'ATTACHED ✓';
+        }
+      }
+    }
+
+    // Extended submission with optional ID card generation
+    function handleOnboardSubmit(e, autoOpenIdCard) {
+      if (e) e.preventDefault();
+      const wageType = document.querySelector('input[name="onbWageType"]:checked').value;
       const name = document.getElementById('onbName').value.trim();
-      const trade = document.getElementById('onbTrade').value;
+      const father = document.getElementById('onbFatherName').value.trim();
+      const dob = document.getElementById('onbDob').value;
+      const gender = document.getElementById('onbGender').value;
+      const bloodGroup = document.getElementById('onbBloodGroup').value;
+      const marital = document.getElementById('onbMaritalStatus').value;
+      const mobile = document.getElementById('onbMobile').value.trim();
+      const emergency = document.getElementById('onbEmergency').value.trim();
+      const address = document.getElementById('onbAddress').value.trim() || 'At/Po: Khordha, Odisha';
+      const siteCamp = document.getElementById('onbSiteCamp').value.trim() || 'JTRWF Site Colony';
       const project = document.getElementById('onbProject').value;
-      const ctc = parseInt(document.getElementById('onbCtc').value, 10);
+      const dept = document.getElementById('onbDept').value;
+      const trade = document.getElementById('onbTrade').value;
       const date = document.getElementById('onbDate').value;
+      const pan = document.getElementById('onbPanNo').value.trim();
+      const aadhaar = document.getElementById('onbAadhaarNo').value.trim();
+      const police = document.getElementById('onbPoliceNo').value.trim();
+      const photoSrc = document.getElementById('onbPhotoImg').src;
 
       const newId = 'EMP-2026-' + String(Math.floor(1000 + Math.random() * 9000));
-      const basic = Math.round(ctc * 0.5);
-      const hra = Math.round(ctc * 0.25);
-      const allow = ctc - basic - hra;
+      let ctc = 0, basic = 0, hra = 0, allow = 0, dailyRate = 0;
+      let pfApp = false, esicApp = false;
+
+      if (wageType === 'MONTHLY') {
+        ctc = parseInt(document.getElementById('onbCtc').value, 10) || 50000;
+        basic = Math.round(ctc * 0.5);
+        hra = Math.round(ctc * 0.25);
+        allow = ctc - basic - hra;
+        pfApp = true;
+        esicApp = true;
+      } else {
+        dailyRate = parseInt(document.getElementById('onbDailyRate').value, 10) || 950;
+        pfApp = false;
+        esicApp = false;
+      }
 
       const newEmp = {
         empId: newId,
         name: name,
+        wageType: wageType,
         trade: trade,
+        dept: dept,
         project: project,
         ctc: ctc,
         basic: basic,
         hra: hra,
         allow: allow,
+        dailyRate: dailyRate,
+        pfApplicable: pfApp,
+        esicApplicable: esicApp,
+        father: father,
+        dob: dob,
+        gender: gender,
+        bloodGroup: bloodGroup,
+        marital: marital,
+        mobile: mobile,
+        emergency: emergency,
+        address: address,
+        siteCamp: siteCamp,
+        pan: pan,
+        aadhaar: aadhaar,
+        police: police,
+        photo: photoSrc,
+        bankEnding: String(Math.floor(1000 + Math.random() * 9000)),
         joining: date,
         status: 'ACTIVE'
       };
 
       employeesData.unshift(newEmp);
-      attendanceData.unshift({ empId: newId, name: name, trade: trade, present: 26, wo: 4, pl: 0, payable: 30, otHours: 0 });
+      attendanceData.unshift({
+        empId: newId,
+        name: name,
+        wageType: wageType,
+        trade: trade,
+        present: 26,
+        wo: 4,
+        pl: 0,
+        payable: (wageType === 'MONTHLY' ? 30 : 26),
+        otHours: 0
+      });
+
+      // Log in Audit Trail
+      hrAuditData.unshift({
+        time: 'Just now',
+        actor: BalsonsHrAuth.getUser().fullName || 'HR Head',
+        role: 'HR Head',
+        action: 'ONBOARD_DETAILED_RECORD',
+        ref: newId,
+        outcome: 'SUCCESS',
+        details: `Registered ${name} [${wageType}] with PAN, Aadhaar, Police, and Medical verification documents`
+      });
+
       renderEmployeesTable();
       renderAttendanceTable();
       renderPayrollTable();
+      renderAuditTable();
       populatePayslipSelect();
+      populateIdCardSelect();
+      populateIdCardSelect();
       closeOnboardModal();
 
-      alert(`✅ Employee Onboarded Successfully!\n\nEmployee ID: ${newId}\nName: ${name}\nTrade: ${trade}\nProject: ${project}\nMonthly CTC: ₹ ${ctc.toLocaleString('en-IN')}`);
+      if (autoOpenIdCard) {
+        openIdCardModal(newId);
+      } else {
+        alert(`✅ Employee Onboarded Successfully!\n\nID: ${newId}\nName: ${name}\nClassification: ${wageType === 'MONTHLY' ? 'Monthly Staff (With PF/ESIC)' : 'Daily Pay (Exempt: No PF/ESIC)'}\nDocuments: PAN, Aadhaar, Police & Medical Verified.\n\nYou can now generate their Official ID Card.`);
+      }
+    }
+
+    // ─── ID CARD STUDIO CONTROLS ───
+    function populateIdCardSelect() {
+      const sel = document.getElementById('idCardEmpSelect');
+      if (!sel) return;
+      sel.innerHTML = '';
+      employeesData.forEach(e => {
+        const opt = document.createElement('option');
+        opt.value = e.empId;
+        const tag = e.wageType === 'MONTHLY' ? '[MONTHLY STAFF]' : '[DAILY PAY]';
+        opt.textContent = `${e.empId} • ${e.name} ${tag}`;
+        sel.appendChild(opt);
+      });
+    }
+
+    function openIdCardModal(empId) {
+      populateIdCardSelect();
+      const sel = document.getElementById('idCardEmpSelect');
+      if (sel && empId) sel.value = empId;
+      renderIdCard(empId || (sel ? sel.value : 'EMP-2026-0001'));
+      document.getElementById('modalIdCard').style.display = 'flex';
+    }
+
+    function closeIdCardModal() {
+      document.getElementById('modalIdCard').style.display = 'none';
+    }
+
+    function renderIdCard(empId) {
+      const e = employeesData.find(x => x.empId === empId) || employeesData[0];
+      if (!e) return;
+
+      const isMonthly = e.wageType === 'MONTHLY';
+
+      // Front Face
+      document.getElementById('idCardName').textContent = e.name.toUpperCase();
+      document.getElementById('idCardEmpId').textContent = e.empId;
+      document.getElementById('idCardTrade').textContent = (e.trade || 'RIGGER').toUpperCase();
+      document.getElementById('idCardDept').textContent = e.dept || 'Heavy Lift & Rigging Operations';
+      document.getElementById('idCardBlood').textContent = `🩸 ${e.bloodGroup || 'B+'} (Positive)`;
+      document.getElementById('idCardCategory').textContent = isMonthly ? 'Monthly Salaried Staff' : 'Daily Pay Workforce';
+      document.getElementById('idCardCategory').style.color = isMonthly ? '#0097B2' : '#D97706';
+      document.getElementById('idCardEmergency').textContent = e.emergency ? e.emergency.split('-').pop().trim() : '+91 98610 99881';
+      document.getElementById('idCardPhoto').src = e.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80';
+      document.getElementById('idCardTagline').textContent = isMonthly ? 'OFFICIAL CORPORATE SITE IDENTITY BADGE' : 'STATUTORY DAILY WAGE SITE IDENTITY BADGE';
+      document.getElementById('idCardTagline').style.background = isMonthly ? '#0097B2' : '#D97706';
+
+      // Back Face
+      const aadhaarRaw = e.aadhaar || '4928 1192 8840';
+      const maskedAadhaar = 'XXXX-XXXX-' + aadhaarRaw.replace(/\s/g, '').slice(-4);
+      document.getElementById('idBackAadhaar').textContent = maskedAadhaar;
+      document.getElementById('idBackPan').textContent = e.pan || 'ABCDE1234F';
+      document.getElementById('idBackPolice').textContent = e.police || 'POL-KHD-2026-9912';
+      document.getElementById('idBackAddress').textContent = e.address || 'At/Po: Haldiapada, Khordha Tahasil, District Khordha, Odisha - 752056';
+    }
+
+    function setIdCardViewMode(mode) {
+      const front = document.getElementById('idCardFrontFace');
+      const back = document.getElementById('idCardBackFace');
+      const bDual = document.getElementById('btnViewDual');
+      const bFront = document.getElementById('btnViewFront');
+      const bBack = document.getElementById('btnViewBack');
+
+      [bDual, bFront, bBack].forEach(b => {
+        b.classList.remove('btn-primary');
+        b.classList.add('btn-secondary');
+      });
+
+      if (mode === 'dual') {
+        front.style.display = 'flex';
+        back.style.display = 'flex';
+        bDual.classList.add('btn-primary');
+      } else if (mode === 'front') {
+        front.style.display = 'flex';
+        back.style.display = 'none';
+        bFront.classList.add('btn-primary');
+      } else if (mode === 'back') {
+        front.style.display = 'none';
+        back.style.display = 'flex';
+        bBack.classList.add('btn-primary');
+      }
+    }
+
+    function printIdCard() {
+      // Ensure both sides visible for print
+      setIdCardViewMode('dual');
+      window.print();
     }
 
     function runPayrollCalculation() {
       renderPayrollTable();
-      alert('⚡ Deterministic payroll calculation completed for November 2026.\nTotal 48 employees processed.\nNet payable: ₹ 24,85,420.00.');
+      alert('⚡ Deterministic payroll calculation completed for November 2026.\n\n• Monthly Salaried (PF/ESIC): 28 Staff • Net ₹ 18,40,240\n• Daily Pay Crew (No PF/ESIC): 40 Workers • Net ₹ 8,24,180\n\nTotal Disbursable: ₹ 26,64,420.00');
     }
 
     function lockPayrollPeriod() {
@@ -1120,13 +2871,94 @@
       }
     }
 
-    function exportHrAuditCsv() {
-      alert('📥 Exporting BALSONS_HR_AUDIT_LOG_2026.csv...');
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    
+    // ─── FULL FILLED ENROLMENT FORM & GATE ID PRINT CONTROLS ───
+
+    function populateEnrolmentSelect() {
+      const sel = document.getElementById('enrolEmpSelect');
+      if (!sel) return;
+      sel.innerHTML = '';
+      employeesData.forEach(e => {
+        const opt = document.createElement('option');
+        opt.value = e.empId;
+        const tag = e.wageType === 'MONTHLY' ? '[MONTHLY STAFF]' : '[DAILY PAY]';
+        opt.textContent = `${e.empId} • ${e.name} ${tag}`;
+        sel.appendChild(opt);
+      });
+    }
+
+    function openEnrolmentFormModal(empId) {
+      populateEnrolmentSelect();
+      const sel = document.getElementById('enrolEmpSelect');
+      if (sel && empId) sel.value = empId;
+      renderEnrolmentForm(empId || (sel ? sel.value : 'EMP-2026-0001'));
+      document.getElementById('modalPrintEnrolmentForm').style.display = 'flex';
+    }
+
+    function closeEnrolmentFormModal() {
+      document.getElementById('modalPrintEnrolmentForm').style.display = 'none';
+    }
+
+    function renderEnrolmentForm(empId) {
+      const e = employeesData.find(x => x.empId === empId) || employeesData[0];
+      if (!e) return;
+
+      const isMonthly = e.wageType === 'MONTHLY';
+
+      document.getElementById('dossierRef').textContent = 'BHLS/HR/ENROL/2026/' + e.empId.replace('EMP-2026-', '');
+      document.getElementById('dossierDate').textContent = e.joining || '10/04/2025';
+      document.getElementById('dossierName').textContent = e.name.toUpperCase();
+      document.getElementById('dossierEmpId').textContent = e.empId;
+      document.getElementById('dossierFather').textContent = e.father || 'Father Name Recorded';
+      document.getElementById('dossierDob').textContent = e.dob || '14/08/1989';
+      document.getElementById('dossierGenderMarital').textContent = `${e.gender || 'Male'} • ${e.marital || 'Married'}`;
+      document.getElementById('dossierBlood').textContent = `🩸 ${e.bloodGroup || 'B+'} (Positive)`;
+      document.getElementById('dossierMobile').textContent = e.mobile || '+91 98610 88721';
+      document.getElementById('dossierEmergency').textContent = e.emergency || 'Anita Kumar (Wife) - 9861099881';
+      document.getElementById('dossierPhoto').src = e.photo || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80';
+
+      document.getElementById('dossierAddress').textContent = e.address || 'At/Po: Haldiapada, Khordha Tahasil, District Khordha, Odisha - 752056';
+      document.getElementById('dossierSiteCamp').textContent = e.siteCamp || 'JTRWF Site Colony, Quarter B-14, Khordha';
+
+      document.getElementById('dossierJoining').textContent = e.joining || '10/04/2025';
+      document.getElementById('dossierDeptTrade').textContent = `${e.dept || 'Heavy Lift & Rigging Operations'} • ${e.trade || 'Rigger Lead'}`;
+      document.getElementById('dossierWageCat').textContent = isMonthly ? 'Monthly Salaried Staff' : 'Daily Pay Workforce (Casual / Daily Rated)';
+      
+      if (isMonthly) {
+        document.getElementById('dossierCompBasis').textContent = `₹ ${e.ctc ? e.ctc.toLocaleString('en-IN') : '55,000'} / month (Basic: ₹${e.basic ? e.basic.toLocaleString('en-IN') : '27,500'}, HRA: ₹${e.hra ? e.hra.toLocaleString('en-IN') : '13,750'}, Allow: ₹${e.allow ? e.allow.toLocaleString('en-IN') : '13,750'})`;
+        document.getElementById('dossierStatutory').textContent = 'EPF: 12% Covered (₹1,800/mo) • ESIC: 0.75% Covered (₹158) • PT: ₹200';
+      } else {
+        const rate = e.dailyRate || 950;
+        const hourly = Math.round(rate / 8);
+        const ot = Math.round(hourly * 2);
+        document.getElementById('dossierCompBasis').textContent = `₹ ${rate.toLocaleString('en-IN')} / Day (8h Shift) • Double Hourly OT: ₹ ${ot} / hr`;
+        document.getElementById('dossierStatutory').textContent = 'STATUTORY EXEMPT: Strictly Zero PF & Zero ESIC (Unpaid Weekly Off)';
+      }
+
+      document.getElementById('dossierBankAcc').textContent = '39281048' + (e.bankEnding || '4092');
+      document.getElementById('dossierPan').textContent = e.pan || 'ABCDE1234F';
+      document.getElementById('dossierAadhaar').textContent = e.aadhaar || '4928 1192 8840';
+      document.getElementById('dossierPolice').textContent = e.police || 'POL-KHD-2026-9912';
+      document.getElementById('dossierSigWorker').textContent = e.name.toUpperCase();
+    }
+
+    function printEnrolmentForm() {
+      window.print();
+    }
+
+    function printGateIdCard() {
+      setIdCardViewMode('dual');
+      window.print();
     }
 
     // Initialize on DOM load
     window.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('beds_theme_preference') || 'light';
+      const savedTheme = localStorage.getItem('beds_theme_preference') || document.documentElement.getAttribute('data-theme') || 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
       const themeBtn = document.getElementById('themeBtn');
       if (themeBtn) themeBtn.textContent = savedTheme === 'light' ? '🌙 Dark' : '☀️ Light';
@@ -1141,6 +2973,15 @@
 
       initHrApp();
     });
-  </script>
+  
+    function copyRegistrationLink() {
+      const regUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) + 'register.html';
+      navigator.clipboard.writeText(regUrl).then(function() {
+        alert('Copied Trilingual Registration Form Link to clipboard!\nSend this link to employees to fill on mobile/desktop:\n' + regUrl);
+      }).catch(function() {
+        prompt('Copy Registration Form URL:', regUrl);
+      });
+    }
+    </script>
 </body>
 </html>
