@@ -13,7 +13,7 @@ const BALSONS_HR_CONFIG = {
   SPREADSHEET_URL: 'https://docs.google.com/spreadsheets/d/1so_aH05vVxiUJsIK6VS-n7BpGrHWNgn_5EK7RuA3cuw/edit',
   
   // Google Apps Script Web App Deployment URL (Configurable upon deployment)
-  APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzqG6THkjhA-8324dOg9cbMAc3IWCZdmp9sT6zTdPINUWAgB0cOm4H4TFCWprYmT9lXNg/exec',
+  APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbyNreoI0QmRsiPgIBbJSh8YUjZCBa5f4E2UpsG3y03fcdcyUV_u76ZTCAcKfmAuXOWFmw/exec',
   
   // Transport protocol: text/plain POST (prevents CORS preflight failures)
   USE_TEXT_PLAIN_TRANSPORT: true,

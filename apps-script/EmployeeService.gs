@@ -175,7 +175,7 @@ var EmployeeService = {
 
     if (!filter || filter === 'ALL') return seed;
     return seed.filter(function(x) { return x.wageType === filter; });
-  }
+  },
 
   /**
    * Submit candidate self-registration from trilingual online form into central database
@@ -425,5 +425,5 @@ var EmployeeService = {
       status: 'APPROVED',
       message: 'Registration ' + regId + ' approved and provisioned as ' + newEmp.empId
     };
-  },
+  }
 };
