@@ -2147,8 +2147,10 @@
 
   <script src="assets/js/config.js"></script>
   <script src="assets/js/api-client.js"></script>
+  <script src="assets/js/balsons-sam-auth.js"></script>
   <script src="assets/js/auth.js"></script>
   <script src="assets/js/dossier-360.js"></script>
+  <script src="assets/js/beds-superadmin.js"></script>
   <script src="assets/js/beds-workspace.js"></script>
   <script>
     // ─── EMPLOYEES DATA (DUAL CLASSIFICATION: MONTHLY vs DAILY PAY) ───
@@ -3479,7 +3481,25 @@
       if (themeBtn) themeBtn.textContent = savedTheme === 'light' ? '🌙 Dark' : '☀️ Light';
 
       const loginModal = document.getElementById('loginModal');
-      if (BalsonsHrAuth.isLoggedIn()) {
+      if (window.BalsonsSAMAuth) {
+        BalsonsSAMAuth.renderGlobalSuperAdminBar('hr_payroll', (newSession) => {
+          window.location.reload();
+        });
+        const samSession = BalsonsSAMAuth.getSession();
+        if (samSession && BalsonsSAMAuth.canAccessPortal('hr_payroll')) {
+          if (loginModal) loginModal.style.display = 'none';
+          renderHrSession({
+            username: samSession.username,
+            fullName: samSession.fullName,
+            role: samSession.role === 'SUPER_ADMIN' ? 'Super Admin' : samSession.roleInfo.title
+          });
+        } else if (BalsonsHrAuth.isLoggedIn()) {
+          if (loginModal) loginModal.style.display = 'none';
+          renderHrSession(BalsonsHrAuth.getUser());
+        } else {
+          if (loginModal) loginModal.style.display = 'flex';
+        }
+      } else if (BalsonsHrAuth.isLoggedIn()) {
         if (loginModal) loginModal.style.display = 'none';
         renderHrSession(BalsonsHrAuth.getUser());
       } else {
