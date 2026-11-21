@@ -108,8 +108,13 @@ function doPost(e) {
         break;
 
       case 'db.init':
-        responseData = initHrDatabase();
-        break;
+        return createJsonResponse({
+          success: false,
+          status: 403,
+          requestId: requestId,
+          action: action,
+          error: { code: 'ROUTE_DISABLED', message: 'Database initialization via public web API is disabled for security. Execute manually from Apps Script IDE.' }
+        });
 
       default:
         responseData = {
