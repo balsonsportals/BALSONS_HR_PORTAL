@@ -1452,16 +1452,22 @@ function handleRegistrationSubmit(event) {
     payload: payload
   });
 
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 10000);
+
   fetch(appsScriptUrl, {
     method: 'POST',
     mode: 'no-cors', // standard text/plain transport to avoid preflight
     headers: { 'Content-Type': 'text/plain' },
-    body: requestBody
+    body: requestBody,
+    signal: controller.signal
   }).then(() => {
+    clearTimeout(timeoutId);
     // Because no-cors returns opaque response, we generate deterministic client reference & save to localStorage
     const localRegId = 'REG-2026-' + ('0000' + Math.floor(Math.random() * 9000 + 1000)).slice(-4);
     completeSubmissionUI(localRegId, payload);
   }).catch((err) => {
+    clearTimeout(timeoutId);
     console.warn('Network fallback triggered:', err);
     const localRegId = 'REG-2026-' + ('0000' + Math.floor(Math.random() * 9000 + 1000)).slice(-4);
     completeSubmissionUI(localRegId, payload);
@@ -1474,7 +1480,9 @@ function completeSubmissionUI(regId, payload) {
     const existing = JSON.parse(localStorage.getItem('BALSONS_SAVED_REGISTRATIONS') || '[]');
     existing.push({ regId: regId, timestamp: new Date().toISOString(), payload: payload });
     localStorage.setItem('BALSONS_SAVED_REGISTRATIONS', JSON.stringify(existing));
-  } catch(e) {}
+  } catch (e) {
+    console.warn('[Registration] LocalStorage backup notice:', e);
+  }
 
   setTimeout(() => {
     const loadingModal = document.getElementById('loadingModal');
