@@ -31,7 +31,12 @@ const BalsonsHrApi = {
         throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
       }
 
-      const resJson = await response.json();
+      let resJson;
+      try {
+        resJson = await response.json();
+      } catch (jsonErr) {
+        throw new Error(`Invalid JSON payload from Google Apps Script: ${jsonErr.message}`);
+      }
       return resJson;
     } catch (err) {
       console.warn(`[BalsonsHrApi] Transport Notice (${action}):`, err.message);
@@ -42,5 +47,12 @@ const BalsonsHrApi = {
         data: null
       };
     }
+  },
+
+  /**
+   * Alias for send() to provide standard SAM-2026 parity
+   */
+  send: async function(action, payload = {}) {
+    return this.call(action, payload);
   }
 };
