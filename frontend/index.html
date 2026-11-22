@@ -587,6 +587,182 @@
       margin-bottom: 4px;
     }
 
+    /* ═══ BEDS V1.0 SPLIT-SCREEN LOGIN ══════════════════════════════ */
+    .login-split-card {
+      width: 100%;
+      max-width: 980px;
+      background: var(--beds-bg-panel);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(0, 151, 178, 0.25);
+      border: 1px solid var(--beds-border);
+      display: flex;
+      flex-direction: row;
+      min-height: 560px;
+      animation: bedsLoginCardIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .login-split-left {
+      flex: 0 0 52%;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background-color: #102D35;
+      min-height: 560px;
+    }
+    .login-split-left img.login-cover {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .login-split-left .login-cover-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      background: linear-gradient(to top, rgba(16,45,53,0.96) 0%, rgba(16,45,53,0.6) 55%, rgba(16,45,53,0.0) 100%);
+      padding: 36px 30px 28px;
+      color: #fff;
+    }
+    .login-split-left .login-cover-label h2 {
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      margin: 0 0 4px 0;
+      line-height: 1.2;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+    .login-split-left .login-cover-label p {
+      font-size: 11px;
+      color: var(--beds-teal-primary);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin: 0;
+    }
+    .login-split-left .login-cover-label .login-motto {
+      font-size: 11px;
+      color: rgba(255,255,255,0.75);
+      font-style: italic;
+      margin-top: 6px;
+    }
+    .login-split-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 48px;
+      background: var(--beds-bg-panel);
+      overflow-y: auto;
+    }
+    @media (max-width: 768px) {
+      .login-split-card { flex-direction: column; max-width: 95%; }
+      .login-split-left { min-height: 200px; flex: none; }
+      .login-split-right { padding: 28px 20px; }
+    }
+
+    /* ═══ USER PILL DROPDOWN ════════════════════════════════════════ */
+    .user-pill-wrap { position: relative; display: inline-block; }
+    .user-pill { cursor: pointer; user-select: none; }
+    .user-pill-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 220px;
+      background: var(--beds-bg-panel);
+      border: 1px solid var(--beds-border);
+      border-radius: 12px;
+      box-shadow: 0 12px 32px rgba(16,45,53,0.18);
+      z-index: 500;
+      padding: 6px;
+      animation: dropdownSlide 0.15s ease-out;
+    }
+    .user-pill-wrap.open .user-pill-menu { display: block; }
+    .user-pill-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--beds-text-primary);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .user-pill-menu-item:hover { background: rgba(0,151,178,0.08); }
+    .user-pill-menu-divider { height: 1px; background: var(--beds-border); margin: 4px 0; }
+    .user-pill-menu-item.danger { color: var(--beds-alert-red); }
+    .user-pill-menu-item.danger:hover { background: rgba(230,70,70,0.08); }
+
+    /* ═══ PORTAL SWITCHER DROPDOWN ══════════════════════════════════ */
+    .portal-switcher-wrap { position: relative; display: inline-block; }
+    .portal-switcher-btn {
+      background: var(--beds-bg-page);
+      border: 1px solid var(--beds-border);
+      color: var(--beds-text-primary);
+      padding: 5px 11px;
+      border-radius: var(--beds-radius-md);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: inherit;
+    }
+    .portal-switcher-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 230px;
+      background: var(--beds-bg-panel);
+      border: 1px solid var(--beds-border);
+      border-radius: 12px;
+      box-shadow: 0 12px 32px rgba(16,45,53,0.18);
+      z-index: 500;
+      padding: 6px;
+      animation: dropdownSlide 0.15s ease-out;
+    }
+    .portal-switcher-wrap.open .portal-switcher-menu { display: block; }
+    .portal-switcher-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--beds-text-primary);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .portal-switcher-item:hover { background: rgba(0,151,178,0.08); }
+    .portal-switcher-item.current { background: rgba(0,151,178,0.12); border-left: 3px solid var(--beds-teal-primary); }
+
+    /* KPI Card & Table Standards */
+    .kpi-card:hover, .area-kpi-card:hover, .beds-kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(16,45,53,0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    table thead th {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
     /* Payslip Printable Sheet */
     .payslip-sheet {
       background: #FFFFFF;
@@ -622,46 +798,60 @@
 
   <!-- Login Modal -->
   <div id="loginModal" class="modal-backdrop" style="display: flex;">
-    <div class="modal-box" style="max-width: 440px;">
-      <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
-        <img src="assets/images/balsons-logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/d/1HB7sGaQ4f2qq0NNzgBQrSpUe2DJWV4uh'" alt="BALSONS Logo" style="height: 42px; width: auto; object-fit: contain;">
-        <div>
-          <div style="font-size: 15px; font-weight: 800; color: var(--beds-charcoal-heading);">BALSONS HR Workspace</div>
-          <div style="font-size: 11px; color: var(--beds-teal-primary); font-weight: 700;">HR & Payroll Management System</div>
-          <div style="font-size: 10.5px; font-style: italic; color: var(--beds-teal-primary); font-weight: 600; margin-top: 3px;">“Difficult We Do Easily, Impossible Takes Little Time...!”</div>
-          <div style="font-size: 10px; color: var(--beds-text-secondary); margin-top: 1px;">Secure Login | Authorized Access Only</div>
+    <div class="login-split-card">
+      <!-- Left: cover image fitted to full side -->
+      <div class="login-split-left">
+        <img class="login-cover" src="assets/images/login-hr.jpg" onerror="this.onerror=null;this.src='assets/images/login-gate.jpg'" alt="HR & Payroll Manager">
+        <div class="login-cover-overlay">
+          <div class="login-cover-label">
+            <h2>HR &amp; Payroll Manager</h2>
+            <p>Enterprise Workforce &amp; Dual-Wage Payroll Platform</p>
+            <div class="login-motto">“Difficult We Do Easily, Impossible Takes Little Time...!”</div>
+          </div>
         </div>
       </div>
+      <!-- Right: login form -->
+      <div class="login-split-right">
+        <div class="login-form-wrap" style="width: 100%; max-width: 380px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+            <img src="assets/images/balsons-logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/d/1HB7sGaQ4f2qq0NNzgBQrSpUe2DJWV4uh'" alt="BALSONS Logo" style="height: 42px; width: auto; object-fit: contain;">
+            <div>
+              <div style="font-size: 15px; font-weight: 800; color: var(--beds-charcoal-heading);">BALSONS HR Workspace</div>
+              <div style="font-size: 10.5px; color: var(--beds-teal-primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Authorized Access Only</div>
+            </div>
+          </div>
 
-      <div id="loginError" style="display: none; background: var(--beds-status-critical-bg); border: 1px solid var(--beds-alert-red); color: var(--beds-alert-red); padding: 10px; border-radius: var(--beds-radius-md); font-size: 12px; margin-bottom: 14px;"></div>
+          <div id="loginError" style="display: none; background: var(--beds-status-critical-bg); border: 1px solid var(--beds-alert-red); color: var(--beds-alert-red); padding: 10px; border-radius: var(--beds-radius-md); font-size: 12px; margin-bottom: 14px;"></div>
 
-      <form id="loginForm" onsubmit="handleHrLogin(event)">
-        <div class="form-group" style="margin-bottom: 12px;">
-          <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Username</label>
-          <input type="text" id="loginUsername" required class="beds-input" placeholder="hr.head | pm.jtrwf | super.admin">
+          <form id="loginForm" onsubmit="handleHrLogin(event)">
+            <div class="form-group" style="margin-bottom: 12px;">
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Username</label>
+              <input type="text" id="loginUsername" required class="beds-input" placeholder="hr.head | pm.jtrwf | super.admin" style="width: 100%; height: 44px; padding: 0 12px; box-sizing: border-box;">
+            </div>
+            <div class="form-group" style="margin-bottom: 16px;">
+              <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Password</label>
+              <input type="password" id="loginPassword" required class="beds-input" placeholder="••••••••••••" style="width: 100%; height: 44px; padding: 0 12px; box-sizing: border-box;">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 11px; font-weight: 700; font-size: 13px;">
+              Authenticate &amp; Access HR Portal
+            </button>
+          </form>
+
+          <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--beds-border-subtle);">
+            <div style="font-size: 10.5px; font-weight: 800; color: var(--beds-text-secondary); text-transform: uppercase; margin-bottom: 8px;">Quick Test Roles:</div>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+              <button type="button" class="btn btn-secondary btn-sm" onclick="quickFillHr('hr.head', 'Hr@2026!')">👩‍💼 HR Head</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="quickFillHr('pm.jtrwf', 'Pm@2026!')">🏗️ Project Mgr</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="quickFillHr('super.admin', 'Admin@2026!')">👑 Super Admin</button>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 16px;">
+            <a href="../../index.html" style="font-size: 11px; color: var(--beds-teal-primary); text-decoration: none; font-weight: 600;">
+              ← Return to Central Enterprise Workspace
+            </a>
+          </div>
         </div>
-        <div class="form-group" style="margin-bottom: 16px;">
-          <label style="font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px;">Password</label>
-          <input type="password" id="loginPassword" required class="beds-input" placeholder="••••••••••••">
-        </div>
-        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 10px; font-weight: 700;">
-          Authenticate & Access HR Portal
-        </button>
-      </form>
-
-      <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--beds-border-subtle);">
-        <div style="font-size: 10.5px; font-weight: 800; color: var(--beds-text-secondary); text-transform: uppercase; margin-bottom: 8px;">Quick Test Roles:</div>
-        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-          <button type="button" class="btn btn-secondary btn-sm" onclick="quickFillHr('hr.head', 'Hr@2026!')">👩‍💼 HR Head</button>
-          <button type="button" class="btn btn-secondary btn-sm" onclick="quickFillHr('pm.jtrwf', 'Pm@2026!')">🏗️ Project Mgr</button>
-          <button type="button" class="btn btn-secondary btn-sm" onclick="quickFillHr('super.admin', 'Admin@2026!')">👑 Super Admin</button>
-        </div>
-      </div>
-
-      <div style="text-align: center; margin-top: 16px;">
-        <a href="../../index.html" style="font-size: 11px; color: var(--beds-teal-primary); text-decoration: none; font-weight: 600;">
-          ← Return to Central Enterprise Workspace
-        </a>
       </div>
     </div>
   </div>
@@ -673,26 +863,53 @@
         <img src="assets/images/balsons-logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/d/1HB7sGaQ4f2qq0NNzgBQrSpUe2DJWV4uh'" alt="BALSONS Logo" style="height: 38px !important; max-height: 38px !important; width: auto !important; object-fit: contain !important;">
       </a>
       <div class="brand-titles">
-        <h1>BALSONS HEAVY LIFT & SHIFT</h1>
-        <p>Enterprise HR & Payroll Manager • PRJ-JTRWF-SCHULER</p>
+        <h1>BALSONS HEAVY LIFT &amp; SHIFT</h1>
+        <p>Enterprise HR &amp; Payroll Manager • PRJ-JTRWF-SCHULER</p>
         <div style="font-size: 10px; font-style: italic; color: var(--beds-teal-primary); font-weight: 600; margin-top: 1px;">“Difficult We Do Easily, Impossible Takes Little Time...!”</div>
       </div>
     </div>
 
     <div class="header-controls">
-      <a href="../../index.html" class="btn btn-secondary btn-sm" title="BALSONS Enterprise Workspace Launcher">
-        🚀 Enterprise Launcher
-      </a>
+      <!-- Portal Switcher Dropdown -->
+      <div class="portal-switcher-wrap" id="portalSwitcherWrap">
+        <button class="portal-switcher-btn" type="button" onclick="document.getElementById('portalSwitcherWrap').classList.toggle('open')">
+          🚀 Portals <span style="font-size:10px;">▾</span>
+        </button>
+        <div class="portal-switcher-menu">
+          <a class="portal-switcher-item" href="../../index.html">🏢 Enterprise Launcher</a>
+          <a class="portal-switcher-item" href="../../BALSONS GATE ENTRY MANAGER/frontend/index.html">🚪 Gate Entry Manager</a>
+          <a class="portal-switcher-item current" href="index.html">👥 HR &amp; Payroll Manager</a>
+          <a class="portal-switcher-item" href="../../BALSONS OPERATIONS MANAGER/index.html">🏗️ Operations Manager</a>
+          <a class="portal-switcher-item" href="../../BALSONS PURCHASE MANAGER/index.html">🛒 Purchase Manager</a>
+          <a class="portal-switcher-item" href="../../BALSONS SAFETY MANAGER/frontend/index.html">🦺 Safety Manager</a>
+          <a class="portal-switcher-item" href="../../BALSONS STORE MANAGER/frontend/index.html">📦 Store Manager</a>
+        </div>
+      </div>
+
       <a href="https://docs.google.com/spreadsheets/d/1so_aH05vVxiUJsIK6VS-n7BpGrHWNgn_5EK7RuA3cuw/edit" target="_blank" class="meta-badge" style="font-size: 11px; background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-weight: 600; text-decoration: none;" title="Open Live Google Spreadsheet (22 Relational Sheets)">🟢 Sheet: 1so_aH05...</a>
       <span class="meta-badge" style="font-size: 11px;">Payroll Period: NOV 2026</span>
       <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" id="themeBtn">
         🌙 Dark
       </button>
-      <div style="display: flex; align-items: center; gap: 8px; background: var(--beds-bg-page); border: 1px solid var(--beds-border); padding: 4px 10px; border-radius: var(--beds-radius-full); font-size: 12px;">
-        <span id="navUserName" style="font-weight: 700;">Authenticating...</span>
-        <span id="navUserRole" class="status-pill status-info" style="font-size: 10px;">Guest</span>
+      <a href="../../mobile/hr.html" class="btn btn-secondary btn-sm" style="background: rgba(37, 99, 235, 0.12); border-color: #2563eb; color: #2563eb; font-weight: 800; text-decoration: none;" title="Switch to Mobile & Tablet Optimized View">
+        📱 Mobile View
+      </a>
+
+      <!-- User Pill Wrap with Dropdown -->
+      <div class="user-pill-wrap" id="userPillWrap">
+        <div class="user-pill" onclick="document.getElementById('userPillWrap').classList.toggle('open')" style="display: flex; align-items: center; gap: 8px; background: var(--beds-bg-page); border: 1px solid var(--beds-border); padding: 4px 10px; border-radius: var(--beds-radius-full); font-size: 12px; cursor: pointer;">
+          <span id="navUserName" style="font-weight: 700;">Authenticating...</span>
+          <span id="navUserRole" class="status-pill status-info" style="font-size: 10px;">Guest</span>
+          <span style="font-size:10px;margin-left:2px;">▾</span>
+        </div>
+        <div class="user-pill-menu">
+          <div class="user-pill-menu-item">👤 <span id="menuUserFullName">HR Officer</span></div>
+          <div class="user-pill-menu-divider"></div>
+          <a class="user-pill-menu-item" href="../../index.html">🏢 Switch Portal</a>
+          <div class="user-pill-menu-divider"></div>
+          <div class="user-pill-menu-item danger" onclick="BalsonsHrAuth.logout()">🔓 Log Out</div>
+        </div>
       </div>
-      <button class="btn btn-secondary btn-sm" onclick="BalsonsHrAuth.logout()">Log Out</button>
     </div>
   </header>
 
@@ -3521,6 +3738,18 @@
         prompt('Copy Registration Form URL:', regUrl);
       });
     }
+
+    // Header Dropdowns Outside-Click Handler
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#portalSwitcherWrap')) {
+        var w = document.getElementById('portalSwitcherWrap');
+        if (w) w.classList.remove('open');
+      }
+      if (!e.target.closest('#userPillWrap')) {
+        var u = document.getElementById('userPillWrap');
+        if (u) u.classList.remove('open');
+      }
+    });
     </script>
 </body>
 </html>
